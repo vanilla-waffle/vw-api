@@ -9,9 +9,12 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - 'main'   # includes main
   pull_request:
-    branches: [ "main", "develop", "feature/**", "bugfix/**" ]
+    branches:
+      - '**'      # matches every branch
+      - '!main'   # excludes main
 
 permissions:
   contents: read
