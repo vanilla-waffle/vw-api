@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'checkstyle'
 	id 'java'
 }
 
@@ -30,4 +31,15 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+checkstyle {
+	toolVersion '9.1'
+	ignoreFailures false
+	configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+	configProperties("supressionFile": file("${rootDir}/config/checkstyle/checkstyle-suppressions.xml"))
+}
+
+checkstyleMain {
+	source = 'src/main/java'
 }
