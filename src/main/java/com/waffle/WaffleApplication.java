@@ -11,7 +11,7 @@ public class WaffleApplication {
      *
      * @param args arguments
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SpringApplication.run(WaffleApplication.class, args);
     }
 }
