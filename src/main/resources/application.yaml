@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    show-sql: true
+
+# Datasource configuration
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_URL}/${DB_DATABASE}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
