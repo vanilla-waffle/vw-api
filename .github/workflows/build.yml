@@ -38,7 +38,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Set up MySQL
-    - uses: mirromutth/mysql-action@v1.1
+      uses: mirromutth/mysql-action@v1.1
       with:
         mysql database: ${{ env.DB_NAME }}
         mysql root password: ${{ env.DB_PASSWORD }}
