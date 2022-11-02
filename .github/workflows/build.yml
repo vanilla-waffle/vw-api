@@ -49,6 +49,9 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
+    - name: Environment vars output
+      run: echo Password is $DB_PASSWORD
+
     - name: Grant access to execute gradlew
       run: chmod +x ./gradlew
 
