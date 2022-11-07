@@ -1,13 +1,22 @@
 package com.waffle.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-//@Entity
+import javax.persistence.*;
+
+@Entity
 @Getter
 @Setter
 @Builder
-//@Table(name = "post")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "post")
 public class Post {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Embedded
+    private Profile profile;
 }
