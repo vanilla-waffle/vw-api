@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Post entity.
+ */
 @Entity
 @Getter
 @Setter
