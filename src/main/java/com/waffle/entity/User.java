@@ -3,6 +3,7 @@ package com.waffle.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * User entity.
@@ -22,4 +23,7 @@ public class User {
 
     @Embedded
     private Profile profile;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Collection<Post> posts;
 }
