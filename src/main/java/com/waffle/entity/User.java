@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * User entity.
@@ -26,5 +25,5 @@ public class User {
     private Profile profile;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Collection<Post> posts = new HashSet<>();
+    private Collection<Post> posts;
 }
