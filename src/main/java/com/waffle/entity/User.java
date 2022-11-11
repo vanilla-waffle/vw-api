@@ -3,8 +3,8 @@ package com.waffle.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * User entity.
@@ -26,5 +26,5 @@ public class User {
     private Profile profile;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Post> posts = new HashSet<>();
+    private Collection<Post> posts = new HashSet<>();
 }
