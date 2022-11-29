@@ -1,6 +1,6 @@
 package com.waffle.dto;
 
-import lombok.Value;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -8,8 +8,9 @@ import javax.validation.constraints.Positive;
 /**
  * DTO class for Post entity.
  */
-@SuppressWarnings({"checkstyle:WhitespaceAround", "checkstyle:VisibilityModifier"})
-public enum PostDto {;
+public enum PostDto {
+    ;
+
     private interface Id {
         @Positive Long getId();
     }
@@ -21,19 +22,22 @@ public enum PostDto {;
     /**
      * Request objects of PostDto.
      */
-    public enum Request {}
+    public enum Request {
+    }
 
     /**
      * Response objects of PostDto.
      */
-    public enum Response {;
+    public enum Response {
+        ;
+
         /**
          * Slim response object of PostDto.
          */
-        @Value
+        @Data
         public static class Slim implements Id, Title {
-            Long id;
-            String title;
+            private Long id;
+            private String title;
         }
     }
 }
