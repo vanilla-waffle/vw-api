@@ -17,10 +17,12 @@ import javax.persistence.Enumerated;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Profile {
+
     private String email;
-    @Enumerated(EnumType.STRING)
-    private City city;
     private String password;
     private String firstName;
     private String lastName;
+
+    @Enumerated(EnumType.STRING)
+    private City city;
 }

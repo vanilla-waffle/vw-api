@@ -29,15 +29,19 @@ public class Post {
     private String manufacturer;
     private String model;
     private LocalDate releaseYear;
+
     @Embedded
     private PaymentPlan paymentPlan;
+
     @Embedded
     private Specification specification;
+
     @ElementCollection(targetClass = Feature.class)
     @CollectionTable(name = "post_feature", joinColumns = @JoinColumn(name = "post_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "feature_name")
     private Collection<Feature> features;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 }
