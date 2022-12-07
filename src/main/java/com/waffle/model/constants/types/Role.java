@@ -1,4 +1,4 @@
-package com.waffle.constants.types;
+package com.waffle.model.constants.types;
 
 /**
  * Roles.
