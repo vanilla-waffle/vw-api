@@ -1,6 +1,6 @@
 package com.waffle.repositories;
 
-import com.waffle.entity.Post;
+import com.waffle.model.entity.Post;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
