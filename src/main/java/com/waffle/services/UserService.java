@@ -1,6 +1,7 @@
 package com.waffle.services;
 
-import com.waffle.entity.User;
+
+import com.waffle.model.entity.User;
 
 import java.util.List;
 

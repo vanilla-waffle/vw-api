@@ -1,6 +1,7 @@
 package com.waffle.services;
 
-import com.waffle.entity.Post;
+
+import com.waffle.model.entity.Post;
 
 import java.util.List;
 
