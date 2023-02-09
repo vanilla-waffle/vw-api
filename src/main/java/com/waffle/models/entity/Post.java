@@ -1,8 +1,8 @@
-package com.waffle.model.entity;
+package com.waffle.models.entity;
 
-import com.waffle.model.constants.embedded.PaymentPlan;
-import com.waffle.model.constants.embedded.Specification;
-import com.waffle.model.constants.types.Feature;
+import com.waffle.models.embedded.PaymentPlan;
+import com.waffle.models.embedded.Specification;
+import com.waffle.models.constants.types.Feature;
 import lombok.*;
 
 import javax.persistence.*;

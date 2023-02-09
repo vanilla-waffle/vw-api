@@ -1,6 +1,6 @@
-package com.waffle.model.constants.embedded;
+package com.waffle.models.embedded;
 
-import com.waffle.model.constants.types.Payment;
+import com.waffle.models.constants.types.Payment;
 import lombok.*;
 
 import javax.persistence.Embeddable;

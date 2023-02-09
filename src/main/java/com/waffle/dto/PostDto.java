@@ -1,6 +1,6 @@
 package com.waffle.dto;
 
-import com.waffle.model.constants.types.Feature;
+import com.waffle.models.constants.types.Feature;
 import lombok.Data;
 
 import javax.validation.Valid;

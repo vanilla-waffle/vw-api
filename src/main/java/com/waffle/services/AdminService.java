@@ -1,6 +1,6 @@
 package com.waffle.services;
 
-import com.waffle.model.constants.types.Role;
+import com.waffle.models.constants.types.Role;
 import org.springframework.stereotype.Service;
 
 /**

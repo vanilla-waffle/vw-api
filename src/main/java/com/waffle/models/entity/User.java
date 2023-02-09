@@ -1,7 +1,7 @@
-package com.waffle.model.entity;
+package com.waffle.models.entity;
 
-import com.waffle.model.constants.embedded.Profile;
-import com.waffle.model.constants.types.Status;
+import com.waffle.models.embedded.Profile;
+import com.waffle.models.constants.types.Status;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -28,6 +28,8 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    // TODO: Assign a default value, current impl does not work, temporary solution in mappers.UserMapper
+//    @ColumnDefault("'ACTIVE'")
     @Enumerated(EnumType.STRING)
     private Status status;
 
