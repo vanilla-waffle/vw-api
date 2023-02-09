@@ -28,7 +28,7 @@ public interface UserService {
     User find(Long id);
 
     /**
-     * Find user by email
+     * Find user by email.
      *
      * @param email user email
      * @return user

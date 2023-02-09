@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * UserService implementation.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -33,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User find(String email) {
+    public User find(final String email) {
         return repository.findByProfileEmail(email).orElseThrow(IllegalArgumentException::new);
     }
 
@@ -43,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(UserDto.Request.Create payload) {
+    public User update(final UserDto.Request.Create payload) {
         if (!exists(payload.getProfile().getEmail())) {
             throw new IllegalArgumentException();
         }
@@ -55,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(final Long id) {
         repository.deleteById(id);
     }
 

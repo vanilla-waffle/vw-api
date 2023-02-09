@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 import static com.waffle.models.constants.types.Status.ACTIVE;
 
 /**
- * User-DTO mapper
+ * User-DTO mapper.
  */
 @Component
 public class UserMapper {
 
     /**
-     * Map from {@link com.waffle.dto.UserDto.Request.Create} to {@link User}
+     * Map from {@link com.waffle.dto.UserDto.Request.Create} to {@link User}.
      *
      * @param source user create dto
      * @return user entity
@@ -41,16 +41,23 @@ public class UserMapper {
                 .build();
     }
 
-        /**
-         * Work-in-progress
-         *
-         * @param source .
-         * @return .
-         */
+    /**
+     * Work-in-progress.
+     *
+     * @param source .
+     * @return .
+     */
     public UserDto.Request.Create userToCreated(final User source) {
         return null;
-
     }
+
+    /**
+     * Compares and returns updated user.
+     *
+     * @param source user dto
+     * @param user actual user
+     * @return merged user
+     */
     public User toUpdatedUser(final UserDto.Request.Create source, final User user) {
         if (source == null) {
             return new User();

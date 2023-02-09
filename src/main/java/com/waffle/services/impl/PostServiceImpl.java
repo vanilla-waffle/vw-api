@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * PostService implementation.
+ */
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -23,7 +26,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post find(Long userId) {
+    public Post find(final Long userId) {
         return null;
     }
 
@@ -33,12 +36,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post update(Post post) {
+    public Post update(final Post post) {
         return null;
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(final Long id) {
 
     }
 }

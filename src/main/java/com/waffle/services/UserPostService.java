@@ -3,12 +3,12 @@ package com.waffle.services;
 import com.waffle.dto.PostDto;
 
 /**
- * User post service interface
+ * User post service interface.
  */
 public interface UserPostService {
 
     /**
-     * Create new post
+     * Create new post.
      *
      * @param post post dto
      * @param ownerEmail owner email
@@ -17,7 +17,7 @@ public interface UserPostService {
     PostDto.Response.All create(PostDto.Request.Create post, String ownerEmail);
 
     /**
-     * Find post by title
+     * Find post by title.
      *
      * @param title post title
      * @return post slim dto

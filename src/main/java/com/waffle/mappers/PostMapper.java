@@ -9,11 +9,17 @@ import com.waffle.models.entity.Post;
 import org.springframework.stereotype.Component;
 
 /**
- * Post-DTO mapper
+ * Post-DTO mapper.
  */
 @Component
 public class PostMapper {
 
+    /**
+     * Map from {@link com.waffle.dto.PostDto.Request.Create} to {@link Post}.
+     *
+     * @param source post create dto
+     * @return post entity
+     */
     public Post createdToPost(final PostDto.Request.Create source) {
         if (source == null) {
             return new Post();

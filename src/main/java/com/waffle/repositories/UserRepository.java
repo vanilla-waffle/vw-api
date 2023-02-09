@@ -12,7 +12,19 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
+    /**
+     * Check if user with provided email exists.
+     *
+     * @param email user email
+     * @return check result
+     */
     boolean existsByProfileEmail(String email);
 
+    /**
+     * Find user by profile email.
+     *
+     * @param email user email
+     * @return user
+     */
     Optional<User> findByProfileEmail(String email);
 }
