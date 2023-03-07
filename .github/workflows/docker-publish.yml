@@ -1,0 +1,55 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# GitHub recommends pinning actions to a commit SHA.
+# To get a newer version, you will need to update the SHA.
+# You can also reference a tag or branch, but the action may change without warning.
+
+name: Publish Docker image
+
+on:
+  push:
+    branches:
+      - 'main'   # include main
+      - 'dev'
+
+# To be deleted
+  pull_request:
+    branches:
+      - '**'      # matches every branch
+      - '!main'   # excludes main
+
+jobs:
+  push_to_registry:
+    name: Push docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract branch name and project version
+        id: ext
+        shell: bash
+        run: |
+          echo "##[set-output name=version;]$(cd ../../ && ./gradlew -q v)"
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: waffle/api
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ../../docker/Dockerfile
+          push: true
+          tag: ${{ steps.ext.branch }}${{ steps.ext.version }}
+#          labels: ${{ steps.meta.outputs.labels }}

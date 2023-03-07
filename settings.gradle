@@ -6,4 +6,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'waffle'
+rootProject.name = 'api'
