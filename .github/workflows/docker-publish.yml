@@ -37,9 +37,8 @@ jobs:
       - name: Extract branch name and project version
         id: ext
         shell: bash
-        run: |
-          echo "##[set-output name=version;]$(cd ../../ && ./gradlew -q v)"
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "##[set-output name=version;]$(cd ../../ && ./gradlew -q version)"
+#          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Extract metadata (tags, labels)
         id: meta
@@ -52,5 +51,5 @@ jobs:
         with:
           context: ../../docker/Dockerfile
           push: true
-          tags: ${{ steps.ext.branch }}${{ steps.ext.version }}
+          tags: ${{ steps.ext.version }}
 #          labels: ${{ steps.meta.outputs.labels }}
