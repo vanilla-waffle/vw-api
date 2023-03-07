@@ -52,5 +52,5 @@ jobs:
         with:
           context: ../../docker/Dockerfile
           push: true
-          tag: ${{ steps.ext.branch }}${{ steps.ext.version }}
+          tags: ${{ steps.ext.branch }}${{ steps.ext.version }}
 #          labels: ${{ steps.meta.outputs.labels }}
