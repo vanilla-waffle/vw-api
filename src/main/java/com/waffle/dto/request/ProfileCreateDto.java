@@ -1,5 +1,10 @@
 package com.waffle.dto.request;
 
-public class ProfileDto extends com.waffle.dto.response.ProfileDto {
+import com.waffle.dto.common.ProfileDto;
+
+/**
+ * Request, dto class to create a Profile.
+ */
+public class ProfileCreateDto extends ProfileDto {
     private String password;
 }

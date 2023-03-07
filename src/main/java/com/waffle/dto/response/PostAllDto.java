@@ -2,6 +2,9 @@ package com.waffle.dto.response;
 
 import com.waffle.dto.common.PostDto;
 
-public class PostDtoAll extends PostDto {
+/**
+ * Response, dto class of Post with all information.
+ */
+public class PostAllDto extends PostDto {
     private Long id;
 }
