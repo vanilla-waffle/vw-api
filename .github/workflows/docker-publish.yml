@@ -39,8 +39,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Extract branch name and project version
-        id: ext
-        uses: tj-actions/branch-names@v6
         run: |
           chmod +x ./gradlew
           echo "PROJECT_VERSION=$(./gradlew -q version)" >> $GITHUB_ENV
