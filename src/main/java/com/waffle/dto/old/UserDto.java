@@ -1,12 +1,9 @@
-package com.waffle.dto;
+package com.waffle.dto.old;
 
 import com.waffle.models.constants.types.Status;
 import lombok.Data;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -15,30 +12,6 @@ import java.util.Collection;
  */
 public enum UserDto {
     ;
-
-    private interface Id {
-        @Positive Long getId();
-    }
-
-    private interface CreatedAt {
-        LocalDateTime getCreatedAt();
-    }
-
-    private interface StatusEnum {
-        @NotBlank @NotNull Status getStatus();
-    }
-
-    private interface ProfileEmbeddedCreate {
-        @NotNull ProfileDto.Request.Create getProfile();
-    }
-
-    private interface ProfileEmbeddedSlim {
-        @NotNull ProfileDto.Response.Slim getProfile();
-    }
-
-    private interface Posts {
-        Collection<PostDto.Response.Slim> getPosts();
-    }
 
     /**
      * Request objects of UserDto.
@@ -50,7 +23,7 @@ public enum UserDto {
          * Request for create User.
          */
         @Data
-        public static class Create implements ProfileEmbeddedCreate {
+        public static class Create {
             @Valid
             private ProfileDto.Request.Create profile;
         }
@@ -66,7 +39,7 @@ public enum UserDto {
          * Response object with all information.
          */
         @Data
-        public static class All implements Id, Posts {
+        public static class All {
             private Long id;
             private Collection<PostDto.Response.Slim> posts;
         }
@@ -75,7 +48,7 @@ public enum UserDto {
          * Response object with short information of User.
          */
         @Data
-        public static class Slim implements Id, CreatedAt, StatusEnum, ProfileEmbeddedSlim {
+        public static class Slim {
             private Long id;
             private LocalDateTime createdAt;
             private Status status;

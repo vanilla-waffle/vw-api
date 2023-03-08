@@ -1,4 +1,4 @@
-package com.waffle.dto;
+package com.waffle.dto.old;
 
 import com.waffle.models.constants.types.Feature;
 import lombok.Data;
