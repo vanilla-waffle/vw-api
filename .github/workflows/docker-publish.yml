@@ -35,10 +35,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Extract branch name and project version
-        id: ext
-        shell: bash
         run: |
-          echo "::set-output name=VERSION::$(${{github.workspace}}/gradlew -q version)"
+          echo "PROJECT_VERSION=$(./gradlew -q version)" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$(echo ${{ env.GITHUB_REF_NAME }})"
+#        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+#        shell: bash
+#        run: |
+#          echo "::set-output name=VERSION::$(${{github.workspace}}/gradlew -q version)"
 #          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Extract metadata (tags, labels)
@@ -52,5 +55,5 @@ jobs:
         with:
           context: ../../docker/Dockerfile
           push: true
-          tags: ${{ steps.ext.VERSION }}
+          tags: ${{ env.BRANCH_NAME }}${{ env.PROJECT_VERSION }}
 #          labels: ${{ steps.meta.outputs.labels }}
