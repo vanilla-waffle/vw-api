@@ -42,7 +42,7 @@ jobs:
         run: |
           chmod +x ./gradlew
           echo "PROJECT_VERSION=$(./gradlew -q version)" >> $GITHUB_ENV
-          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.head_ref_branch }})"
+          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.head_ref_branch }})" >> $GITHUB_ENV
 #          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.base_ref_branch }})"
 
 #      - name: Extract metadata (tags, labels)
