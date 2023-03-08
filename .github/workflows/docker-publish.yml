@@ -36,8 +36,9 @@ jobs:
 
       - name: Extract branch name and project version
         run: |
+          chmod +x ./gradlew
           echo "PROJECT_VERSION=$(./gradlew -q version)" >> $GITHUB_ENV
-          echo "BRANCH_NAME=$(echo ${{ env.GITHUB_REF_NAME }})"
+          echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})"
 #        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
 #        shell: bash
 #        run: |
