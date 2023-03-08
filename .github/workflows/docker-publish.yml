@@ -42,12 +42,8 @@ jobs:
         run: |
           chmod +x ./gradlew
           echo "PROJECT_VERSION=$(./gradlew -q version)" >> $GITHUB_ENV
-          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.current_branch }})"
-#        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-#        shell: bash
-#        run: |
-#          echo "::set-output name=VERSION::$(${{github.workspace}}/gradlew -q version)"
-#          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.head_ref_branch }})"
+#          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.base_ref_branch }})"
 
 #      - name: Extract metadata (tags, labels)
 #        id: meta
