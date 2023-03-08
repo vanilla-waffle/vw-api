@@ -60,4 +60,4 @@ jobs:
         with:
           context: ./docker/Dockerfile
           push: true
-          tags: vw-api:${{ env.BRANCH_NAME }}-${{ env.PROJECT_VERSION }}
+          tags: vw-api/${{ env.BRANCH_NAME }}:${{ env.PROJECT_VERSION }}
