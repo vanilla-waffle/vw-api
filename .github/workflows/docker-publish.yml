@@ -27,7 +27,7 @@ jobs:
         run: |
           chmod +x ./gradlew
           echo "PROJECT_VERSION=$(./gradlew -q version)" >> $GITHUB_ENV
-          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.head_ref_branch }})" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.ref_branch }})" >> $GITHUB_ENV
 
       - name: Build and push docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
