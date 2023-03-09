@@ -56,5 +56,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: waffle/api:${{ env.PROJECT_VERSION }}
+          tags: vwaf/api:${{ env.PROJECT_VERSION }}
 #          tags: vw-api:${{ env.BRANCH_NAME }}-${{ env.PROJECT_VERSION }}
