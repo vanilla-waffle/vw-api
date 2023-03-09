@@ -15,9 +15,12 @@ configurations {
 	}
 }
 
-jar {
-	enabled = true
-	archiveClassifier.set('')
+springBoot {
+	mainClass = 'com.waffle.WaffleApplication'
+}
+
+bootJar {
+	archiveFileName.set('api.jar')
 }
 
 repositories {
