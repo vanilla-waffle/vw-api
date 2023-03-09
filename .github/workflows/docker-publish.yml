@@ -1,25 +1,10 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# GitHub recommends pinning actions to a commit SHA.
-# To get a newer version, you will need to update the SHA.
-# You can also reference a tag or branch, but the action may change without warning.
-
-name: Publish docker image
+name: Publish to Docker Hub (vwaf/api)
 
 on:
   push:
     branches:
-      - 'main'   # include main
+      - 'main'
       - 'dev'
-
-# To be deleted
-  pull_request:
-    branches:
-      - '**'      # matches every branch
-      - '!main'   # excludes main
 
 jobs:
   push_to_registry:
@@ -43,18 +28,10 @@ jobs:
           chmod +x ./gradlew
           echo "PROJECT_VERSION=$(./gradlew -q version)" >> $GITHUB_ENV
           echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.head_ref_branch }})" >> $GITHUB_ENV
-#          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.base_ref_branch }})"
-
-#      - name: Extract metadata (tags, labels)
-#        id: meta
-#        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-#        with:
-#          images: waffle/api
 
       - name: Build and push docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           push: true
-          tags: vwaf/api:${{ env.PROJECT_VERSION }}
-#          tags: vw-api:${{ env.BRANCH_NAME }}-${{ env.PROJECT_VERSION }}
+          tags: vwaf/api:${{ env.BRANCH_NAME }}${{ env.PROJECT_VERSION }}
