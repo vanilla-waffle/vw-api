@@ -6,13 +6,21 @@ plugins {
 }
 
 group = 'com'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.10'
 sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+}
+
+springBoot {
+	mainClass = 'com.waffle.WaffleApplication'
+}
+
+bootJar {
+	archiveFileName.set('api.jar')
 }
 
 repositories {
@@ -30,13 +38,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.5'
 }
 
-bootRun {
-	environment( [
-			"DB_URL": "127.0.0.1:3306",
-			"DB_NAME": "vwdb",
-			"DB_USER": "waf",
-			"DB_PASSWORD": "vwzhsha3"
-	] )
+tasks.register('version') {
+	doLast {
+		println project.version
+	}
 }
 
 checkstyle {
