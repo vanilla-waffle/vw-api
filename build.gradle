@@ -6,13 +6,21 @@ plugins {
 }
 
 group = 'com'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.10'
 sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+}
+
+springBoot {
+	mainClass = 'com.waffle.WaffleApplication'
+}
+
+bootJar {
+	archiveFileName.set('api.jar')
 }
 
 repositories {
@@ -35,6 +43,12 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+tasks.register('version') {
+	doLast {
+		println project.version
+	}
 }
 
 checkstyle {
