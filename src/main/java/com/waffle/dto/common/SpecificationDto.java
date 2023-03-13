@@ -1,10 +1,12 @@
 package com.waffle.dto.common;
 
-import com.waffle.model.constants.types.*;
+import com.waffle.models.constants.types.*;
+import lombok.Data;
 
 /**
  * Common class for dto classes of Specification.
  */
+@Data
 public class SpecificationDto {
     private Color color;
     private Body body;

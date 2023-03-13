@@ -1,6 +1,6 @@
 package com.waffle.dto.old;
 
-import com.waffle.model.constants.types.Status;
+import com.waffle.models.constants.types.Status;
 import lombok.Data;
 
 import javax.validation.Valid;

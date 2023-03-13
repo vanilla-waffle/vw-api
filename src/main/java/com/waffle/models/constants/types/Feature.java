@@ -1,4 +1,4 @@
-package com.waffle.model.constants.types;
+package com.waffle.models.constants.types;
 
 /**
  * Car feature types.

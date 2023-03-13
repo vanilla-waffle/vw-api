@@ -1,6 +1,6 @@
-package com.waffle.model.constants.embedded;
+package com.waffle.models.embedded;
 
-import com.waffle.model.constants.types.City;
+import com.waffle.models.constants.types.City;
 import lombok.*;
 
 import javax.persistence.Embeddable;

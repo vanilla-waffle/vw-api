@@ -1,6 +1,6 @@
 package com.waffle.dto.old;
 
-import com.waffle.model.constants.types.City;
+import com.waffle.models.constants.types.City;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

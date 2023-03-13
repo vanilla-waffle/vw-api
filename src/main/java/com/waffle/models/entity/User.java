@@ -1,7 +1,7 @@
-package com.waffle.model.entity;
+package com.waffle.models.entity;
 
-import com.waffle.model.constants.embedded.Profile;
-import com.waffle.model.constants.types.Status;
+import com.waffle.models.constants.types.Status;
+import com.waffle.models.embedded.Profile;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -28,8 +28,9 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.ACTIVE;
 
     @Embedded
     private Profile profile;

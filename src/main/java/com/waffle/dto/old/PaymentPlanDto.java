@@ -1,6 +1,6 @@
 package com.waffle.dto.old;
 
-import com.waffle.model.constants.types.Payment;
+import com.waffle.models.constants.types.Payment;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
