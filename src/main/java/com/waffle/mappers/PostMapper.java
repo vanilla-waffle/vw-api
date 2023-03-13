@@ -1,60 +1,35 @@
 package com.waffle.mappers;
 
-import com.waffle.dto.PaymentPlanDto;
-import com.waffle.dto.PostDto;
-import com.waffle.dto.SpecificationDto;
-import com.waffle.models.embedded.PaymentPlan;
-import com.waffle.models.embedded.Specification;
+import com.waffle.dto.request.PostCreateDto;
+import com.waffle.dto.request.PostUpdateDto;
 import com.waffle.models.entity.Post;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 /**
- * Post-DTO mapper.
+ * Mappers class for mapping {@link com.waffle.models.entity.Post} entity.
  */
-@Component
-public class PostMapper {
+@Mapper(config = WaffleMapperConfig.class)
+public interface PostMapper {
+    /**
+     * The INSTANCE of {@link com.waffle.mappers.PostMapper}.
+     */
+    PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
 
     /**
-     * Map from {@link com.waffle.dto.PostDto.Request.Create} to {@link Post}.
+     * Map from {@link com.waffle.dto.request.PostCreateDto} to {@link Post}.
      *
      * @param source post create dto
      * @return post entity
      */
-    public Post createdToPost(final PostDto.Request.Create source) {
-        if (source == null) {
-            return new Post();
-        }
+    Post postCreateDtoToPost(PostCreateDto source);
 
-        PaymentPlanDto.Request.Create plan = source.getPaymentPlan();
-        SpecificationDto.Request.Create specs = source.getSpecification();
-
-        return Post.builder()
-                .title(source.getTitle())
-                .description(source.getDescription())
-                .features(source.getFeatures())
-                .title(source.getTitle())
-                .model(source.getModel())
-                .manufacturer(source.getManufacturer())
-                .releaseYear(source.getReleaseYear())
-                .model(source.getModel())
-                .paymentPlan(
-                        PaymentPlan.builder()
-                                .price(plan.getPrice())
-                                .type(plan.getPayment())
-                                .build()
-                )
-                .specification(
-                        Specification.builder()
-                                .body(specs.getBody())
-                                .color(specs.getColor())
-                                .doors(specs.getDoors())
-                                .drive(specs.getDrive())
-                                .engineVolume(specs.getEngineVolume())
-                                .fuel(specs.getFuel())
-                                .seats(specs.getSeats())
-                                .transmission(specs.getTransmission())
-                                .build()
-                )
-                .build();
-    }
+    /**
+     * Compares and directly updates post.
+     *
+     * @param source post dto
+     * @param post actual post
+     */
+    void updatePostFromPostUpdateDto(PostUpdateDto source, @MappingTarget Post post);
 }

@@ -1,81 +1,41 @@
 package com.waffle.mappers;
 
-import com.waffle.dto.ProfileDto;
-import com.waffle.dto.UserDto;
-import com.waffle.models.embedded.Profile;
+import com.waffle.dto.request.UserCreateDto;
+import com.waffle.dto.request.UserUpdateDto;
 import com.waffle.models.entity.User;
-import org.springframework.stereotype.Component;
-
-import static com.waffle.models.constants.types.Status.ACTIVE;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 /**
- * User-DTO mapper.
+ * Mappers class for mapping {@link com.waffle.models.entity.User} entity.
  */
-@Component
-public class UserMapper {
+@Mapper(config = WaffleMapperConfig.class)
+public interface UserMapper {
+    /**
+     * The INSTANCE of {@link com.waffle.mappers.UserMapper}.
+     */
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     /**
-     * Map from {@link com.waffle.dto.UserDto.Request.Create} to {@link User}.
+     * Map from {@link com.waffle.dto.request.UserCreateDto} to {@link User}.
      *
      * @param source user create dto
      * @return user entity
      */
-    public User createdToUser(final UserDto.Request.Create source) {
-        if (source == null) {
-            return new User();
-        }
-
-        ProfileDto.Request.Create profile = source.getProfile();
-
-        return User.builder()
-                .profile(
-                        Profile.builder()
-                                .city(profile.getCity())
-                                .email(profile.getEmail())
-                                .firstName(profile.getFirstName())
-                                .lastName(profile.getLastName())
-                                .password(profile.getPassword())
-                                .build()
-                )
-                .status(ACTIVE)
-                .build();
-    }
+    @Mapping(target = "profile.email", source = "email")
+    @Mapping(target = "profile.password", source = "password")
+    @Mapping(target = "profile.firstName", source = "firstName")
+    @Mapping(target = "profile.lastName", source = "lastName")
+    @Mapping(target = "profile.city", source = "city")
+    User userCreateDtoToUser(UserCreateDto source);
 
     /**
-     * Work-in-progress.
-     *
-     * @param source .
-     * @return .
-     */
-    public UserDto.Request.Create userToCreated(final User source) {
-        return null;
-    }
-
-    /**
-     * Compares and returns updated user.
+     * Compares and directly updates user.
      *
      * @param source user dto
-     * @param user actual user
-     * @return merged user
+     * @param user   actual user
      */
-    public User toUpdatedUser(final UserDto.Request.Create source, final User user) {
-        if (source == null) {
-            return new User();
-        }
-
-        ProfileDto.Request.Create sourceProfile = source.getProfile();
-        Profile userProfile = user.getProfile();
-
-        return User.builder()
-                .profile(
-                        Profile.builder()
-                                .city(sourceProfile.getCity() == null ? userProfile.getCity() : sourceProfile.getCity())
-                                .email(sourceProfile.getEmail() == null ? userProfile.getEmail() : sourceProfile.getEmail())
-                                .firstName(sourceProfile.getFirstName() == null ? userProfile.getFirstName() : sourceProfile.getFirstName())
-                                .lastName(sourceProfile.getLastName() == null ? userProfile.getLastName() : sourceProfile.getLastName())
-                                .password(sourceProfile.getPassword() == null ? userProfile.getPassword() : sourceProfile.getPassword())
-                                .build()
-                )
-                .build();
-    }
+    void updateUserFromUserUpdateDto(UserUpdateDto source, @MappingTarget User user);
 }

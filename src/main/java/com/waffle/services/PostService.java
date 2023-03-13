@@ -1,7 +1,8 @@
 package com.waffle.services;
 
 
-import com.waffle.dto.PostDto;
+import com.waffle.dto.request.PostCreateDto;
+import com.waffle.dto.request.PostUpdateDto;
 import com.waffle.models.entity.Post;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface PostService {
      * @param payload incoming post data
      * @return created post
      */
-    Post save(PostDto.Request.Create payload);
+    Post save(PostCreateDto payload);
 
     /**
      * Find post by user id.
@@ -37,10 +38,10 @@ public interface PostService {
     /**
      * Update post.
      *
-     * @param post incoming user data
+     * @param payload incoming user data
      * @return updated post
      */
-    Post update(Post post);
+    Post update(PostUpdateDto payload);
 
     /**
      * Delete post by id.

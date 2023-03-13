@@ -1,6 +1,7 @@
 package com.waffle.services.impl;
 
-import com.waffle.dto.PostDto;
+import com.waffle.dto.request.PostCreateDto;
+import com.waffle.dto.request.PostUpdateDto;
 import com.waffle.mappers.PostMapper;
 import com.waffle.models.entity.Post;
 import com.waffle.repositories.PostRepository;
@@ -20,8 +21,8 @@ public class PostServiceImpl implements PostService {
     private final PostMapper mapper;
 
     @Override
-    public Post save(final PostDto.Request.Create payload) {
-        Post post = mapper.createdToPost(payload);
+    public Post save(final PostCreateDto payload) {
+        Post post = mapper.postCreateDtoToPost(payload);
         return repository.save(post);
     }
 
@@ -36,8 +37,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post update(final Post post) {
-        return null;
+    public Post update(final PostUpdateDto payload) {
+        Post post = find(payload.getAuthorId());
+        mapper.updatePostFromPostUpdateDto(payload, post);
+
+        return repository.save(post);
     }
 
     @Override

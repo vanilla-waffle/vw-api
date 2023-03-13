@@ -21,5 +21,5 @@ public class PaymentPlan {
     private Long price;
 
     @Enumerated(EnumType.STRING)
-    private Payment type;
+    private Payment payment;
 }

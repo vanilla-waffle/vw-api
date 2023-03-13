@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com'
-version = '0.0.10'
+version = '0.1.0'
 sourceCompatibility = '11'
 
 configurations {
@@ -36,8 +36,9 @@ dependencies {
 	testImplementation 'org.jeasy:easy-random-core:5.0.0'
 	compileOnly 'org.projectlombok:lombok:1.18.24'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.7.5'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.5'
 }
 

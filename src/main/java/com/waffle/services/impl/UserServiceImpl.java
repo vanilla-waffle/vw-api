@@ -1,7 +1,8 @@
 package com.waffle.services.impl;
 
 import com.google.common.collect.Lists;
-import com.waffle.dto.UserDto;
+import com.waffle.dto.request.UserCreateDto;
+import com.waffle.dto.request.UserUpdateDto;
 import com.waffle.mappers.UserMapper;
 import com.waffle.models.entity.User;
 import com.waffle.repositories.UserRepository;
@@ -21,12 +22,12 @@ public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
 
     @Override
-    public User save(final UserDto.Request.Create payload) {
-        if (exists(payload.getProfile().getEmail())) {
+    public User save(final UserCreateDto payload) {
+        if (exists(payload.getEmail())) {
             throw new IllegalArgumentException();
         }
 
-        User user = mapper.createdToUser(payload);
+        User user = mapper.userCreateDtoToUser(payload);
         return repository.save(user);
     }
 
@@ -46,15 +47,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(final UserDto.Request.Create payload) {
+    public User update(final UserUpdateDto payload) {
         if (!exists(payload.getProfile().getEmail())) {
             throw new IllegalArgumentException();
         }
 
         User user = find(payload.getProfile().getEmail());
-        User updatedUser = mapper.toUpdatedUser(payload, user);
+        mapper.updateUserFromUserUpdateDto(payload, user);
 
-        return repository.save(updatedUser);
+        return repository.save(user);
     }
 
     @Override

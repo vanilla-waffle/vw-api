@@ -1,6 +1,6 @@
 package com.waffle;
 
-import com.waffle.dto.UserDto;
+import com.waffle.dto.request.UserCreateDto;
 import com.waffle.services.impl.UserServiceImpl;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Disabled;
@@ -22,7 +22,7 @@ class WaffleApplicationTests {
     @Test
     @Disabled
     void test() {
-        final UserDto.Request.Create user = generator.nextObject(UserDto.Request.Create.class);
+        final UserCreateDto user = generator.nextObject(UserCreateDto.class);
         service.save(user);
     }
 }
