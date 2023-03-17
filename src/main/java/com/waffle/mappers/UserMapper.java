@@ -6,17 +6,12 @@ import com.waffle.models.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 /**
  * Mappers class for mapping {@link com.waffle.models.entity.User} entity.
  */
-@Mapper(config = WaffleMapperConfig.class)
+@Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
 public interface UserMapper {
-    /**
-     * The INSTANCE of {@link com.waffle.mappers.UserMapper}.
-     */
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     /**
      * Map from {@link com.waffle.dto.request.UserCreateDto} to {@link User}.

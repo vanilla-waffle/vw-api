@@ -5,17 +5,12 @@ import com.waffle.dto.request.PostUpdateDto;
 import com.waffle.models.entity.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 /**
  * Mappers class for mapping {@link com.waffle.models.entity.Post} entity.
  */
-@Mapper(config = WaffleMapperConfig.class)
+@Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
 public interface PostMapper {
-    /**
-     * The INSTANCE of {@link com.waffle.mappers.PostMapper}.
-     */
-    PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
 
     /**
      * Map from {@link com.waffle.dto.request.PostCreateDto} to {@link Post}.
