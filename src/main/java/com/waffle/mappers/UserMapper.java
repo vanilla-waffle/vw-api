@@ -1,20 +1,19 @@
 package com.waffle.mappers;
 
-import com.waffle.dto.request.UserCreateDto;
-import com.waffle.dto.request.UserUpdateDto;
-import com.waffle.models.entity.User;
+import com.waffle.data.dto.request.UserCreateDto;
+import com.waffle.data.dto.response.UserAllDto;
+import com.waffle.data.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
 /**
- * Mappers class for mapping {@link com.waffle.models.entity.User} entity.
+ * Mappers class for mapping {@link com.waffle.data.entity.User} entity.
  */
 @Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
 public interface UserMapper {
 
     /**
-     * Map from {@link com.waffle.dto.request.UserCreateDto} to {@link User}.
+     * Map from {@link UserCreateDto} to {@link User}.
      *
      * @param source user create dto
      * @return user entity
@@ -24,13 +23,17 @@ public interface UserMapper {
     @Mapping(target = "profile.firstName", source = "firstName")
     @Mapping(target = "profile.lastName", source = "lastName")
     @Mapping(target = "profile.city", source = "city")
-    User userCreateDtoToUser(UserCreateDto source);
+    User createDtoToUser(UserCreateDto source);
 
     /**
-     * Compares and directly updates user.
+     * Map from {@link User} to {@link UserAllDto}.
      *
-     * @param source user dto
-     * @param user   actual user
+     * @param source user
+     * @return all response dto
      */
-    void updateUserFromUserUpdateDto(UserUpdateDto source, @MappingTarget User user);
+    @Mapping(target = "profile.email", source = "profile.email")
+    @Mapping(target = "profile.firstName", source = "profile.firstName")
+    @Mapping(target = "profile.lastName", source = "profile.lastName")
+    @Mapping(target = "profile.city", source = "profile.city")
+    UserAllDto userToAllDto(User source);
 }

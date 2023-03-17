@@ -1,9 +1,7 @@
 package com.waffle.services;
 
 
-import com.waffle.dto.request.UserCreateDto;
-import com.waffle.dto.request.UserUpdateDto;
-import com.waffle.models.entity.User;
+import com.waffle.data.entity.User;
 
 import java.util.List;
 
@@ -18,7 +16,7 @@ public interface UserService {
      * @param payload incoming user data
      * @return created user
      */
-    User save(UserCreateDto payload);
+    User save(User payload);
 
     /**
      * Find user by id.
@@ -49,7 +47,7 @@ public interface UserService {
      * @param payload incoming user data
      * @return updated user
      */
-    User update(UserUpdateDto payload);
+    User update(User payload);
 
     /**
      * Delete user by id.
@@ -57,4 +55,27 @@ public interface UserService {
      * @param id user id
      */
     void delete(Long id);
+
+    /**
+     * Delete user by email.
+     *
+     * @param email user email
+     */
+    void delete(String email);
+
+    /**
+     * Check whether user exists by id.
+     *
+     * @param id user id
+     * @return check result
+     */
+    boolean exists(Long id);
+
+    /**
+     * Check whether user exists by email.
+     *
+     * @param email user email
+     * @return check result
+     */
+    boolean exists(String email);
 }

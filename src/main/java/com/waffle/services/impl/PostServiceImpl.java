@@ -1,9 +1,7 @@
 package com.waffle.services.impl;
 
-import com.waffle.dto.request.PostCreateDto;
-import com.waffle.dto.request.PostUpdateDto;
 import com.waffle.mappers.PostMapper;
-import com.waffle.models.entity.Post;
+import com.waffle.data.entity.Post;
 import com.waffle.repositories.PostRepository;
 import com.waffle.services.PostService;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +19,12 @@ public class PostServiceImpl implements PostService {
     private final PostMapper mapper;
 
     @Override
-    public Post save(final PostCreateDto payload) {
-        Post post = mapper.postCreateDtoToPost(payload);
-        return repository.save(post);
+    public Post save(final Post payload) {
+        return repository.save(payload);
     }
 
     @Override
-    public Post find(final Long userId) {
+    public Post find(final Long postId) {
         return null;
     }
 
@@ -37,11 +34,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post update(final PostUpdateDto payload) {
-        Post post = find(payload.getAuthorId());
-        mapper.updatePostFromPostUpdateDto(payload, post);
-
-        return repository.save(post);
+    public Post update(final Post payload) {
+        return repository.save(payload);
     }
 
     @Override

@@ -1,19 +1,19 @@
 package com.waffle.mappers;
 
-import com.waffle.dto.request.PostCreateDto;
-import com.waffle.dto.request.PostUpdateDto;
-import com.waffle.models.entity.Post;
+import com.waffle.data.dto.request.PostCreateDto;
+import com.waffle.data.dto.request.PostUpdateDto;
+import com.waffle.data.entity.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 /**
- * Mappers class for mapping {@link com.waffle.models.entity.Post} entity.
+ * Mappers class for mapping {@link com.waffle.data.entity.Post} entity.
  */
 @Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
 public interface PostMapper {
 
     /**
-     * Map from {@link com.waffle.dto.request.PostCreateDto} to {@link Post}.
+     * Map from {@link PostCreateDto} to {@link Post}.
      *
      * @param source post create dto
      * @return post entity
