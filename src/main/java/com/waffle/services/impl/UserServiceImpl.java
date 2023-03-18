@@ -58,7 +58,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Deprecated
     public void delete(final String email) {
         User user = find(email);
         repository.deleteById(user.getId());

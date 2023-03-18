@@ -15,7 +15,6 @@ import java.util.Collection;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class PostUpdateDto extends PostDto {
-    private Long authorId;
 
     private PaymentPlanDto paymentPlan;
     private SpecificationDto specification;
