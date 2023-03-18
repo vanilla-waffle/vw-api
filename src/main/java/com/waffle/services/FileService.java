@@ -9,9 +9,26 @@ import java.io.File;
  */
 public interface FileService {
 
-    boolean upload(MultipartFile file, String name);
+    /**
+     * Upload file to a cloud storoge.
+     *
+     * @param file file to upload
+     * @param name file name
+     */
+    void upload(MultipartFile file, String name);
 
+    /**
+     * Download file from a cloud storage.
+     *
+     * @param name file name
+     * @return file instance
+     */
     File download(String name);
 
-    boolean delete(String name);
+    /**
+     * Delete file from a cloud storage.
+     *
+     * @param name file name
+     */
+    void delete(String name);
 }
