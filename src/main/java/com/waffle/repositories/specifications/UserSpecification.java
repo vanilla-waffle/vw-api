@@ -25,6 +25,17 @@ public final class UserSpecification {
             Path<Object> path = getPath(root, criteria);
 
             switch (criteria.getOperation()) {
+                case LIKE:
+                    if (criteria.getKey().contains(".")) {
+                        String[] parts = criteria.getKey().split("\\.");
+                        return builder.like(
+                                root.get(parts[0]).get(parts[1]), "%" + criteria.getValue() + "%"
+                        );
+                    }
+
+                    return builder.like(
+                            root.get(criteria.getKey()), "%" + criteria.getValue() + "%"
+                    );
                 case EQUAL:
                     return builder.equal(
                             path, criteria.getValue()

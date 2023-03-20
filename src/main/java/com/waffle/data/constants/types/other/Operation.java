@@ -5,13 +5,9 @@ package com.waffle.data.constants.types.other;
  */
 public class Operation {
     /**
-     * Greater than operation.
+     * Like to operation.
      */
-    public static final String GREATER = ">";
-    /**
-     * Less than operation.
-     */
-    public static final String LESS = "<";
+    public static final String LIKE = "$";
     /**
      * Equal to operation.
      */

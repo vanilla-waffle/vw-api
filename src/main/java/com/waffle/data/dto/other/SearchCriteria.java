@@ -38,7 +38,7 @@ public class SearchCriteria {
             return new SearchCriteria();
         }
 
-        final String[] args = query.split("((?=:)|(?<=:))");
+        final String[] args = query.split("((?=\\$|:)|(?<=\\$|:))");
         final int n = 3;
 
         if (args.length < n) {
