@@ -1,6 +1,6 @@
 package com.waffle.services.impl;
 
-import com.waffle.mappers.PostMapper;
+import com.waffle.data.dto.other.SearchCriteria;
 import com.waffle.data.entity.Post;
 import com.waffle.repositories.PostRepository;
 import com.waffle.services.PostService;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.waffle.repositories.specifications.PostSpecification.by;
+
 /**
  * PostService implementation.
  */
@@ -16,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
     private final PostRepository repository;
-    private final PostMapper mapper;
 
     @Override
     public Post save(final Post payload) {
@@ -25,12 +26,21 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post find(final Long postId) {
-        return null;
+        return repository.findById(postId).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
-    public List<Post> findAll() {
-        return null;
+    public Post find(final SearchCriteria criteria) {
+        return repository.findOne(by(criteria)).orElseThrow(IllegalAccessError::new);
+    }
+
+    @Override
+    public List<Post> findAll(final SearchCriteria criteria) {
+        if (criteria.getKey() == null) {
+            return repository.findAll();
+        }
+
+        return repository.findAll(by(criteria));
     }
 
     @Override
@@ -40,6 +50,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void delete(final Long id) {
-
+        repository.deleteById(id);
     }
 }

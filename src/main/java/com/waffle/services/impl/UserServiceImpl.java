@@ -1,6 +1,6 @@
 package com.waffle.services.impl;
 
-import com.google.common.collect.Lists;
+import com.waffle.data.dto.other.SearchCriteria;
 import com.waffle.data.entity.User;
 import com.waffle.repositories.UserRepository;
 import com.waffle.services.UserService;
@@ -30,17 +30,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User find(final Long id) {
-        return repository.findOne(byId(id)).orElseThrow(IllegalAccessError::new);
+        return repository.findOne(byId(id)).orElseThrow(() -> new IllegalArgumentException("User not found: " + id));
     }
 
     @Override
-    public User find(final String email) {
-        return repository.findOne(byEmail(email)).orElseThrow(IllegalArgumentException::new);
+    public User find(final SearchCriteria criteria) {
+        return repository.findOne(by(criteria)).orElseThrow(() -> new IllegalArgumentException("User not found: " + criteria.getValue()));
     }
 
     @Override
-    public List<User> findAll() {
-        return Lists.newArrayList(repository.findAll());
+    public List<User> findAll(final SearchCriteria criteria) {
+        if (criteria.getKey() == null) {
+            return repository.findAll();
+        }
+
+        return repository.findAll(by(criteria));
     }
 
     @Override
@@ -59,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(final String email) {
-        User user = find(email);
+        User user = findByEmail(email);
         repository.deleteById(user.getId());
     }
 
@@ -71,5 +75,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean exists(final Long id) {
         return repository.existsById(id);
+    }
+
+    private User findByEmail(final String email) {
+        return repository.findOne(byEmail(email)).orElseThrow(IllegalArgumentException::new);
     }
 }

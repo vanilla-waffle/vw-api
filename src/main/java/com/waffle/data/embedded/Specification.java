@@ -1,6 +1,6 @@
 package com.waffle.data.embedded;
 
-import com.waffle.data.constants.types.*;
+import com.waffle.data.constants.types.vehicle.*;
 import lombok.*;
 
 import javax.persistence.Embeddable;
@@ -33,7 +33,7 @@ public class Specification {
     @Enumerated(EnumType.STRING)
     private Fuel fuel;
 
-    private Integer engineVolume;
+    private Double engineVolume;
     private Integer doors;
     private Integer seats;
 }

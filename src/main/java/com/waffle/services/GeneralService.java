@@ -17,10 +17,9 @@ public interface GeneralService {
      * Save new post and assign it to existing user.
      *
      * @param payload post
-     * @param authorId user id
      * @return all response dto
      */
-    PostAllDto save(PostCreateDto payload, Long authorId);
+    PostAllDto save(PostCreateDto payload);
 
     /**
      * Save new user.

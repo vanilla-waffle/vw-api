@@ -1,6 +1,7 @@
 package com.waffle.services;
 
 
+import com.waffle.data.dto.other.SearchCriteria;
 import com.waffle.data.entity.User;
 
 import java.util.List;
@@ -27,19 +28,20 @@ public interface UserService {
     User find(Long id);
 
     /**
-     * Find user by email.
+     * Find user by pre-defined criteria.
      *
-     * @param email user email
+     * @param criteria search criteria
      * @return user
      */
-    User find(String email);
+    User find(SearchCriteria criteria);
 
     /**
-     * Find all users.
+     * Find all users by pre-defined criteria.
      *
+     * @param criteria search criteria
      * @return users
      */
-    List<User> findAll();
+    List<User> findAll(SearchCriteria criteria);
 
     /**
      * Update user.

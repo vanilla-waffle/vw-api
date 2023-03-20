@@ -1,4 +1,4 @@
-package com.waffle.data.constants.types;
+package com.waffle.data.constants.types.user;
 
 /**
  * Roles.
@@ -7,7 +7,6 @@ public enum Role {
 
     /**
      * Super administrator with all available privileges and also:
-     *
      * + Assign new admins
      * + Remove existing admins.
      */

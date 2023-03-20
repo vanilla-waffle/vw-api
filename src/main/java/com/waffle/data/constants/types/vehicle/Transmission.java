@@ -1,4 +1,4 @@
-package com.waffle.data.constants.types;
+package com.waffle.data.constants.types.vehicle;
 
 /**
  * Car transmission types.

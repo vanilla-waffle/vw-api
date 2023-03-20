@@ -1,6 +1,6 @@
 package com.waffle.data.dto.common;
 
-import com.waffle.data.constants.types.City;
+import com.waffle.data.constants.types.common.City;
 import lombok.Data;
 
 /**

@@ -1,6 +1,6 @@
 package com.waffle.data.dto.common;
 
-import com.waffle.data.constants.types.*;
+import com.waffle.data.constants.types.vehicle.*;
 import lombok.Data;
 
 /**
@@ -13,7 +13,7 @@ public class SpecificationDto {
     private Drive drive;
     private Transmission transmission;
     private Fuel fuel;
-    private Integer engineVolume;
+    private Double engineVolume;
     private Integer doors;
     private Integer seats;
 }

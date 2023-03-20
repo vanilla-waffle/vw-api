@@ -1,6 +1,6 @@
 package com.waffle.data.dto.common;
 
-import com.waffle.data.constants.types.Payment;
+import com.waffle.data.constants.types.vehicle.Payment;
 import lombok.Data;
 
 /**

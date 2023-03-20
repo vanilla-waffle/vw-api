@@ -33,9 +33,9 @@ public class GeneralServiceImpl implements GeneralService {
 
     @Override
     @Transactional
-    public PostAllDto save(final PostCreateDto payload, final Long authorId) {
+    public PostAllDto save(final PostCreateDto payload) {
         Post post = postMapper.fromCreateDtoToPost(payload);
-        User user = userService.find(authorId);
+        User user = userService.find(payload.getAuthorId());
 
         post.setUser(user);
         user.getPosts().add(post);

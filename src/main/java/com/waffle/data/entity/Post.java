@@ -1,12 +1,11 @@
 package com.waffle.data.entity;
 
-import com.waffle.data.constants.types.Feature;
+import com.waffle.data.constants.types.vehicle.Feature;
 import com.waffle.data.embedded.PaymentPlan;
 import com.waffle.data.embedded.Specification;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Collection;
 
 /**
@@ -28,7 +27,7 @@ public class Post {
     private String description;
     private String manufacturer;
     private String model;
-    private LocalDate releaseYear;
+    private Integer releaseYear;
 
     @Embedded
     private PaymentPlan paymentPlan;

@@ -1,7 +1,7 @@
 package com.waffle.data.dto.common;
 
 import com.waffle.data.dto.response.ProfileSlimDto;
-import com.waffle.data.constants.types.Status;
+import com.waffle.data.constants.types.user.Status;
 import lombok.Data;
 
 import java.time.LocalDateTime;

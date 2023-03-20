@@ -1,6 +1,7 @@
 package com.waffle.services;
 
 
+import com.waffle.data.dto.other.SearchCriteria;
 import com.waffle.data.entity.Post;
 
 import java.util.List;
@@ -27,11 +28,20 @@ public interface PostService {
     Post find(Long postId);
 
     /**
+     * Find post by title.
+     *
+     * @param criteria search criteria
+     * @return post
+     */
+    Post find(SearchCriteria criteria);
+
+    /**
      * Find all posts.
      *
+     * @param criteria search criteria
      * @return posts
      */
-    List<Post> findAll();
+    List<Post> findAll(SearchCriteria criteria);
 
     /**
      * Update post.

@@ -1,6 +1,6 @@
 package com.waffle.data.entity;
 
-import com.waffle.data.constants.types.Status;
+import com.waffle.data.constants.types.user.Status;
 import com.waffle.data.embedded.Profile;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
