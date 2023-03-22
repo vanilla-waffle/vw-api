@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
- * Search criteria dto.
+ * Search criteria.
  */
 @Data
 @NoArgsConstructor
@@ -46,5 +48,29 @@ public class SearchCriteria {
         }
 
         return new SearchCriteria(args[0], args[1], args[2]);
+    }
+
+    /**
+     * Checks if provided criteria key is nested (ex: fieldA.fieldB).
+     *
+     * @return result of check.
+     */
+    public boolean isNested() {
+        final List<String> keys = this.getNestedKeysAsList();
+
+        if (keys == null) {
+            return false;
+        }
+
+        return keys.size() > 1;
+    }
+
+    /**
+     * Convert key to list of keys if it is nested.
+     *
+     * @return list of strings
+     */
+    public List<String> getNestedKeysAsList() {
+        return this.key.contains(".") ? List.of(this.key.split("\\.")) : null;
     }
 }

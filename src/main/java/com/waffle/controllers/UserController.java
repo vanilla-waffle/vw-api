@@ -40,7 +40,7 @@ public class UserController {
      */
     @PostMapping
     public ResponseEntity<UserSlimDto> save(@RequestBody final UserCreateDto user) {
-        log.info("[SAVE] Request to save user {} {} {}", user.getEmail(), user.getFirstName(), user.getLastName());
+        log.info("[SAVE] Request to save user: {} {} {}", user.getEmail(), user.getFirstName(), user.getLastName());
         final UserSlimDto response = generalService.save(user);
         return status(CREATED).body(response);
     }
@@ -53,7 +53,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<UserAllDto> find(@PathVariable final Long id) {
-        log.info("[FIND:id] Request to find user with id {}", id);
+        log.info("[FIND:id] Request to find user with id: {}", id);
         final User user = userService.find(id);
         final UserAllDto response = mapper.fromUserToAllDto(user);
         return status(OK).body(response);
@@ -67,7 +67,7 @@ public class UserController {
      */
     @GetMapping("/search")
     public ResponseEntity<UserAllDto> find(@RequestParam final String q) {
-        log.info("[FIND:search] Request to find user with query {}", q);
+        log.info("[FIND:search] Request to find user with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final User user = userService.find(criteria);
         final UserAllDto response = mapper.fromUserToAllDto(user);
@@ -82,7 +82,7 @@ public class UserController {
      */
     @GetMapping("/search-all")
     public ResponseEntity<List<UserAllDto>> findAll(@RequestParam final String q) {
-        log.info("[FIND:search-all] Request to find user with query {}", q);
+        log.info("[FIND:search-all] Request to find user with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final List<User> users = userService.findAll(criteria);
         final List<UserAllDto> response = mapper.fromUserToAllDto(users);
@@ -97,7 +97,7 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable final Long id) {
-        log.info("[DELETE:id] Request to delete user with id {}", id);
+        log.info("[DELETE:id] Request to delete user with id: {}", id);
         generalService.delete(id);
         final String message = String.format("OK. User {%s} was deleted.", id.toString());
         return status(OK).body(message);
@@ -111,7 +111,7 @@ public class UserController {
      */
     @PutMapping
     public ResponseEntity<UserAllDto> update(@RequestBody final UserUpdateDto user) {
-        log.info("[UPDATE] Request to update user with email {}", user.getProfile().getEmail());
+        log.info("[UPDATE] Request to update user with email: {}", user.getProfile().getEmail());
         final UserAllDto response = generalService.update(user);
         return status(OK).body(response);
     }

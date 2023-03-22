@@ -25,7 +25,8 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { IllegalArgumentException.class })
     ResponseEntity<ErrorMessageDto> handle(final IllegalArgumentException e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
-                .reason(e.getClass().toString())
+                .code(BAD_REQUEST)
+                .reason(e.getClass().getName())
                 .message(e.getMessage())
                 .build();
         return status(BAD_REQUEST).body(message);
@@ -40,6 +41,7 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { Exception.class })
     ResponseEntity<ErrorMessageDto> handle(final Exception e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
+                .code(INTERNAL_SERVER_ERROR)
                 .reason(e.getClass().toString())
                 .message(e.getMessage())
                 .build();

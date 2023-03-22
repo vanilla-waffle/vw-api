@@ -4,11 +4,11 @@ import com.waffle.data.dto.other.SearchCriteria;
 import com.waffle.data.entity.Post;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Root;
+import java.util.List;
 
 import static com.waffle.data.constants.types.other.Operation.EQUAL;
 import static com.waffle.data.constants.types.other.Operation.LIKE;
+import static com.waffle.data.utils.EnumUtils.toEnum;
 
 /**
  * Specification class used to set search parameter.
@@ -27,49 +27,42 @@ public final class PostSpecification {
      */
     public static Specification<Post> by(final SearchCriteria criteria) {
         return (root, query, builder) -> {
-            Path<Object> path = getPath(root, criteria);
+            final String key = criteria.getKey();
+            Object value = criteria.getValue();
 
             switch (criteria.getOperation()) {
                 case LIKE:
-                    if (criteria.getKey().contains(".")) {
-                        String[] parts = criteria.getKey().split("\\.");
+                    if (criteria.isNested()) {
+                        final List<String> keys = List.of(criteria.getKey().split("\\."));
                         return builder.like(
-                                root.get(parts[0]).get(parts[1]), "%" + criteria.getValue() + "%"
+                                root.join(keys.get(0)).get(keys.get(1)), "%" + value + "%"
                         );
                     }
 
                     return builder.like(
-                            root.get(criteria.getKey()), "%" + criteria.getValue() + "%"
+                            root.get(key), "%" + value + "%"
                     );
                 case EQUAL:
+                    final Enum<?> em = toEnum(value.toString());
+
+                    if (em != null) {
+                        value = em;
+                    }
+
+                    if (criteria.isNested()) {
+                        final List<String> keys = List.of(criteria.getKey().split("\\."));
+                        return builder.equal(
+                                root.join(keys.get(0)).get(keys.get(1)), value
+                        );
+                    }
+
                     return builder.equal(
-                            path, criteria.getValue()
+                            root.get(key), value
                     );
                 default:
                     return null;
             }
         };
-    }
-
-    private static Path<Object> getPath(final Root<Post> root, final SearchCriteria criteria) {
-        Path<Object> path;
-
-        if (criteria.getKey().contains(".")) {
-            String[] split = criteria.getKey().split("\\.");
-            int keyPosition = 0;
-            path = root.get(split[keyPosition]);
-
-            for (String criteriaKeys : split) {
-                if (keyPosition > 0) {
-                    path = path.get(criteriaKeys);
-                }
-                keyPosition++;
-            }
-        } else {
-            path = root.get(criteria.getKey());
-        }
-
-        return path;
     }
 
     /**

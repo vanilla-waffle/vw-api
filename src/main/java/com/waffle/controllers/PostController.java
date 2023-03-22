@@ -38,6 +38,7 @@ public class PostController {
      */
     @PostMapping
     public ResponseEntity<PostAllDto> save(@RequestBody final PostCreateDto post) {
+        log.info("[SAVE] Request to save post by user: {}", post.getAuthorId());
         final PostAllDto response = generalService.save(post);
         return status(OK).body(response);
     }
@@ -50,6 +51,7 @@ public class PostController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<PostAllDto> find(@PathVariable final Long id) {
+        log.info("[FIND:id] Request to find post by id: {}", id);
         final Post post = postService.find(id);
         final PostAllDto response = mapper.fromPostToAllDto(post);
         return status(OK).body(response);
@@ -63,6 +65,7 @@ public class PostController {
      */
     @GetMapping("/search")
     public ResponseEntity<PostAllDto> find(@RequestParam final String q) {
+        log.info("[FIND:search] Request to find post with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final Post post = postService.find(criteria);
         final PostAllDto response = mapper.fromPostToAllDto(post);
@@ -77,7 +80,7 @@ public class PostController {
      */
     @GetMapping("/search-all")
     public ResponseEntity<List<PostAllDto>> findAll(@RequestParam final String q) {
-        log.info("[FIND:search-all] Request to find user with query {}", q);
+        log.info("[FIND:search-all] Request to find posts with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final List<Post> posts = postService.findAll(criteria);
         final List<PostAllDto> response = mapper.fromPostToAllDto(posts);
@@ -92,7 +95,7 @@ public class PostController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable final Long id) {
-        log.info("[DELETE:id] Request to delete user with id {}", id);
+        log.info("[DELETE:id] Request to delete user with id: {}", id);
         final Post post = postService.find(id);
         generalService.delete(id, post.getUser().getId());
         final String message = String.format("OK. Post {%s} was deleted.", id.toString());
