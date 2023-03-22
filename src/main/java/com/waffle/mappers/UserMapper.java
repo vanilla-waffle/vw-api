@@ -1,20 +1,24 @@
 package com.waffle.mappers;
 
-import com.waffle.dto.request.UserCreateDto;
-import com.waffle.dto.request.UserUpdateDto;
-import com.waffle.models.entity.User;
+import com.waffle.data.dto.request.UserCreateDto;
+import com.waffle.data.dto.request.UserUpdateDto;
+import com.waffle.data.dto.response.UserAllDto;
+import com.waffle.data.dto.response.UserSlimDto;
+import com.waffle.data.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Mappers class for mapping {@link com.waffle.models.entity.User} entity.
+ * Mappers class for mapping {@link com.waffle.data.entity.User} entity.
  */
 @Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
 public interface UserMapper {
 
     /**
-     * Map from {@link com.waffle.dto.request.UserCreateDto} to {@link User}.
+     * Map from {@link UserCreateDto} to {@link User}.
      *
      * @param source user create dto
      * @return user entity
@@ -24,13 +28,61 @@ public interface UserMapper {
     @Mapping(target = "profile.firstName", source = "firstName")
     @Mapping(target = "profile.lastName", source = "lastName")
     @Mapping(target = "profile.city", source = "city")
-    User userCreateDtoToUser(UserCreateDto source);
+    User fromCreateDtoToUser(UserCreateDto source);
 
     /**
-     * Compares and directly updates user.
+     * Map from {@link UserUpdateDto} to {@link User}.
      *
-     * @param source user dto
-     * @param user   actual user
+     * @param source user update dto
+     * @return user entity
      */
-    void updateUserFromUserUpdateDto(UserUpdateDto source, @MappingTarget User user);
+    User fromUpdateDtoToUser(UserUpdateDto source);
+
+    /**
+     * Map from {@link User} to {@link UserAllDto}.
+     *
+     * @param source user
+     * @return all response dto
+     */
+    @Mapping(target = "profile.email", source = "profile.email")
+    @Mapping(target = "profile.firstName", source = "profile.firstName")
+    @Mapping(target = "profile.lastName", source = "profile.lastName")
+    @Mapping(target = "profile.city", source = "profile.city")
+    UserAllDto fromUserToAllDto(User source);
+
+    /**
+     * Map lists from {@link User} to {@link UserAllDto}.
+     *
+     * @param source users list
+     * @return all response dto list
+     */
+    default List<UserAllDto> fromUserToAllDto(final List<User> source) {
+        return source.stream()
+                .map(this::fromUserToAllDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Map from {@link User} to {@link UserSlimDto}.
+     *
+     * @param source user
+     * @return slim response dto
+     */
+    @Mapping(target = "profile.email", source = "profile.email")
+    @Mapping(target = "profile.firstName", source = "profile.firstName")
+    @Mapping(target = "profile.lastName", source = "profile.lastName")
+    @Mapping(target = "profile.city", source = "profile.city")
+    UserSlimDto fromUserToSlimDto(User source);
+
+    /**
+     * Map lists from {@link User} to {@link UserSlimDto}.
+     *
+     * @param source users list
+     * @return slim response dto list
+     */
+    default List<UserSlimDto> fromUserToSlimDto(List<User> source) {
+        return source.stream()
+                .map(this::fromUserToSlimDto)
+                .collect(Collectors.toList());
+    }
 }

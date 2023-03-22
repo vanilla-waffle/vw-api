@@ -1,15 +1,15 @@
 package com.waffle.services.impl;
 
-import com.waffle.dto.request.PostCreateDto;
-import com.waffle.dto.request.PostUpdateDto;
-import com.waffle.mappers.PostMapper;
-import com.waffle.models.entity.Post;
+import com.waffle.data.dto.other.SearchCriteria;
+import com.waffle.data.entity.Post;
 import com.waffle.repositories.PostRepository;
 import com.waffle.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.waffle.repositories.specifications.PostSpecification.by;
 
 /**
  * PostService implementation.
@@ -18,34 +18,38 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
     private final PostRepository repository;
-    private final PostMapper mapper;
 
     @Override
-    public Post save(final PostCreateDto payload) {
-        Post post = mapper.postCreateDtoToPost(payload);
-        return repository.save(post);
+    public Post save(final Post payload) {
+        return repository.save(payload);
     }
 
     @Override
-    public Post find(final Long userId) {
-        return null;
+    public Post find(final Long postId) {
+        return repository.findById(postId).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
-    public List<Post> findAll() {
-        return null;
+    public Post find(final SearchCriteria criteria) {
+        return repository.findOne(by(criteria)).orElseThrow(IllegalAccessError::new);
     }
 
     @Override
-    public Post update(final PostUpdateDto payload) {
-        Post post = find(payload.getAuthorId());
-        mapper.updatePostFromPostUpdateDto(payload, post);
+    public List<Post> findAll(final SearchCriteria criteria) {
+        if (criteria.getKey() == null) {
+            return repository.findAll();
+        }
 
-        return repository.save(post);
+        return repository.findAll(by(criteria));
+    }
+
+    @Override
+    public Post update(final Post payload) {
+        return repository.save(payload);
     }
 
     @Override
     public void delete(final Long id) {
-
+        repository.deleteById(id);
     }
 }

@@ -1,16 +1,15 @@
 package com.waffle.services.impl;
 
-import com.google.common.collect.Lists;
-import com.waffle.dto.request.UserCreateDto;
-import com.waffle.dto.request.UserUpdateDto;
-import com.waffle.mappers.UserMapper;
-import com.waffle.models.entity.User;
+import com.waffle.data.dto.other.SearchCriteria;
+import com.waffle.data.entity.User;
 import com.waffle.repositories.UserRepository;
 import com.waffle.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.waffle.repositories.specifications.UserSpecification.*;
 
 /**
  * UserService implementation.
@@ -19,43 +18,42 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
-    private final UserMapper mapper;
 
     @Override
-    public User save(final UserCreateDto payload) {
-        if (exists(payload.getEmail())) {
+    public User save(final User payload) {
+        if (exists(payload.getProfile().getEmail())) {
             throw new IllegalArgumentException();
         }
 
-        User user = mapper.userCreateDtoToUser(payload);
-        return repository.save(user);
+        return repository.save(payload);
     }
 
     @Override
     public User find(final Long id) {
-        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return repository.findOne(byId(id)).orElseThrow(() -> new IllegalArgumentException("User not found: " + id));
     }
 
     @Override
-    public User find(final String email) {
-        return repository.findByProfileEmail(email).orElseThrow(IllegalArgumentException::new);
+    public User find(final SearchCriteria criteria) {
+        return repository.findOne(by(criteria)).orElseThrow(() -> new IllegalArgumentException("User not found: " + criteria.getValue()));
     }
 
     @Override
-    public List<User> findAll() {
-        return Lists.newArrayList(repository.findAll());
+    public List<User> findAll(final SearchCriteria criteria) {
+        if (criteria.getKey() == null) {
+            return repository.findAll();
+        }
+
+        return repository.findAll(by(criteria));
     }
 
     @Override
-    public User update(final UserUpdateDto payload) {
+    public User update(final User payload) {
         if (!exists(payload.getProfile().getEmail())) {
             throw new IllegalArgumentException();
         }
 
-        User user = find(payload.getProfile().getEmail());
-        mapper.updateUserFromUserUpdateDto(payload, user);
-
-        return repository.save(user);
+        return repository.save(payload);
     }
 
     @Override
@@ -63,7 +61,23 @@ public class UserServiceImpl implements UserService {
         repository.deleteById(id);
     }
 
-    private boolean exists(final String email) {
-        return repository.existsByProfileEmail(email);
+    @Override
+    public void delete(final String email) {
+        User user = findByEmail(email);
+        repository.deleteById(user.getId());
+    }
+
+    @Override
+    public boolean exists(final String email) {
+        return repository.exists(byEmail(email));
+    }
+
+    @Override
+    public boolean exists(final Long id) {
+        return repository.existsById(id);
+    }
+
+    private User findByEmail(final String email) {
+        return repository.findOne(byEmail(email)).orElseThrow(IllegalArgumentException::new);
     }
 }

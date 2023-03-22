@@ -1,30 +1,74 @@
 package com.waffle.mappers;
 
-import com.waffle.dto.request.PostCreateDto;
-import com.waffle.dto.request.PostUpdateDto;
-import com.waffle.models.entity.Post;
+import com.waffle.data.dto.request.PostCreateDto;
+import com.waffle.data.dto.request.PostUpdateDto;
+import com.waffle.data.dto.response.PostAllDto;
+import com.waffle.data.dto.response.PostSlimDto;
+import com.waffle.data.entity.Post;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Mappers class for mapping {@link com.waffle.models.entity.Post} entity.
+ * Mappers class for mapping {@link com.waffle.data.entity.Post} entity.
  */
 @Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
 public interface PostMapper {
 
     /**
-     * Map from {@link com.waffle.dto.request.PostCreateDto} to {@link Post}.
+     * Map from {@link PostCreateDto} to {@link Post}.
      *
      * @param source post create dto
      * @return post entity
      */
-    Post postCreateDtoToPost(PostCreateDto source);
+    Post fromCreateDtoToPost(PostCreateDto source);
 
     /**
-     * Compares and directly updates post.
+     * Map from {@link PostUpdateDto} to {@link Post}.
      *
-     * @param source post dto
-     * @param post actual post
+     * @param source post update dto
+     * @return post entity
      */
-    void updatePostFromPostUpdateDto(PostUpdateDto source, @MappingTarget Post post);
+    Post fromUpdateDtoToPost(PostUpdateDto source);
+
+    /**
+     * Map from {@link Post} to {@link PostAllDto}.
+     *
+     * @param source post
+     * @return all response dto
+     */
+    PostAllDto fromPostToAllDto(Post source);
+
+    /**
+     * Map lists from {@link Post} to {@link PostAllDto}.
+     *
+     * @param source posts list
+     * @return all response dto list
+     */
+    default List<PostAllDto> fromPostToAllDto(final List<Post> source) {
+        return source.stream()
+                .map(this::fromPostToAllDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Map from {@link Post} to {@link PostSlimDto}.
+     *
+     * @param source post
+     * @return slim response dto
+     */
+    PostSlimDto fromPostToSlimDto(Post source);
+
+    /**
+     * Map lists from {@link Post} to {@link PostSlimDto}.
+     *
+     * @param source posts list
+     * @return slim response dto list
+     */
+    default List<PostSlimDto> fromPostToSlimDto(final List<Post> source) {
+        return source.stream()
+                .map(this::fromPostToSlimDto)
+                .collect(Collectors.toList());
+    }
 }
