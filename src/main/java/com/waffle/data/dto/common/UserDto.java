@@ -4,6 +4,7 @@ import com.waffle.data.dto.response.ProfileSlimDto;
 import com.waffle.data.constants.types.user.Status;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -13,5 +14,7 @@ import java.time.LocalDateTime;
 public class UserDto {
     private LocalDateTime createdAt;
     private Status status;
+
+    @NotNull
     private ProfileSlimDto profile;
 }

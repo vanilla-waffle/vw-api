@@ -1,4 +1,4 @@
-package com.waffle.mappers;
+package com.waffle.configurations;
 
 import org.mapstruct.*;
 

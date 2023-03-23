@@ -9,6 +9,7 @@ import lombok.Data;
  */
 @Data
 public class UserUpdateDto {
+
     private Status status;
     private Profile profile;
 }

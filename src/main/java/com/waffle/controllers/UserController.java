@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -39,7 +41,7 @@ public class UserController {
      * @return slim response dto
      */
     @PostMapping
-    public ResponseEntity<UserSlimDto> save(@RequestBody final UserCreateDto user) {
+    public ResponseEntity<UserSlimDto> save(@RequestBody @Valid final UserCreateDto user) {
         log.info("[SAVE] Request to save user: {} {} {}", user.getEmail(), user.getFirstName(), user.getLastName());
         final UserSlimDto response = generalService.save(user);
         return status(CREATED).body(response);
@@ -52,7 +54,7 @@ public class UserController {
      * @return all response sto
      */
     @GetMapping("/{id}")
-    public ResponseEntity<UserAllDto> find(@PathVariable final Long id) {
+    public ResponseEntity<UserAllDto> find(@PathVariable @NotNull final Long id) {
         log.info("[FIND:id] Request to find user with id: {}", id);
         final User user = userService.find(id);
         final UserAllDto response = mapper.fromUserToAllDto(user);
@@ -66,7 +68,7 @@ public class UserController {
      * @return all response dto
      */
     @GetMapping("/search")
-    public ResponseEntity<UserAllDto> find(@RequestParam final String q) {
+    public ResponseEntity<UserAllDto> find(@RequestParam @NotNull final String q) {
         log.info("[FIND:search] Request to find user with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final User user = userService.find(criteria);
