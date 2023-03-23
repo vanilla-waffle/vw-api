@@ -12,10 +12,11 @@ import com.waffle.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -28,6 +29,7 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequestMapping("users")
 @RequiredArgsConstructor
+@Validated
 @Slf4j
 public class UserController {
     private final GeneralService generalService;
@@ -41,7 +43,7 @@ public class UserController {
      * @return slim response dto
      */
     @PostMapping
-    public ResponseEntity<UserSlimDto> save(@RequestBody @Valid final UserCreateDto user) {
+    public ResponseEntity<UserSlimDto> save(@RequestBody @Valid @NotNull final UserCreateDto user) {
         log.info("[SAVE] Request to save user: {} {} {}", user.getEmail(), user.getFirstName(), user.getLastName());
         final UserSlimDto response = generalService.save(user);
         return status(CREATED).body(response);
@@ -54,7 +56,7 @@ public class UserController {
      * @return all response sto
      */
     @GetMapping("/{id}")
-    public ResponseEntity<UserAllDto> find(@PathVariable @NotNull final Long id) {
+    public ResponseEntity<UserAllDto> find(@PathVariable @Positive final Long id) {
         log.info("[FIND:id] Request to find user with id: {}", id);
         final User user = userService.find(id);
         final UserAllDto response = mapper.fromUserToAllDto(user);
@@ -68,7 +70,7 @@ public class UserController {
      * @return all response dto
      */
     @GetMapping("/search")
-    public ResponseEntity<UserAllDto> find(@RequestParam @NotNull final String q) {
+    public ResponseEntity<UserAllDto> find(@RequestParam @NotBlank final String q) {
         log.info("[FIND:search] Request to find user with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final User user = userService.find(criteria);
@@ -83,7 +85,7 @@ public class UserController {
      * @return all response dto list
      */
     @GetMapping("/search-all")
-    public ResponseEntity<List<UserAllDto>> findAll(@RequestParam final String q) {
+    public ResponseEntity<List<UserAllDto>> findAll(@RequestParam @NotBlank final String q) {
         log.info("[FIND:search-all] Request to find user with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final List<User> users = userService.findAll(criteria);
@@ -98,7 +100,7 @@ public class UserController {
      * @return success message
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable final Long id) {
+    public ResponseEntity<String> delete(@PathVariable @Positive final Long id) {
         log.info("[DELETE:id] Request to delete user with id: {}", id);
         generalService.delete(id);
         final String message = String.format("OK. User {%s} was deleted.", id.toString());
@@ -112,7 +114,7 @@ public class UserController {
      * @return all response dto
      */
     @PutMapping
-    public ResponseEntity<UserAllDto> update(@RequestBody final UserUpdateDto user) {
+    public ResponseEntity<UserAllDto> update(@RequestBody @Valid @NotNull final UserUpdateDto user) {
         log.info("[UPDATE] Request to update user with email: {}", user.getProfile().getEmail());
         final UserAllDto response = generalService.update(user);
         return status(OK).body(response);

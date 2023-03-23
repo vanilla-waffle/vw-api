@@ -11,8 +11,13 @@ import com.waffle.services.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -24,6 +29,7 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequestMapping("posts")
 @RequiredArgsConstructor
+@Validated
 @Slf4j
 public class PostController {
     private final GeneralService generalService;
@@ -37,7 +43,7 @@ public class PostController {
      * @return all response dto
      */
     @PostMapping
-    public ResponseEntity<PostAllDto> save(@RequestBody final PostCreateDto post) {
+    public ResponseEntity<PostAllDto> save(@RequestBody @Valid @NotNull final PostCreateDto post) {
         log.info("[SAVE] Request to save post by user: {}", post.getAuthorId());
         final PostAllDto response = generalService.save(post);
         return status(OK).body(response);
@@ -50,7 +56,7 @@ public class PostController {
      * @return all response sto
      */
     @GetMapping("/{id}")
-    public ResponseEntity<PostAllDto> find(@PathVariable final Long id) {
+    public ResponseEntity<PostAllDto> find(@PathVariable @Positive final Long id) {
         log.info("[FIND:id] Request to find post by id: {}", id);
         final Post post = postService.find(id);
         final PostAllDto response = mapper.fromPostToAllDto(post);
@@ -64,7 +70,7 @@ public class PostController {
      * @return all response dto
      */
     @GetMapping("/search")
-    public ResponseEntity<PostAllDto> find(@RequestParam final String q) {
+    public ResponseEntity<PostAllDto> find(@RequestParam @NotBlank final String q) {
         log.info("[FIND:search] Request to find post with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final Post post = postService.find(criteria);
@@ -79,7 +85,7 @@ public class PostController {
      * @return all response dto list
      */
     @GetMapping("/search-all")
-    public ResponseEntity<List<PostAllDto>> findAll(@RequestParam final String q) {
+    public ResponseEntity<List<PostAllDto>> findAll(@RequestParam @NotBlank final String q) {
         log.info("[FIND:search-all] Request to find posts with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
         final List<Post> posts = postService.findAll(criteria);
@@ -94,7 +100,7 @@ public class PostController {
      * @return success message
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable final Long id) {
+    public ResponseEntity<String> delete(@PathVariable @Positive final Long id) {
         log.info("[DELETE:id] Request to delete user with id: {}", id);
         final Post post = postService.find(id);
         generalService.delete(id, post.getUser().getId());
@@ -109,7 +115,7 @@ public class PostController {
      * @return all response dto
      */
     @PutMapping
-    public ResponseEntity<PostAllDto> update(@RequestBody final PostUpdateDto post) {
+    public ResponseEntity<PostAllDto> update(@RequestBody @Valid @NotNull final PostUpdateDto post) {
         log.info("[UPDATE] Request to update post");
         final PostAllDto response = generalService.update(post);
         return status(OK).body(response);
