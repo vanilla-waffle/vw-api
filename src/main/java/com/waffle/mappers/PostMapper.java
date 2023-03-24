@@ -1,5 +1,6 @@
 package com.waffle.mappers;
 
+import com.waffle.configurations.WaffleMapperConfig;
 import com.waffle.data.dto.request.PostCreateDto;
 import com.waffle.data.dto.request.PostUpdateDto;
 import com.waffle.data.dto.response.PostAllDto;

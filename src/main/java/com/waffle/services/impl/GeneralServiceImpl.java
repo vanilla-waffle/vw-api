@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 
 /**
  * General service implementation.
@@ -33,7 +34,7 @@ public class GeneralServiceImpl implements GeneralService {
 
     @Override
     @Transactional
-    public PostAllDto save(final PostCreateDto payload) {
+    public PostAllDto save(@NotNull final PostCreateDto payload) {
         Post post = postMapper.fromCreateDtoToPost(payload);
         User user = userService.find(payload.getAuthorId());
 
@@ -47,33 +48,33 @@ public class GeneralServiceImpl implements GeneralService {
 
     @Override
     @Transactional
-    public UserSlimDto save(final UserCreateDto payload) {
+    public UserSlimDto save(@NotNull final UserCreateDto payload) {
         User user = userMapper.fromCreateDtoToUser(payload);
         user = userService.save(user);
         return userMapper.fromUserToSlimDto(user);
     }
 
     @Override
-    public UserAllDto update(final UserUpdateDto payload) {
+    public UserAllDto update(@NotNull final UserUpdateDto payload) {
         User user = userMapper.fromUpdateDtoToUser(payload);
         user = userService.update(user);
         return userMapper.fromUserToAllDto(user);
     }
 
     @Override
-    public PostAllDto update(final PostUpdateDto payload) {
+    public PostAllDto update(@NotNull final PostUpdateDto payload) {
         Post post = postMapper.fromUpdateDtoToPost(payload);
         post = postService.update(post);
         return postMapper.fromPostToAllDto(post);
     }
 
     @Override
-    public void delete(final Long userId) {
+    public void delete(@NotNull final Long userId) {
         userService.delete(userId);
     }
 
     @Override
-    public void delete(final Long postId, final Long authorId) {
+    public void delete(@NotNull final Long postId, @NotNull final Long authorId) {
         User user = userService.find(authorId);
         Post post = postService.find(postId);
 
