@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com'
-version = '0.4.1'
+version = '0.5.0'
 sourceCompatibility = '11'
 
 configurations {
@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.5'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.5'
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.7.5'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
 	implementation 'org.passay:passay:1.6.3'
 	implementation 'org.postgresql:postgresql:42.5.1'
 	implementation 'com.google.guava:guava:11.0.2'
