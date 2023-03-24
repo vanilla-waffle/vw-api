@@ -7,7 +7,6 @@ import com.waffle.data.constants.types.vehicle.Feature;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.Collection;
@@ -19,7 +18,7 @@ import java.util.Collection;
 @Data
 public class PostCreateDto extends PostDto {
 
-    @NotEmpty
+    @NotNull
     @Positive
     private Long authorId;
 

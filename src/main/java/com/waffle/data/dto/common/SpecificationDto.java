@@ -4,7 +4,6 @@ import com.waffle.data.constants.types.vehicle.*;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -37,7 +36,7 @@ public class SpecificationDto {
     @Min(2)
     private Integer doors;
 
-    @NotEmpty
+    @NotNull
     @Min(2)
     private Integer seats;
 }

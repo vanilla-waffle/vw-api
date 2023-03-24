@@ -3,7 +3,6 @@ package com.waffle.data.dto.common;
 import com.waffle.data.constants.types.vehicle.Payment;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -13,7 +12,7 @@ import javax.validation.constraints.Positive;
 @Data
 public class PaymentPlanDto {
 
-    @NotEmpty
+    @NotNull
     @Positive
     private Long price;
 
