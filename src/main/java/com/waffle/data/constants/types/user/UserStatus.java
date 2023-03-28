@@ -3,8 +3,12 @@ package com.waffle.data.constants.types.user;
 /**
  * Account statuses.
  */
-public enum Status {
+public enum UserStatus {
 
+    /**
+     * Waiting for moderation.
+     */
+    PENDING,
     /**
      * Account status after activation.
      */

@@ -4,7 +4,7 @@ import com.waffle.data.dto.other.SearchCriteria;
 import com.waffle.data.dto.request.PostCreateDto;
 import com.waffle.data.dto.request.PostUpdateDto;
 import com.waffle.data.dto.response.PostAllDto;
-import com.waffle.data.entity.Post;
+import com.waffle.data.entity.Vehicle;
 import com.waffle.mappers.PostMapper;
 import com.waffle.services.GeneralService;
 import com.waffle.services.PostService;
@@ -58,8 +58,8 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostAllDto> find(@PathVariable @Positive final Long id) {
         log.info("[FIND:id] Request to find post by id: {}", id);
-        final Post post = postService.find(id);
-        final PostAllDto response = mapper.fromPostToAllDto(post);
+        final Vehicle vehicle = postService.find(id);
+        final PostAllDto response = mapper.fromPostToAllDto(vehicle);
         return status(OK).body(response);
     }
 
@@ -73,8 +73,8 @@ public class PostController {
     public ResponseEntity<PostAllDto> find(@RequestParam @NotBlank final String q) {
         log.info("[FIND:search] Request to find post with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
-        final Post post = postService.find(criteria);
-        final PostAllDto response = mapper.fromPostToAllDto(post);
+        final Vehicle vehicle = postService.find(criteria);
+        final PostAllDto response = mapper.fromPostToAllDto(vehicle);
         return status(OK).body(response);
     }
 
@@ -88,8 +88,8 @@ public class PostController {
     public ResponseEntity<List<PostAllDto>> findAll(@RequestParam @NotBlank final String q) {
         log.info("[FIND:search-all] Request to find posts with query: {}", q);
         final SearchCriteria criteria = SearchCriteria.from(q);
-        final List<Post> posts = postService.findAll(criteria);
-        final List<PostAllDto> response = mapper.fromPostToAllDto(posts);
+        final List<Vehicle> vehicles = postService.findAll(criteria);
+        final List<PostAllDto> response = mapper.fromPostToAllDto(vehicles);
         return status(OK).body(response);
     }
 
@@ -102,8 +102,8 @@ public class PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable @Positive final Long id) {
         log.info("[DELETE:id] Request to delete user with id: {}", id);
-        final Post post = postService.find(id);
-        generalService.delete(id, post.getUser().getId());
+        final Vehicle vehicle = postService.find(id);
+        generalService.delete(id, vehicle.getUser().getId());
         final String message = String.format("OK. Post {%s} was deleted.", id.toString());
         return status(OK).body(message);
     }

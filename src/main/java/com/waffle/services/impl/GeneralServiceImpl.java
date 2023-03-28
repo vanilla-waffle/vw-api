@@ -9,7 +9,7 @@ import com.waffle.data.dto.response.UserAllDto;
 import com.waffle.data.dto.response.UserSlimDto;
 import com.waffle.mappers.PostMapper;
 import com.waffle.mappers.UserMapper;
-import com.waffle.data.entity.Post;
+import com.waffle.data.entity.Vehicle;
 import com.waffle.data.entity.User;
 import com.waffle.services.GeneralService;
 import com.waffle.services.PostService;
@@ -35,15 +35,15 @@ public class GeneralServiceImpl implements GeneralService {
     @Override
     @Transactional
     public PostAllDto save(@NotNull final PostCreateDto payload) {
-        Post post = postMapper.fromCreateDtoToPost(payload);
+        Vehicle vehicle = postMapper.fromCreateDtoToPost(payload);
         User user = userService.find(payload.getAuthorId());
 
-        post.setUser(user);
-        user.getPosts().add(post);
+        vehicle.setUser(user);
+        user.getPosts().add(vehicle);
 
-        post = postService.save(post);
+        vehicle = postService.save(vehicle);
         userService.update(user);
-        return postMapper.fromPostToAllDto(post);
+        return postMapper.fromPostToAllDto(vehicle);
     }
 
     @Override
@@ -63,9 +63,9 @@ public class GeneralServiceImpl implements GeneralService {
 
     @Override
     public PostAllDto update(@NotNull final PostUpdateDto payload) {
-        Post post = postMapper.fromUpdateDtoToPost(payload);
-        post = postService.update(post);
-        return postMapper.fromPostToAllDto(post);
+        Vehicle vehicle = postMapper.fromUpdateDtoToPost(payload);
+        vehicle = postService.update(vehicle);
+        return postMapper.fromPostToAllDto(vehicle);
     }
 
     @Override
@@ -76,9 +76,9 @@ public class GeneralServiceImpl implements GeneralService {
     @Override
     public void delete(@NotNull final Long postId, @NotNull final Long authorId) {
         User user = userService.find(authorId);
-        Post post = postService.find(postId);
+        Vehicle vehicle = postService.find(postId);
 
-        user.getPosts().remove(post);
+        user.getPosts().remove(vehicle);
 
         userService.update(user);
     }

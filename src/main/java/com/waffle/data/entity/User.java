@@ -1,45 +1,29 @@
 package com.waffle.data.entity;
 
-import com.waffle.data.constants.types.user.Status;
-import com.waffle.data.embedded.Profile;
+import com.waffle.data.constants.types.user.UserStatus;
+import com.waffle.data.embedded.user.Profile;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Collection;
 
 /**
  * User entity.
  */
 @Entity
-@Getter
-@Setter
+@Table(name = "users")
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(
-        name = "users",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = { "email" })
-        }
-)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-
-    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private Status status = Status.ACTIVE;
+    private UserStatus status;
 
     @Embedded
     private Profile profile;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<Post> posts;
 }

@@ -1,7 +1,7 @@
 package com.waffle.repositories.specifications;
 
 import com.waffle.data.dto.other.SearchCriteria;
-import com.waffle.data.entity.Post;
+import com.waffle.data.entity.Vehicle;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public final class PostSpecification {
      * @param criteria search criteria
      * @return search parameter
      */
-    public static Specification<Post> by(final SearchCriteria criteria) {
+    public static Specification<Vehicle> by(final SearchCriteria criteria) {
         return (root, query, builder) -> {
             final String key = criteria.getKey();
             Object value = criteria.getValue();
@@ -71,7 +71,7 @@ public final class PostSpecification {
      * @param id author id
      * @return search parameter
      */
-    public static Specification<Post> byAuthor(final Long id) {
+    public static Specification<Vehicle> byAuthor(final Long id) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(
                         root.get("profile").get("id"),
@@ -85,7 +85,7 @@ public final class PostSpecification {
      * @param title post title
      * @return search parameter
      */
-    public static Specification<Post> byTitle(final String title) {
+    public static Specification<Vehicle> byTitle(final String title) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(
                         root.get("title"),

@@ -2,7 +2,7 @@ package com.waffle.services;
 
 
 import com.waffle.data.dto.other.SearchCriteria;
-import com.waffle.data.entity.Post;
+import com.waffle.data.entity.Vehicle;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface PostService {
      * @param payload incoming post data
      * @return created post
      */
-    Post save(Post payload);
+    Vehicle save(Vehicle payload);
 
     /**
      * Find post by post id.
@@ -25,7 +25,7 @@ public interface PostService {
      * @param postId post id
      * @return user
      */
-    Post find(Long postId);
+    Vehicle find(Long postId);
 
     /**
      * Find post by title.
@@ -33,7 +33,7 @@ public interface PostService {
      * @param criteria search criteria
      * @return post
      */
-    Post find(SearchCriteria criteria);
+    Vehicle find(SearchCriteria criteria);
 
     /**
      * Find all posts.
@@ -41,7 +41,7 @@ public interface PostService {
      * @param criteria search criteria
      * @return posts
      */
-    List<Post> findAll(SearchCriteria criteria);
+    List<Vehicle> findAll(SearchCriteria criteria);
 
     /**
      * Update post.
@@ -49,7 +49,7 @@ public interface PostService {
      * @param payload incoming user data
      * @return updated post
      */
-    Post update(Post payload);
+    Vehicle update(Vehicle payload);
 
     /**
      * Delete post by id.
