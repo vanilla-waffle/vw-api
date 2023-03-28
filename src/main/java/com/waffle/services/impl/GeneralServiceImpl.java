@@ -2,8 +2,8 @@ package com.waffle.services.impl;
 
 import com.waffle.data.dto.request.PostCreateDto;
 import com.waffle.data.dto.request.PostUpdateDto;
-import com.waffle.data.dto.request.UserCreateDto;
-import com.waffle.data.dto.request.UserUpdateDto;
+import com.waffle.data.dto.request.user.UserCreateDto;
+import com.waffle.data.dto.request.user.UserUpdateDto;
 import com.waffle.data.dto.response.PostAllDto;
 import com.waffle.data.dto.response.UserAllDto;
 import com.waffle.data.dto.response.UserSlimDto;
@@ -39,7 +39,7 @@ public class GeneralServiceImpl implements GeneralService {
         User user = userService.find(payload.getAuthorId());
 
         vehicle.setUser(user);
-        user.getPosts().add(vehicle);
+//        user.getPosts().add(vehicle);
 
         vehicle = postService.save(vehicle);
         userService.update(user);
@@ -78,7 +78,7 @@ public class GeneralServiceImpl implements GeneralService {
         User user = userService.find(authorId);
         Vehicle vehicle = postService.find(postId);
 
-        user.getPosts().remove(vehicle);
+//        user.getPosts().remove(vehicle);
 
         userService.update(user);
     }

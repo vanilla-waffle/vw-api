@@ -1,8 +1,8 @@
 package com.waffle.controllers;
 
 import com.waffle.data.dto.other.SearchCriteria;
-import com.waffle.data.dto.request.UserCreateDto;
-import com.waffle.data.dto.request.UserUpdateDto;
+import com.waffle.data.dto.request.user.UserCreateDto;
+import com.waffle.data.dto.request.user.UserUpdateDto;
 import com.waffle.data.dto.response.UserAllDto;
 import com.waffle.data.dto.response.UserSlimDto;
 import com.waffle.data.entity.User;
@@ -44,7 +44,7 @@ public class UserController {
      */
     @PostMapping
     public ResponseEntity<UserSlimDto> save(@RequestBody @Valid @NotNull final UserCreateDto user) {
-        log.info("[SAVE] Request to save user: {} {} {}", user.getEmail(), user.getFirstName(), user.getLastName());
+//        log.info("[SAVE] Request to save user: {} {} {}", user.getEmail(), user.getFirstName(), user.getLastName());
         final UserSlimDto response = generalService.save(user);
         return status(CREATED).body(response);
     }

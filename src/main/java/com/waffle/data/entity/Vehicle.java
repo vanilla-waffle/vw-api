@@ -28,7 +28,7 @@ public class Vehicle {
     @Column(nullable = false, length = TextSize.S)
     private String title;
     @Column(nullable = false, length = TextSize.XL)
-    private String desc;
+    private String description;
     @Column(nullable = false)
     private String manuf;
     @Column(nullable = false)
@@ -51,10 +51,10 @@ public class Vehicle {
     private Collection<Feature> features;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private User user;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Location location;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -2,8 +2,8 @@ package com.waffle.services;
 
 import com.waffle.data.dto.request.PostCreateDto;
 import com.waffle.data.dto.request.PostUpdateDto;
-import com.waffle.data.dto.request.UserCreateDto;
-import com.waffle.data.dto.request.UserUpdateDto;
+import com.waffle.data.dto.request.user.UserCreateDto;
+import com.waffle.data.dto.request.user.UserUpdateDto;
 import com.waffle.data.dto.response.PostAllDto;
 import com.waffle.data.dto.response.UserAllDto;
 import com.waffle.data.dto.response.UserSlimDto;

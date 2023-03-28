@@ -1,8 +1,8 @@
 package com.waffle.mappers;
 
 import com.waffle.configurations.WaffleMapperConfig;
-import com.waffle.data.dto.request.UserCreateDto;
-import com.waffle.data.dto.request.UserUpdateDto;
+import com.waffle.data.dto.request.user.UserCreateDto;
+import com.waffle.data.dto.request.user.UserUpdateDto;
 import com.waffle.data.dto.response.UserAllDto;
 import com.waffle.data.dto.response.UserSlimDto;
 import com.waffle.data.entity.User;
@@ -24,11 +24,6 @@ public interface UserMapper {
      * @param source user create dto
      * @return user entity
      */
-    @Mapping(target = "profile.email", source = "email")
-    @Mapping(target = "profile.password", source = "password")
-    @Mapping(target = "profile.firstName", source = "firstName")
-    @Mapping(target = "profile.lastName", source = "lastName")
-    @Mapping(target = "profile.city", source = "city")
     User fromCreateDtoToUser(UserCreateDto source);
 
     /**
@@ -45,10 +40,6 @@ public interface UserMapper {
      * @param source user
      * @return all response dto
      */
-    @Mapping(target = "profile.email", source = "profile.email")
-    @Mapping(target = "profile.firstName", source = "profile.firstName")
-    @Mapping(target = "profile.lastName", source = "profile.lastName")
-    @Mapping(target = "profile.city", source = "profile.city")
     UserAllDto fromUserToAllDto(User source);
 
     /**
@@ -69,10 +60,6 @@ public interface UserMapper {
      * @param source user
      * @return slim response dto
      */
-    @Mapping(target = "profile.email", source = "profile.email")
-    @Mapping(target = "profile.firstName", source = "profile.firstName")
-    @Mapping(target = "profile.lastName", source = "profile.lastName")
-    @Mapping(target = "profile.city", source = "profile.city")
     UserSlimDto fromUserToSlimDto(User source);
 
     /**

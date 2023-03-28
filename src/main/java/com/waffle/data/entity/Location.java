@@ -40,6 +40,5 @@ public class Location {
     private Double longitue;
 
     @OneToOne(mappedBy = "location")
-    @Column(nullable = false)
     private Vehicle vehicle;
 }

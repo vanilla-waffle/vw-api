@@ -25,14 +25,14 @@ public class Booking {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private User user;
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Vehicle vehicle;
 
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDateTime startedAt;
+    private LocalDateTime completedAt;
 
     @Column(nullable = false)
     private Double totalPrice;

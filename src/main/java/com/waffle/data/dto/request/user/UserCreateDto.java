@@ -1,12 +1,12 @@
-package com.waffle.data.dto.request;
+package com.waffle.data.dto.request.user;
 
 import com.waffle.data.constants.annotations.Password;
-import com.waffle.data.constants.types.common.City;
+import com.waffle.data.constants.types.common.TextSize;
 import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Request, dto class to create a User.
@@ -17,17 +17,12 @@ public class UserCreateDto {
     @NotEmpty
     @Email
     private String email;
-
+    @NotEmpty
+    @Size(max = TextSize.XS)
+    private String username;
+    @NotEmpty
+    private String phoneNumber;
     @NotEmpty
     @Password
     private String password;
-
-    @NotEmpty
-    private String firstName;
-
-    @NotEmpty
-    private String lastName;
-
-    @NotNull
-    private City city;
 }

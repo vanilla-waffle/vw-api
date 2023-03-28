@@ -1,4 +1,4 @@
-package com.waffle.data.dto.request;
+package com.waffle.data.dto.request.user;
 
 import com.waffle.data.constants.annotations.Password;
 import com.waffle.data.dto.common.ProfileDto;

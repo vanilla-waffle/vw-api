@@ -33,9 +33,9 @@ public class Review {
     private String text;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private User user;
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Vehicle vehicle;
 }

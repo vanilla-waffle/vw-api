@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Payment method entities.
@@ -31,10 +31,10 @@ public class PaymentMethod {
     @Column(length = TextSize.XS)
     private String expireAt;
 
-    @Temporal(TemporalType.DATE)
     @CreationTimestamp
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private User user;
 }

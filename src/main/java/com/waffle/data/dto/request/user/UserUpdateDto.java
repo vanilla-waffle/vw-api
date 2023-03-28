@@ -1,4 +1,4 @@
-package com.waffle.data.dto.request;
+package com.waffle.data.dto.request.user;
 
 import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.embedded.user.Profile;

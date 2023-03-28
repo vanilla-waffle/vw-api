@@ -23,8 +23,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Profile {
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
     @Column(unique = true)
     private String email;
     @Column(nullable = false)

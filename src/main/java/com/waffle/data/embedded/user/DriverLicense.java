@@ -6,7 +6,7 @@ import com.waffle.data.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 
 /**
@@ -31,15 +31,11 @@ public class DriverLicense {
     @Column(nullable = false, length = TextSize.S)
     private String lastName;
 
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
-    @Temporal(TemporalType.DATE)
-    private Date issueDate;
-    @Temporal(TemporalType.DATE)
-    private Date expirationDate;
+    private LocalDate birthDate;
+    private LocalDate issueDate;
+    private LocalDate expirationDate;
 
-    @OneToOne(mappedBy = "driverLicense")
-    @Column(nullable = false)
+    @OneToOne(mappedBy = "profile.driverLicense")
     private User user;
 
     @ElementCollection(targetClass = DriverLicenseCategory.class)
