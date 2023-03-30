@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * Post repository.
  */
 @Repository
-public interface PostRepository extends JpaRepository<Vehicle, Long>, JpaSpecificationExecutor<Vehicle> {
+public interface VehicleRepository extends JpaRepository<Vehicle, Long>, JpaSpecificationExecutor<Vehicle> {
 }
