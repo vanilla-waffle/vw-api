@@ -4,9 +4,9 @@ import com.waffle.data.constants.annotations.spring.Api;
 import lombok.RequiredArgsConstructor;
 
 /**
- * User controller for authorities.
+ * User public controller.
  */
-@Api("/users")
+@Api("public/users")
 @RequiredArgsConstructor
-public class UserController {
+public class UserPublicController {
 }
