@@ -1,5 +1,6 @@
-package com.waffle.data.dto.common;
+package com.waffle.data.dto.common.base;
 
+import com.waffle.data.entity.embedded.vehicle.VehicleModel;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,7 +10,9 @@ import javax.validation.constraints.Positive;
  * Common class for dto classes of Post.
  */
 @Data
-public class PostDto {
+public class VehicleDto {
+
+    private Long id;
 
     @NotEmpty
     private String title;
@@ -18,10 +21,7 @@ public class PostDto {
     private String description;
 
     @NotEmpty
-    private String manufacturer;
-
-    @NotEmpty
-    private String model;
+    private VehicleModel model;
 
     @NotEmpty
     @Positive

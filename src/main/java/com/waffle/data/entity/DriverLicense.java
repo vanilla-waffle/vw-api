@@ -1,4 +1,4 @@
-package com.waffle.data.embedded.user;
+package com.waffle.data.entity;
 
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.user.DriverLicenseCategory;
@@ -35,7 +35,7 @@ public class DriverLicense {
     private LocalDate issueDate;
     private LocalDate expirationDate;
 
-    @OneToOne(mappedBy = "profile.driverLicense")
+    @OneToOne(mappedBy = "driverLicense")
     private User user;
 
     @ElementCollection(targetClass = DriverLicenseCategory.class)

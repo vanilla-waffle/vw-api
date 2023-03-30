@@ -1,4 +1,4 @@
-package com.waffle.data.constants.annotations;
+package com.waffle.data.constants.annotations.validation;
 
 import com.waffle.configurations.validations.PasswordConstraintValidator;
 

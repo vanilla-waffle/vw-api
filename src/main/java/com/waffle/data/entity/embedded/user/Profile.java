@@ -1,16 +1,11 @@
-package com.waffle.data.embedded.user;
+package com.waffle.data.entity.embedded.user;
 
 import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
-import com.waffle.data.entity.Booking;
-import com.waffle.data.entity.PaymentMethod;
-import com.waffle.data.entity.Review;
-import com.waffle.data.entity.Vehicle;
+import com.waffle.data.entity.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,11 +25,11 @@ public class Profile {
 
     @Column(unique = true, length = TextSize.XS)
     private String username;
-    @Column(nullable = false, length = TextSize.S)
+    @Column(length = TextSize.S)
     private String firstName;
-    @Column(nullable = false, length = TextSize.S)
+    @Column(length = TextSize.S)
     private String lastName;
-    @Column(nullable = false, length = TextSize.XS)
+    @Column(length = TextSize.XS)
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

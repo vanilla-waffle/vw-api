@@ -1,6 +1,7 @@
 package com.waffle.data.dto.request.user;
 
-import com.waffle.data.constants.annotations.Password;
+import com.waffle.data.constants.annotations.validation.Password;
+import com.waffle.data.constants.annotations.validation.Phone;
 import com.waffle.data.constants.types.common.TextSize;
 import lombok.*;
 
@@ -20,7 +21,7 @@ public class UserCreateDto {
     @NotEmpty
     @Size(max = TextSize.XS)
     private String username;
-    @NotEmpty
+    @Phone
     private String phoneNumber;
     @NotEmpty
     @Password

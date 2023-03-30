@@ -2,8 +2,8 @@ package com.waffle.data.entity;
 
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.vehicle.Feature;
-import com.waffle.data.embedded.vehicle.PaymentPlan;
-import com.waffle.data.embedded.vehicle.Specification;
+import com.waffle.data.entity.embedded.vehicle.PaymentPlan;
+import com.waffle.data.entity.embedded.vehicle.Specification;
 import lombok.*;
 
 import javax.persistence.*;

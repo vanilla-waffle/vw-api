@@ -24,15 +24,15 @@ public class PaymentMethod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @CreationTimestamp
+    private LocalDate createdAt;
 
     @Column(length = TextSize.S)
     private String name;
-
-    @Column(length = TextSize.XS)
+    @Column(nullable = false, length = TextSize.XS)
+    private String number;
+    @Column(nullable = false, length = TextSize.XS)
     private String expireAt;
-
-    @CreationTimestamp
-    private LocalDate createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)

@@ -1,6 +1,6 @@
 package com.waffle.configurations.validations;
 
-import com.waffle.data.constants.annotations.Password;
+import com.waffle.data.constants.annotations.validation.Password;
 import org.passay.*;
 
 import javax.validation.ConstraintValidator;

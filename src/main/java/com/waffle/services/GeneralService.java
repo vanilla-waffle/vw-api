@@ -1,12 +1,12 @@
 package com.waffle.services;
 
-import com.waffle.data.dto.request.PostCreateDto;
+import com.waffle.data.dto.request.VehicleCreateDto;
 import com.waffle.data.dto.request.PostUpdateDto;
 import com.waffle.data.dto.request.user.UserCreateDto;
 import com.waffle.data.dto.request.user.UserUpdateDto;
-import com.waffle.data.dto.response.PostAllDto;
-import com.waffle.data.dto.response.UserAllDto;
-import com.waffle.data.dto.response.UserSlimDto;
+import com.waffle.data.dto.response.vehicle.VehicleAllDto;
+import com.waffle.data.dto.response.user.UserAllDto;
+import com.waffle.data.dto.response.user.UserSlimDto;
 
 /**
  * Bridge service between User and Post services.
@@ -19,7 +19,7 @@ public interface GeneralService {
      * @param payload post
      * @return all response dto
      */
-    PostAllDto save(PostCreateDto payload);
+    VehicleAllDto save(VehicleCreateDto payload);
 
     /**
      * Save new user.
@@ -43,7 +43,7 @@ public interface GeneralService {
      * @param payload post
      * @return all response dto
      */
-    PostAllDto update(PostUpdateDto payload);
+    VehicleAllDto update(PostUpdateDto payload);
 
     /**
      * Delete existing user.
