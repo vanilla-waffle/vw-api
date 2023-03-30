@@ -7,11 +7,11 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 
 /**
- * Generic service with common methods with sorting and paging abilities.
+ * Generic service of common methods with sorting abilities.
  *
  * @param <T> any valid entity that has corresponding repository
  */
-public interface SortingAndPagingService<T> {
+public interface SortingService<T> {
 
     /**
      * Find all entities sorted.
