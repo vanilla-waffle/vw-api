@@ -1,6 +1,5 @@
 package com.waffle.data.dto.common.base;
 
-import com.waffle.data.entity.embedded.vehicle.VehicleModel;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -21,7 +20,9 @@ public class VehicleDto {
     private String description;
 
     @NotEmpty
-    private VehicleModel model;
+    private String manuf;
+    @NotEmpty
+    private String model;
 
     @NotEmpty
     @Positive

@@ -1,4 +1,4 @@
-package com.waffle.services;
+package com.waffle.services.entity;
 
 import org.springframework.web.multipart.MultipartFile;
 

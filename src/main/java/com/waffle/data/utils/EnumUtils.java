@@ -11,7 +11,10 @@ import java.util.List;
 /**
  * Enum utils.
  */
-public class EnumUtils {
+public final class EnumUtils {
+
+    private EnumUtils() {
+    }
 
     /**
      * Converts provided string to existing enum.

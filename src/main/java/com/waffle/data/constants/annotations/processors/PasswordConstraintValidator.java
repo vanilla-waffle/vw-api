@@ -1,4 +1,4 @@
-package com.waffle.configurations.validations;
+package com.waffle.data.constants.annotations.processors;
 
 import com.waffle.data.constants.annotations.validation.Password;
 import org.passay.*;

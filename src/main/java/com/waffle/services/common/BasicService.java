@@ -1,4 +1,4 @@
-package com.waffle.services.base;
+package com.waffle.services.common;
 
 import java.util.List;
 

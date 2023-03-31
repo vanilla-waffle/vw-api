@@ -1,7 +1,7 @@
-package com.waffle.services;
+package com.waffle.services.entity;
 
 import com.waffle.data.entity.Location;
-import com.waffle.services.base.BasicService;
+import com.waffle.services.common.BasicService;
 
 /**
  * Location service.

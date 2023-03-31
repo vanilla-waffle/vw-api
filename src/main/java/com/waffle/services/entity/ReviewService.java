@@ -1,7 +1,7 @@
-package com.waffle.services;
+package com.waffle.services.entity;
 
 import com.waffle.data.entity.Review;
-import com.waffle.services.base.BasicService;
+import com.waffle.services.common.BasicService;
 
 /**
  * Review service.

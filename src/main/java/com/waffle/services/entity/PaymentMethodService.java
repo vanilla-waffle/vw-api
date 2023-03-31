@@ -1,7 +1,7 @@
-package com.waffle.services.impl;
+package com.waffle.services.entity;
 
 import com.waffle.data.entity.PaymentMethod;
-import com.waffle.services.base.BasicService;
+import com.waffle.services.common.BasicService;
 
 /**
  * Payment method service.

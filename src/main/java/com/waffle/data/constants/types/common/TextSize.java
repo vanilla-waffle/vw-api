@@ -3,7 +3,11 @@ package com.waffle.data.constants.types.common;
 /**
  * Text size definitions.
  */
-public class TextSize {
+public final class TextSize {
+
+    private TextSize() {
+    }
+
     /**
      * Tiny.
      */

@@ -1,7 +1,6 @@
-package com.waffle.services.impl;
+package com.waffle.services.entity.impl;
 
 import com.waffle.repositories.UserRepository;
-import com.waffle.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +9,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl {
     private final UserRepository repository;
 }

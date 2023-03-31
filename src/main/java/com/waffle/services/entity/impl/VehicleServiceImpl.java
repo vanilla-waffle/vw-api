@@ -1,7 +1,6 @@
-package com.waffle.services.impl;
+package com.waffle.services.entity.impl;
 
 import com.waffle.repositories.VehicleRepository;
-import com.waffle.services.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +9,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class VehicleServiceImpl implements VehicleService {
+public class VehicleServiceImpl {
     private final VehicleRepository repository;
 }

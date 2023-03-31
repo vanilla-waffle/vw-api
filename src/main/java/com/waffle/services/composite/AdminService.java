@@ -1,4 +1,4 @@
-package com.waffle.services;
+package com.waffle.services.composite;
 
 import com.waffle.data.constants.types.user.Role;
 import org.springframework.stereotype.Service;

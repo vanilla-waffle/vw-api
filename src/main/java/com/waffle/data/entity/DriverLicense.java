@@ -2,7 +2,6 @@ package com.waffle.data.entity;
 
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.user.DriverLicenseCategory;
-import com.waffle.data.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
