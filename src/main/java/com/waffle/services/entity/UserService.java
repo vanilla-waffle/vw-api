@@ -1,7 +1,7 @@
 package com.waffle.services.entity;
 
 
-import com.waffle.data.entity.User;
+import com.waffle.data.entities.User;
 import com.waffle.services.common.BasicService;
 
 /**

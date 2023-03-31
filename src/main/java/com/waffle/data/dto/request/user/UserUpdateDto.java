@@ -1,7 +1,7 @@
 package com.waffle.data.dto.request.user;
 
 import com.waffle.data.constants.types.user.UserStatus;
-import com.waffle.data.entity.embedded.user.Profile;
+import com.waffle.data.entities.embedded.user.Profile;
 import lombok.Data;
 
 /**

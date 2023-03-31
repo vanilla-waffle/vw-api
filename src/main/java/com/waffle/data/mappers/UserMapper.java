@@ -3,22 +3,17 @@ package com.waffle.data.mappers;
 import com.waffle.configurations.WaffleMapperConfig;
 import com.waffle.data.dto.response.user.UserAllDto;
 import com.waffle.data.dto.response.user.UserSlimDto;
-import com.waffle.data.entity.User;
+import com.waffle.data.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 /**
- * Mappers class for mapping {@link com.waffle.data.entity.User} entity.
+ * Mappers class for mapping {@link com.waffle.data.entities.User} entity.
  */
 @Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
 public interface UserMapper {
-
-    /**
-     * Mapper instance.
-     */
-    UserMapper MAPPER = Mappers.getMapper(UserMapper.class);
 
     /**
      * Map from {@link User} to {@link UserAllDto}.

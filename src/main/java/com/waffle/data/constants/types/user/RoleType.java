@@ -3,7 +3,7 @@ package com.waffle.data.constants.types.user;
 /**
  * Roles.
  */
-public enum Role {
+public enum RoleType {
 
     /**
      * Super administrator with all available privileges and also:
@@ -14,5 +14,13 @@ public enum Role {
     /**
      * Admin with basic administrator privileges.
      */
-    ADMIN
+    ADMIN,
+    /**
+     * Basic user that provides vehicle for renters.
+     */
+    USER_HOST,
+    /**
+     * Basic user that rents a vehicle.
+     */
+    USER_RENTER;
 }

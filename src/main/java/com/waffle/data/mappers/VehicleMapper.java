@@ -4,8 +4,8 @@ import com.waffle.configurations.WaffleMapperConfig;
 import com.waffle.data.dto.common.LocationDto;
 import com.waffle.data.dto.response.vehicle.VehicleAllDto;
 import com.waffle.data.dto.response.vehicle.VehicleSlimDto;
-import com.waffle.data.entity.Location;
-import com.waffle.data.entity.Vehicle;
+import com.waffle.data.entities.Location;
+import com.waffle.data.entities.Vehicle;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

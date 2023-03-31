@@ -1,7 +1,7 @@
 package com.waffle.services.entity;
 
 
-import com.waffle.data.entity.Vehicle;
+import com.waffle.data.entities.Vehicle;
 import com.waffle.services.common.BasicService;
 
 /**

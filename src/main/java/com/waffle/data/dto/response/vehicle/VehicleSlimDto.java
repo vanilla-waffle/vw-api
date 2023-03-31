@@ -1,9 +1,9 @@
 package com.waffle.data.dto.response.vehicle;
 
 import com.waffle.data.dto.common.base.VehicleDto;
-import com.waffle.data.entity.Location;
-import com.waffle.data.entity.User;
-import com.waffle.data.entity.embedded.vehicle.PaymentPlan;
+import com.waffle.data.entities.Location;
+import com.waffle.data.entities.User;
+import com.waffle.data.entities.embedded.vehicle.PaymentPlan;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,6 +1,6 @@
 package com.waffle.repositories;
 
-import com.waffle.data.entity.Review;
+import com.waffle.data.entities.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

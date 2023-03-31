@@ -1,6 +1,6 @@
 package com.waffle.repositories.specifications;
 
-import com.waffle.data.entity.User;
+import com.waffle.data.entities.User;
 import org.springframework.data.jpa.domain.Specification;
 
 /**

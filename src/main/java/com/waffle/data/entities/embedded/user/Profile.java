@@ -1,8 +1,8 @@
-package com.waffle.data.entity.embedded.user;
+package com.waffle.data.entities.embedded.user;
 
 import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
-import com.waffle.data.entity.*;
+import com.waffle.data.entities.*;
 import lombok.*;
 
 import javax.persistence.*;

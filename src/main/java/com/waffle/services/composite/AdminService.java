@@ -1,6 +1,6 @@
 package com.waffle.services.composite;
 
-import com.waffle.data.constants.types.user.Role;
+import com.waffle.data.constants.types.user.RoleType;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,10 +18,10 @@ public interface AdminService {
     void ban(Long userId, Long duration);
 
     /**
-     * Assign a role {@link Role} for user.
+     * Assign a role {@link RoleType} for user.
      *
      * @param userId user id
      * @param role role
      */
-    void grant(Long userId, Role role);
+    void grant(Long userId, RoleType role);
 }

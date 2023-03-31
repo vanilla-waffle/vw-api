@@ -1,4 +1,4 @@
-package com.waffle.data.entity.embedded.vehicle;
+package com.waffle.data.entities.embedded.vehicle;
 
 import com.waffle.data.constants.types.vehicle.Payment;
 import lombok.*;

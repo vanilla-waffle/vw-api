@@ -1,6 +1,6 @@
 package com.waffle.repositories;
 
-import com.waffle.data.entity.Booking;
+import com.waffle.data.entities.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

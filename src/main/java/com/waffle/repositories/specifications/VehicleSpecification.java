@@ -1,6 +1,6 @@
 package com.waffle.repositories.specifications;
 
-import com.waffle.data.entity.Vehicle;
+import com.waffle.data.entities.Vehicle;
 import org.springframework.data.jpa.domain.Specification;
 
 /**

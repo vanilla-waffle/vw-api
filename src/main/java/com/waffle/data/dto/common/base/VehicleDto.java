@@ -1,8 +1,10 @@
 package com.waffle.data.dto.common.base;
 
+import com.waffle.data.dto.common.VehiclePassportDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 /**
@@ -27,4 +29,7 @@ public class VehicleDto {
     @NotEmpty
     @Positive
     private Integer releaseYear;
+
+    @NotNull
+    private VehiclePassportDto passport;
 }

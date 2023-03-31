@@ -1,4 +1,4 @@
-package com.waffle.data.entity;
+package com.waffle.data.entities;
 
 import com.waffle.data.constants.types.common.TextSize;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * Review entity.
  */
 @Entity
-@Table(name = "reviews")
+@Table(name = "vw_reviews")
 @Data
 @Builder
 @NoArgsConstructor

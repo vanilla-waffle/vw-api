@@ -1,4 +1,4 @@
-package com.waffle.data.entity;
+package com.waffle.data.entities;
 
 import com.waffle.data.constants.types.booking.BookingStatus;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * Booking entity.
  */
 @Entity
-@Table(name = "bookings")
+@Table(name = "vw_bookings")
 @Data
 @Builder
 @NoArgsConstructor

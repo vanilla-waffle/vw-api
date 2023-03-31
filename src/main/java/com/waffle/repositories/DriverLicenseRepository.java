@@ -1,6 +1,6 @@
 package com.waffle.repositories;
 
-import com.waffle.data.entity.DriverLicense;
+import com.waffle.data.entities.DriverLicense;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

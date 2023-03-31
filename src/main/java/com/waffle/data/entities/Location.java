@@ -1,4 +1,4 @@
-package com.waffle.data.entity;
+package com.waffle.data.entities;
 
 import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * Vehicle location entity.
  */
 @Entity
-@Table(name = "locations")
+@Table(name = "vw_locations")
 @Data
 @Builder
 @NoArgsConstructor

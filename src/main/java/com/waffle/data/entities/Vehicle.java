@@ -1,9 +1,9 @@
-package com.waffle.data.entity;
+package com.waffle.data.entities;
 
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.vehicle.Feature;
-import com.waffle.data.entity.embedded.vehicle.PaymentPlan;
-import com.waffle.data.entity.embedded.vehicle.Specification;
+import com.waffle.data.entities.embedded.vehicle.PaymentPlan;
+import com.waffle.data.entities.embedded.vehicle.Specification;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +14,7 @@ import java.util.List;
  * Post entity.
  */
 @Entity
-@Table(name = "vehicles")
+@Table(name = "vw_vehicles")
 @Data
 @Builder
 @NoArgsConstructor
@@ -45,7 +45,7 @@ public class Vehicle {
     private Specification spec;
 
     @ElementCollection(targetClass = Feature.class)
-    @CollectionTable(name = "vehicle_feature", joinColumns = @JoinColumn(name = "vehicle_id"))
+    @CollectionTable(name = "vw_vehicle_feature", joinColumns = @JoinColumn(name = "vehicle_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "feature_name")
     private Collection<Feature> features;
@@ -53,6 +53,9 @@ public class Vehicle {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private User user;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private VehiclePassport passport;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(nullable = false)
     private Location location;

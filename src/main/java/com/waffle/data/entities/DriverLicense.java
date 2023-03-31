@@ -1,4 +1,4 @@
-package com.waffle.data.entity;
+package com.waffle.data.entities;
 
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.user.DriverLicenseCategory;
@@ -12,7 +12,7 @@ import java.util.Collection;
  * Driver license entity.
  */
 @Entity
-@Table(name = "driver_licenses")
+@Table(name = "vw_driver_licenses")
 @Data
 @Builder
 @NoArgsConstructor
@@ -34,11 +34,11 @@ public class DriverLicense {
     private LocalDate issueDate;
     private LocalDate expirationDate;
 
-    @OneToOne(mappedBy = "driverLicense")
+    @OneToOne(mappedBy = "profile.driverLicense")
     private User user;
 
     @ElementCollection(targetClass = DriverLicenseCategory.class)
-    @CollectionTable(name = "driver_license_categories", joinColumns = @JoinColumn(name = "driver_license_id"))
+    @CollectionTable(name = "vw_driver_license_categories", joinColumns = @JoinColumn(name = "driver_license_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "category_name")
     private Collection<DriverLicenseCategory> categories;
