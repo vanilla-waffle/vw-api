@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,10 +41,11 @@ public class VehiclePassport {
     private String registeredPlace;
 
     private String specialNotes;
-    private String deregestrationNote;
+    private String deregistrationNote;
 
     private String serialNumber;
 
     @OneToOne(mappedBy = "passport")
+    @JsonBackReference(value = "vehicle-passport")
     private Vehicle vehicle;
 }

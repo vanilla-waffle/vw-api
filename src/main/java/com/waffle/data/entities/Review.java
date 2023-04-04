@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.TextSize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,8 +35,10 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonBackReference(value = "user-reviews")
     private User user;
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonBackReference(value = "vehicle-reviews")
     private Vehicle vehicle;
 }

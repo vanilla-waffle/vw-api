@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.booking.BookingStatus;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,9 +27,11 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonBackReference(value = "user-bookings")
     private User user;
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonBackReference
     private Vehicle vehicle;
 
     private LocalDateTime startedAt;

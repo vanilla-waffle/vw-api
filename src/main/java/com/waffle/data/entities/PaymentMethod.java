@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.TextSize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,5 +37,6 @@ public class PaymentMethod {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
+    @JsonBackReference(value = "user-paymentMethods")
     private User user;
 }

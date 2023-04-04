@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.user.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,5 +34,6 @@ public class Role {
     private RoleType role;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     private Set<User> users;
 }

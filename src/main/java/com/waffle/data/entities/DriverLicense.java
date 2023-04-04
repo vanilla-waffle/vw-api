@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.user.DriverLicenseCategory;
 import lombok.*;
@@ -35,6 +36,7 @@ public class DriverLicense {
     private LocalDate expirationDate;
 
     @OneToOne(mappedBy = "profile.driverLicense")
+    @JsonBackReference(value = "user-driverLicense")
     private User user;
 
     @ElementCollection(targetClass = DriverLicenseCategory.class)

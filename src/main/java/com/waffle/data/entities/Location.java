@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
 import lombok.AllArgsConstructor;
@@ -40,5 +41,6 @@ public class Location {
     private Double longitue;
 
     @OneToOne(mappedBy = "location")
+    @JsonBackReference(value = "vehicle-location")
     private Vehicle vehicle;
 }

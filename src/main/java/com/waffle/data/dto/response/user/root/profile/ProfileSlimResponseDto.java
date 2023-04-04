@@ -1,4 +1,4 @@
-package com.waffle.data.dto.response.user.profile;
+package com.waffle.data.dto.response.user.root.profile;
 
 import com.waffle.data.dto.common.base.ProfileDto;
 import lombok.Data;
@@ -9,5 +9,5 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ProfileSlimDto extends ProfileDto {
+public class ProfileSlimResponseDto extends ProfileDto {
 }

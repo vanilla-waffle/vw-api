@@ -13,8 +13,6 @@ import javax.validation.constraints.Positive;
 @Data
 public class VehicleDto {
 
-    private Long id;
-
     @NotEmpty
     private String title;
 
@@ -26,7 +24,7 @@ public class VehicleDto {
     @NotEmpty
     private String model;
 
-    @NotEmpty
+    @NotNull
     @Positive
     private Integer releaseYear;
 

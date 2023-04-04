@@ -3,16 +3,12 @@ package com.waffle.data.dto.common;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Vehicle passport dto.
  */
 @Data
 public class VehiclePassportDto {
-
-    private Long id;
-    private LocalDateTime createdAt;
 
     private String passportNumber;
     private String modelName;

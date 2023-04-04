@@ -14,7 +14,7 @@ public interface SortingService<T> {
     /**
      * Find all entities sorted.
      *
-     * @param sort {@link Sort}
+     * @param sort {@link Sort} sort params
      * @return list of entities.
      */
     List<T> findAll(Sort sort);

@@ -1,7 +1,7 @@
 package com.waffle.data.dto.request.user;
 
 import com.waffle.data.constants.types.user.UserStatus;
-import com.waffle.data.entities.embedded.user.Profile;
+import com.waffle.data.dto.common.base.ProfileDto;
 import lombok.Data;
 
 /**
@@ -10,6 +10,8 @@ import lombok.Data;
 @Data
 public class UserUpdateDto {
 
+    private Long id;
     private UserStatus status;
-    private Profile profile;
+
+    private ProfileDto profile;
 }

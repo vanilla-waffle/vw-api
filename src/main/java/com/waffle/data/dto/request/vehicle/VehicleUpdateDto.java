@@ -1,4 +1,4 @@
-package com.waffle.data.dto.request;
+package com.waffle.data.dto.request.vehicle;
 
 import com.waffle.data.dto.common.PaymentPlanDto;
 import com.waffle.data.dto.common.base.VehicleDto;
@@ -7,16 +7,17 @@ import com.waffle.data.constants.types.vehicle.Feature;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Request, dto class to update a Post.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class PostUpdateDto extends VehicleDto {
+public class VehicleUpdateDto extends VehicleDto {
 
+    private Long id;
     private PaymentPlanDto paymentPlan;
     private SpecificationDto specification;
-    private Collection<Feature> features;
+    private Set<Feature> features;
 }
