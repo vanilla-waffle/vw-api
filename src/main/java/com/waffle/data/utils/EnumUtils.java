@@ -1,7 +1,7 @@
 package com.waffle.data.utils;
 
 import com.waffle.data.constants.types.common.City;
-import com.waffle.data.constants.types.user.Status;
+import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.constants.types.vehicle.*;
 
 import java.util.ArrayList;
@@ -11,7 +11,10 @@ import java.util.List;
 /**
  * Enum utils.
  */
-public class EnumUtils {
+public final class EnumUtils {
+
+    private EnumUtils() {
+    }
 
     /**
      * Converts provided string to existing enum.
@@ -39,7 +42,7 @@ public class EnumUtils {
         allValues.addAll(Arrays.asList(Drive.values()));
         allValues.addAll(Arrays.asList(Feature.values()));
         allValues.addAll(Arrays.asList(Transmission.values()));
-        allValues.addAll(Arrays.asList(Status.values()));
+        allValues.addAll(Arrays.asList(UserStatus.values()));
         allValues.addAll(Arrays.asList(Body.values()));
         allValues.addAll(Arrays.asList(Payment.values()));
         return allValues.toArray(new Enum<?>[0]);

@@ -1,0 +1,1244 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080/api
+    description: Generated server url
+paths:
+  /vehicles/vehicles:
+    post:
+      tags:
+        - vehicle-controller
+      operationId: save
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleCreateDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VehicleAllDto'
+  /public/users:
+    get:
+      tags:
+        - user-public-controller
+      operationId: findAll
+      parameters:
+        - name: sort
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserSlimDto'
+      deprecated: true
+    post:
+      tags:
+        - user-public-controller
+      operationId: save_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserAllDto'
+  /vehicles:
+    patch:
+      tags:
+        - vehicle-controller
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleUpdateDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VehicleAllDto'
+  /users:
+    patch:
+      tags:
+        - user-controller
+      operationId: update_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserAllDto'
+  /public/vehicles/{id}:
+    get:
+      tags:
+        - vehicle-public-controller
+      operationId: find
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VehicleAllDto'
+  /public/users/{id}:
+    get:
+      tags:
+        - user-public-controller
+      operationId: find_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserAllDto'
+  /public/users/users/{userId}/vehicles:
+    get:
+      tags:
+        - user-public-controller
+      operationId: findAll_1
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: sort
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VehicleSlimDto'
+  /vehicles/{id}:
+    delete:
+      tags:
+        - vehicle-controller
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+  /users/{id}:
+    delete:
+      tags:
+        - user-controller
+      operationId: delete_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: boolean
+components:
+  schemas:
+    LocationDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        city:
+          type: string
+          enum:
+            - ASTANA
+            - ALMATY
+            - SHYMKENT
+            - AKTOBE
+            - KARAGANDY
+            - TARAZ
+            - UST_KAMENOGORSK
+            - PAVLODAR
+            - ATYRAU
+            - SEMEY
+            - KYZYLORDA
+            - KOSTANAY
+            - AKTAU
+            - URALSK
+            - PETROPAVLOVSK
+            - TURKESTAN
+            - KOKSHETAU
+            - TEMIRTAU
+            - TALDYKORGAN
+        address:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitue:
+          type: number
+          format: double
+    PaymentPlanDto:
+      required:
+        - duration
+        - payment
+        - price
+      type: object
+      properties:
+        price:
+          type: integer
+          format: int64
+        duration:
+          type: integer
+          format: int64
+        payment:
+          type: string
+          enum:
+            - HOUR
+            - DAY
+    SpecificationDto:
+      required:
+        - body
+        - color
+        - doors
+        - drive
+        - engineVolume
+        - fuel
+        - seats
+        - transmission
+      type: object
+      properties:
+        color:
+          type: string
+          enum:
+            - BLACK
+            - BLUE
+            - BROWN
+            - GOLD
+            - GRAY
+            - GREEN
+            - ORANGE
+            - PURPLE
+            - RED
+            - SILVER
+            - TAN
+            - WHITE
+            - YELLOW
+        body:
+          type: string
+          enum:
+            - HATCHBACK
+            - SEDAN
+            - SUV
+            - COUPE
+            - CONVERTIBLE
+            - VAN
+            - JEEP
+            - PICKUP
+            - WAGON
+        drive:
+          type: string
+          enum:
+            - ALL
+            - FRONT
+            - BACK
+        transmission:
+          type: string
+          enum:
+            - AT
+            - MT
+            - AMT
+            - CVT
+        fuel:
+          type: string
+          enum:
+            - GAS
+            - PETROL
+            - DIESEL
+            - ELECTRIC
+        engineVolume:
+          type: number
+          format: double
+        doors:
+          minimum: 2
+          type: integer
+          format: int32
+        seats:
+          minimum: 2
+          type: integer
+          format: int32
+    VehicleCreateDto:
+      required:
+        - description
+        - location
+        - manuf
+        - model
+        - passport
+        - paymentPlan
+        - releaseYear
+        - spec
+        - title
+        - userId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        manuf:
+          type: string
+        model:
+          type: string
+        releaseYear:
+          type: integer
+          format: int32
+        passport:
+          $ref: '#/components/schemas/VehiclePassportDto'
+        userId:
+          type: integer
+          format: int64
+        paymentPlan:
+          $ref: '#/components/schemas/PaymentPlanDto'
+        spec:
+          $ref: '#/components/schemas/SpecificationDto'
+        location:
+          $ref: '#/components/schemas/LocationDto'
+        features:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - ANDROID_AUTO
+              - APPLE_CARPLAY
+              - BLUETOOTH
+              - GPS
+              - AUX
+    VehiclePassportDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        passportNumber:
+          type: string
+        modelName:
+          type: string
+        categoryName:
+          type: string
+        receivedAt:
+          type: string
+          format: date
+        vin:
+          type: string
+        releaseYear:
+          type: integer
+          format: int32
+        engineVolume:
+          type: number
+          format: double
+        color:
+          type: string
+        permittedMass:
+          type: integer
+          format: int32
+        ownerName:
+          type: string
+        registeredPlace:
+          type: string
+        specialNotes:
+          type: string
+        deregestrationNote:
+          type: string
+        serialNumber:
+          type: string
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/User'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        totalPrice:
+          type: number
+          format: double
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - COMPLETED
+            - CANCELED
+    DriverLicense:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        licenseNumber:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthDate:
+          type: string
+          format: date
+        issueDate:
+          type: string
+          format: date
+        expirationDate:
+          type: string
+          format: date
+        user:
+          $ref: '#/components/schemas/User'
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+              - A
+              - A1
+              - B
+              - BE
+              - B1
+              - C
+              - C1
+              - CE
+              - C1E
+              - D
+              - D1
+    DriverLicenseDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        licenseNumber:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthDate:
+          type: string
+          format: date
+        issueDate:
+          type: string
+          format: date
+        expirationDate:
+          type: string
+          format: date
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+              - A
+              - A1
+              - B
+              - BE
+              - B1
+              - C
+              - C1
+              - CE
+              - C1E
+              - D
+              - D1
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        city:
+          type: string
+          enum:
+            - ASTANA
+            - ALMATY
+            - SHYMKENT
+            - AKTOBE
+            - KARAGANDY
+            - TARAZ
+            - UST_KAMENOGORSK
+            - PAVLODAR
+            - ATYRAU
+            - SEMEY
+            - KYZYLORDA
+            - KOSTANAY
+            - AKTAU
+            - URALSK
+            - PETROPAVLOVSK
+            - TURKESTAN
+            - KOKSHETAU
+            - TEMIRTAU
+            - TALDYKORGAN
+        address:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitue:
+          type: number
+          format: double
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+    PaymentMethod:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date
+        name:
+          type: string
+        number:
+          type: string
+        expireAt:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+    PaymentPlan:
+      type: object
+      properties:
+        price:
+          type: integer
+          format: int64
+        duration:
+          type: integer
+          format: int64
+        payment:
+          type: string
+          enum:
+            - HOUR
+            - DAY
+    Profile:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        driverLicense:
+          $ref: '#/components/schemas/DriverLicense'
+        paymentMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vehicle'
+        bookings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Booking'
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+        city:
+          type: string
+          enum:
+            - ASTANA
+            - ALMATY
+            - SHYMKENT
+            - AKTOBE
+            - KARAGANDY
+            - TARAZ
+            - UST_KAMENOGORSK
+            - PAVLODAR
+            - ATYRAU
+            - SEMEY
+            - KYZYLORDA
+            - KOSTANAY
+            - AKTAU
+            - URALSK
+            - PETROPAVLOVSK
+            - TURKESTAN
+            - KOKSHETAU
+            - TEMIRTAU
+            - TALDYKORGAN
+    ProfileSlimDto:
+      required:
+        - firstName
+        - lastName
+        - phoneNumber
+        - username
+      type: object
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        driverLicense:
+          $ref: '#/components/schemas/DriverLicenseDto'
+        city:
+          type: string
+          enum:
+            - ASTANA
+            - ALMATY
+            - SHYMKENT
+            - AKTOBE
+            - KARAGANDY
+            - TARAZ
+            - UST_KAMENOGORSK
+            - PAVLODAR
+            - ATYRAU
+            - SEMEY
+            - KYZYLORDA
+            - KOSTANAY
+            - AKTAU
+            - URALSK
+            - PETROPAVLOVSK
+            - TURKESTAN
+            - KOKSHETAU
+            - TEMIRTAU
+            - TALDYKORGAN
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        rating:
+          type: integer
+          format: int32
+        text:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        role:
+          type: string
+          enum:
+            - SUPERADMIN
+            - ADMIN
+            - USER_HOST
+            - USER_RENTER
+        users:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    Specification:
+      type: object
+      properties:
+        color:
+          type: string
+          enum:
+            - BLACK
+            - BLUE
+            - BROWN
+            - GOLD
+            - GRAY
+            - GREEN
+            - ORANGE
+            - PURPLE
+            - RED
+            - SILVER
+            - TAN
+            - WHITE
+            - YELLOW
+        body:
+          type: string
+          enum:
+            - HATCHBACK
+            - SEDAN
+            - SUV
+            - COUPE
+            - CONVERTIBLE
+            - VAN
+            - JEEP
+            - PICKUP
+            - WAGON
+        drive:
+          type: string
+          enum:
+            - ALL
+            - FRONT
+            - BACK
+        transmission:
+          type: string
+          enum:
+            - AT
+            - MT
+            - AMT
+            - CVT
+        fuel:
+          type: string
+          enum:
+            - GAS
+            - PETROL
+            - DIESEL
+            - ELECTRIC
+        engineVolume:
+          type: number
+          format: double
+        doors:
+          type: integer
+          format: int32
+        seats:
+          type: integer
+          format: int32
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - PENDING
+            - ACTIVE
+            - INACTIVE
+            - BANNED
+        profile:
+          $ref: '#/components/schemas/Profile'
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+    UserSlimDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - PENDING
+            - ACTIVE
+            - INACTIVE
+            - BANNED
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        profile:
+          $ref: '#/components/schemas/ProfileSlimDto'
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        title:
+          type: string
+        description:
+          type: string
+        manuf:
+          type: string
+        model:
+          type: string
+        releaseYear:
+          type: integer
+          format: int32
+        paymentPlan:
+          $ref: '#/components/schemas/PaymentPlan'
+        spec:
+          $ref: '#/components/schemas/Specification'
+        features:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - ANDROID_AUTO
+              - APPLE_CARPLAY
+              - BLUETOOTH
+              - GPS
+              - AUX
+        user:
+          $ref: '#/components/schemas/User'
+        passport:
+          $ref: '#/components/schemas/VehiclePassport'
+        location:
+          $ref: '#/components/schemas/Location'
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+    VehicleAllDto:
+      required:
+        - description
+        - manuf
+        - model
+        - passport
+        - releaseYear
+        - title
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        manuf:
+          type: string
+        model:
+          type: string
+        releaseYear:
+          type: integer
+          format: int32
+        passport:
+          $ref: '#/components/schemas/VehiclePassportDto'
+        paymentPlan:
+          $ref: '#/components/schemas/PaymentPlanDto'
+        spec:
+          $ref: '#/components/schemas/SpecificationDto'
+        features:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - ANDROID_AUTO
+              - APPLE_CARPLAY
+              - BLUETOOTH
+              - GPS
+              - AUX
+        user:
+          $ref: '#/components/schemas/UserSlimDto'
+        location:
+          $ref: '#/components/schemas/LocationDto'
+    VehiclePassport:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        passportNumber:
+          type: string
+        modelName:
+          type: string
+        categoryName:
+          type: string
+        receivedAt:
+          type: string
+          format: date
+        vin:
+          type: string
+        releaseYear:
+          type: integer
+          format: int32
+        engineVolume:
+          type: number
+          format: double
+        color:
+          type: string
+        permittedMass:
+          type: integer
+          format: int32
+        ownerName:
+          type: string
+        registeredPlace:
+          type: string
+        specialNotes:
+          type: string
+        deregistrationNote:
+          type: string
+        serialNumber:
+          type: string
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+    UserCreateDto:
+      required:
+        - city
+        - email
+        - password
+        - username
+      type: object
+      properties:
+        email:
+          type: string
+        username:
+          maxLength: 16
+          minLength: 0
+          type: string
+        phoneNumber:
+          type: string
+        city:
+          type: string
+          enum:
+            - ASTANA
+            - ALMATY
+            - SHYMKENT
+            - AKTOBE
+            - KARAGANDY
+            - TARAZ
+            - UST_KAMENOGORSK
+            - PAVLODAR
+            - ATYRAU
+            - SEMEY
+            - KYZYLORDA
+            - KOSTANAY
+            - AKTAU
+            - URALSK
+            - PETROPAVLOVSK
+            - TURKESTAN
+            - KOKSHETAU
+            - TEMIRTAU
+            - TALDYKORGAN
+        password:
+          type: string
+    BookingDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/UserSlimDto'
+        vehicle:
+          $ref: '#/components/schemas/VehicleSlimDto'
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        totalPrice:
+          type: number
+          format: double
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - COMPLETED
+            - CANCELED
+    PaymentMethodDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date
+        name:
+          type: string
+        number:
+          type: string
+        expireAt:
+          type: string
+    ProfileAllDto:
+      required:
+        - firstName
+        - lastName
+        - phoneNumber
+        - username
+      type: object
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        driverLicense:
+          $ref: '#/components/schemas/DriverLicenseDto'
+        city:
+          type: string
+          enum:
+            - ASTANA
+            - ALMATY
+            - SHYMKENT
+            - AKTOBE
+            - KARAGANDY
+            - TARAZ
+            - UST_KAMENOGORSK
+            - PAVLODAR
+            - ATYRAU
+            - SEMEY
+            - KYZYLORDA
+            - KOSTANAY
+            - AKTAU
+            - URALSK
+            - PETROPAVLOVSK
+            - TURKESTAN
+            - KOKSHETAU
+            - TEMIRTAU
+            - TALDYKORGAN
+        paymentMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethodDto'
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleSlimDto'
+        bookings:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingDto'
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewDto'
+    ReviewDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        rating:
+          type: integer
+          format: int32
+        text:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserSlimDto'
+        vehicle:
+          $ref: '#/components/schemas/VehicleSlimDto'
+    UserAllDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - PENDING
+            - ACTIVE
+            - INACTIVE
+            - BANNED
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        profile:
+          $ref: '#/components/schemas/ProfileAllDto'
+    VehicleSlimDto:
+      required:
+        - description
+        - manuf
+        - model
+        - passport
+        - releaseYear
+        - title
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        manuf:
+          type: string
+        model:
+          type: string
+        releaseYear:
+          type: integer
+          format: int32
+        passport:
+          $ref: '#/components/schemas/VehiclePassportDto'
+        paymentPlan:
+          $ref: '#/components/schemas/PaymentPlan'
+        user:
+          $ref: '#/components/schemas/User'
+        location:
+          $ref: '#/components/schemas/Location'
+    VehicleUpdateDto:
+      required:
+        - description
+        - manuf
+        - model
+        - passport
+        - releaseYear
+        - title
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        manuf:
+          type: string
+        model:
+          type: string
+        releaseYear:
+          type: integer
+          format: int32
+        passport:
+          $ref: '#/components/schemas/VehiclePassportDto'
+        paymentPlan:
+          $ref: '#/components/schemas/PaymentPlanDto'
+        specification:
+          $ref: '#/components/schemas/SpecificationDto'
+        features:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - ANDROID_AUTO
+              - APPLE_CARPLAY
+              - BLUETOOTH
+              - GPS
+              - AUX
+    UserUpdateDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+            - PENDING
+            - ACTIVE
+            - INACTIVE
+            - BANNED
+        profile:
+          $ref: '#/components/schemas/Profile'

@@ -3,7 +3,11 @@ package com.waffle.data.constants.types.other;
 /**
  * JPA Specification operations definition.
  */
-public class Operation {
+public final class Operation {
+
+    private Operation() {
+    }
+
     /**
      * Like to operation.
      */
