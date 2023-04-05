@@ -42,6 +42,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User find(final String username) {
+        return repository.findOne(byUsername(username)).orElseThrow(() -> new UserNotFoundException(username));
+    }
+
+    @Override
     public User update(final User payload) {
         exists(payload.getProfile());
         final User actual = find(payload.getId());

@@ -11,5 +11,5 @@ import org.mapstruct.*;
         nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
-public interface WaffleMapperConfig {
+public interface MapperConfiguration {
 }

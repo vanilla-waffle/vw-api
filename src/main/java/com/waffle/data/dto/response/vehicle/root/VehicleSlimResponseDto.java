@@ -7,6 +7,8 @@ import com.waffle.data.entities.embedded.vehicle.PaymentPlan;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 /**
  * Response, dto class of Post with slim information.
  */
@@ -15,6 +17,8 @@ import lombok.EqualsAndHashCode;
 public class VehicleSlimResponseDto extends VehicleDto {
 
     private Long id;
+    private LocalDateTime createdAt;
+
     private PaymentPlan paymentPlan;
     private UserSlimResponseDto user;
     private LocationResponseDto location;

@@ -1,7 +1,7 @@
 package com.waffle.data.dto.common.base;
 
 import com.waffle.data.constants.types.user.UserStatus;
-import com.waffle.data.entities.Role;
+import com.waffle.data.entities.Authority;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,5 +16,5 @@ public class UserDto {
     private Long id;
     private LocalDateTime createdAt;
     private UserStatus status;
-    private Set<Role> roles;
+    private Set<Authority> roles;
 }

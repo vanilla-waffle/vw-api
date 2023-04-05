@@ -9,4 +9,12 @@ import com.waffle.services.common.SortingService;
  * User service.
  */
 public interface UserService extends BasicService<User>, SortingService<User> {
+
+    /**
+     * Find one {@link User}.
+     *
+     * @param username {@link String} username
+     * @return {@link User}
+     */
+    User find(String username);
 }

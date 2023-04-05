@@ -8,6 +8,7 @@ import com.waffle.data.dto.response.vehicle.LocationResponseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -17,6 +18,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class VehicleAllResponseDto extends VehicleDto {
     private Long id;
+    private LocalDateTime createdAt;
 
     private PaymentPlanDto paymentPlan;
     private SpecificationDto spec;

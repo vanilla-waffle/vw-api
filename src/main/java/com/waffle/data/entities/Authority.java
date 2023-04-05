@@ -1,7 +1,7 @@
 package com.waffle.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.waffle.data.constants.types.user.RoleType;
+import com.waffle.data.constants.types.user.AuthorityType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,12 +16,12 @@ import java.util.Set;
  * Authority entity for role managements.
  */
 @Entity
-@Table(name = "vw_roles")
+@Table(name = "vw_authorities")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class Authority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RoleType role;
+    private AuthorityType name;
 
     @ManyToMany(mappedBy = "roles")
     @JsonBackReference

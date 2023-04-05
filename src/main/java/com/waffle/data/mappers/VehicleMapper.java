@@ -1,6 +1,6 @@
 package com.waffle.data.mappers;
 
-import com.waffle.configurations.WaffleMapperConfig;
+import com.waffle.configurations.MapperConfiguration;
 import com.waffle.data.dto.common.LocationDto;
 import com.waffle.data.dto.request.vehicle.VehicleCreateDto;
 import com.waffle.data.dto.request.vehicle.VehicleUpdateDto;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Mappers class for mapping {@link Vehicle} entity.
  */
-@Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
+@Mapper(componentModel = "spring", config = MapperConfiguration.class)
 public interface VehicleMapper {
 
     /**

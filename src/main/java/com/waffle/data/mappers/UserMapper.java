@@ -1,6 +1,6 @@
 package com.waffle.data.mappers;
 
-import com.waffle.configurations.WaffleMapperConfig;
+import com.waffle.configurations.MapperConfiguration;
 import com.waffle.data.dto.request.user.UserCreateDto;
 import com.waffle.data.dto.request.user.UserUpdateDto;
 import com.waffle.data.dto.response.user.root.UserAllResponseDto;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Mappers class for mapping {@link com.waffle.data.entities.User} entity.
  */
-@Mapper(componentModel = "spring", config = WaffleMapperConfig.class)
+@Mapper(componentModel = "spring", config = MapperConfiguration.class)
 public interface UserMapper {
 
     /**
