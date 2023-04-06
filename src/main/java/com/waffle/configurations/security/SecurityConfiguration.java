@@ -1,61 +1,63 @@
 package com.waffle.configurations.security;
 
-import com.waffle.configurations.security.entries.AuthenticationErrorHandlerEntryPoint;
 import com.waffle.configurations.security.filters.AuthenticationFilter;
 import com.waffle.configurations.security.filters.AuthorizationFilter;
+import com.waffle.configurations.security.providers.BasicAuthenticationProvider;
 import com.waffle.services.composite.impl.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 /**
  * Security configuration.
  */
-@Configuration
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService userDetailsService;
-    private final AuthenticationErrorHandlerEntryPoint errorHandlerEntryPoint;
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .formLogin().disable()
-                .csrf().disable()
                 .anonymous().disable()
-                .cors().disable()
-                .exceptionHandling().authenticationEntryPoint(errorHandlerEntryPoint)
-                .and()
+                .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeHttpRequests().anyRequest().authenticated()
-                .and()
+            .and()
+                .authorizeRequests()
+                    .antMatchers("*/public/**").permitAll()
+                    .antMatchers("*/in/**").authenticated()
+            .and()
                 .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilter(new AuthorizationFilter(authenticationManagerBean()));
+                .addFilter(new AuthorizationFilter(authenticationManager()))
+                .httpBasic();
     }
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .authenticationProvider()
+                .authenticationProvider(authenticationProvider())
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
-    }
-
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
     }
 
     /**
@@ -66,6 +68,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Basic authentication provider bean.
+     *
+     * @return {@link AuthenticationProvider}
+     */
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new BasicAuthenticationProvider(userDetailsService, passwordEncoder());
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
     private static class BasicRequestMatcher implements RequestMatcher {

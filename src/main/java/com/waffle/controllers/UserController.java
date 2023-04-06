@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.status;
 /**
  * User controller for authorities.
  */
-@Api("/users")
+@Api("in/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserVehicleService service;

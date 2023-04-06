@@ -9,6 +9,8 @@ import com.waffle.repositories.UserRepository;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(final User payload) {
         exists(payload.getProfile());
+        final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        payload.getProfile().setPassword(encoder.encode(payload.getProfile().getPassword()));
         return repository.save(payload);
     }
 
