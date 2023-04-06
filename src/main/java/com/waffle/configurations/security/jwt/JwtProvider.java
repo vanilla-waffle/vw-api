@@ -6,9 +6,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.waffle.data.dto.other.UserInfo;
+import com.waffle.data.dto.other.UserContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
 import java.util.Map;
@@ -20,7 +22,7 @@ public class JwtProvider {
 
     private static final String SECRET = "0ilQ17mQF&7m";
     private static final String ISSUER = "wafflix";
-    private static final long EXPIRES_AT = 1_800_000;
+    private static final long EXPIRES_AFTER = 1_800_000;
 
     /**
      * Get principal form token.
@@ -30,34 +32,36 @@ public class JwtProvider {
      */
     public Authentication authentication(final String token) {
         Map<String, Claim> claims = claims(token);
-        return new UsernamePasswordAuthenticationToken(claims.get("username").asString(), claims.get("password").asString());
+        return new UsernamePasswordAuthenticationToken(claims.get("sub").asString(), claims.get("user_id").asString(), claims.get("roles").asList(GrantedAuthority.class));
     }
 
     /**
      * Generate token from provided user info.
      *
-     * @param u {@link UserInfo}
+     * @param u {@link UserDetails}
      * @return {@link String} token
      */
-    public String token(final UserInfo u) {
+    public String token(final UserContext u) {
         return JWT.create()
-                .withClaim("user", toClaims(u))
-                .withSubject(u.getProfile().getUsername())
+                .withClaim("user_id", u.getId().toString())
+                .withClaim("user_status", u.getStatus().toString())
+                .withClaim("roles", u.getAuthorities().toString())
+                .withSubject(u.getUsername())
                 .withIssuer(ISSUER)
-                .withExpiresAt(Instant.ofEpochMilli(EXPIRES_AT))
+                .withExpiresAt(getExpiresAt())
                 .sign(Algorithm.HMAC256(SECRET));
     }
 
     /**
      * Generate refresh token with 2x extended expiration time.
      *
-     * @param u {@link UserInfo}
+     * @param u {@link UserDetails}
      * @return {@link String} refresh token
      */
-    public String refreshToken(final UserInfo u) {
+    public String refreshToken(final UserContext u) {
         return JWT.create()
-                .withSubject(u.getProfile().getUsername())
-                .withExpiresAt(Instant.ofEpochMilli(EXPIRES_AT * 2))
+                .withSubject(u.getUsername())
+                .withExpiresAt(getExpiresAt(2))
                 .sign(Algorithm.HMAC256(SECRET));
     }
 
@@ -73,7 +77,6 @@ public class JwtProvider {
             DecodedJWT jwt = verifier.verify(token);
             return true;
         } catch (JWTVerificationException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -89,13 +92,11 @@ public class JwtProvider {
                 .getClaims();
     }
 
-    /**
-     * Convert user information to map of objects.
-     *
-     * @param u {@link UserInfo}
-     * @return {@link Map}
-     */
-    private Map<String, Object> toClaims(final UserInfo u) {
-        return Map.of("profile", u.getProfile());
+    private Instant getExpiresAt() {
+        return Instant.now().plusMillis(EXPIRES_AFTER);
+    }
+
+    private Instant getExpiresAt(final int x) {
+        return Instant.now().plusMillis(EXPIRES_AFTER * x);
     }
 }

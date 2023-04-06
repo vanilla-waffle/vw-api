@@ -1,6 +1,7 @@
 package com.waffle.data.mappers;
 
 import com.waffle.configurations.MapperConfiguration;
+import com.waffle.data.dto.other.UserContext;
 import com.waffle.data.dto.request.user.UserCreateDto;
 import com.waffle.data.dto.request.user.UserUpdateDto;
 import com.waffle.data.dto.response.user.root.UserAllResponseDto;
@@ -49,6 +50,15 @@ public interface UserMapper {
      */
     User convert(UserUpdateDto source);
 
+    /**
+     * Map from {@link User} to {@link UserContext}.
+     *
+     * @param source {@link User}
+     * @return {@link UserContext}
+     */
+    @Mapping(target = "password", source = "profile.password")
+    @Mapping(target = "authorities", source = "roles")
+    UserContext convert(User source);
 
     /**
      * Map from {@link User} to {@link UserAllResponseDto}.

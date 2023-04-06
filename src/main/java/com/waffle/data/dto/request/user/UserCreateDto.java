@@ -24,11 +24,11 @@ public class UserCreateDto {
     @NotEmpty
     @Size(max = TextSize.XS)
     private String username;
-//    @Phone
+    @Phone
     private String phoneNumber;
     @NotNull
     private City city;
     @NotEmpty
-//    @Password
+    @Password
     private String password;
 }

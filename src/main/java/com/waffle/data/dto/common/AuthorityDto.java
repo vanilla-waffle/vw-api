@@ -4,7 +4,7 @@ import com.waffle.data.constants.types.user.AuthorityType;
 import lombok.Data;
 
 /**
- * Role dto
+ * Role dto.
  */
 @Data
 public class AuthorityDto {

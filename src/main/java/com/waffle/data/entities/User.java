@@ -5,7 +5,6 @@ import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.entities.embedded.user.Profile;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

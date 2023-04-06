@@ -1,5 +1,8 @@
 package com.waffle.configurations.security.filters;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.waffle.configurations.security.jwt.Jwt;
+import com.waffle.data.dto.other.UserContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +19,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * Authorization filter-layer.
@@ -65,13 +71,23 @@ public class AuthorizationFilter extends UsernamePasswordAuthenticationFilter {
             final HttpServletRequest request,
             final HttpServletResponse response,
             final FilterChain chain,
-            final Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
+            final Authentication auth) throws IOException, ServletException {
+        final UserContext ctx = (UserContext) auth.getPrincipal();
+
+        final String accessToken = Jwt.provider().token(ctx);
+        final String refreshToken = Jwt.provider().refreshToken(ctx);
+
+        final Map<String, Object> token = Map.of("access_token", accessToken, "refresh_token", refreshToken);
+        final Map<String, Object> data = Map.of("auth", token, "user", ctx);
+        final String body = new ObjectMapper().writeValueAsString(data);
+
+        response.setContentType(APPLICATION_JSON_VALUE);
+        response.getWriter().write(body);
+        response.flushBuffer();
     }
 
     @Override
-    @Deprecated
     protected boolean requiresAuthentication(final HttpServletRequest request, final HttpServletResponse response) {
-        return request.getParameter("username") != null;
+        return request.getParameter("username") != null && request.getParameter("password") != null;
     }
 }

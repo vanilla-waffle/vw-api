@@ -3,29 +3,22 @@ package com.waffle.configurations.security;
 import com.waffle.configurations.security.filters.AuthenticationFilter;
 import com.waffle.configurations.security.filters.AuthorizationFilter;
 import com.waffle.configurations.security.providers.BasicAuthenticationProvider;
-import com.waffle.services.composite.impl.CustomUserDetailsService;
+import com.waffle.services.composite.UserContextService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
-
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
 
 /**
  * Security configuration.
@@ -33,7 +26,7 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final CustomUserDetailsService userDetailsService;
+    private final UserContextService userDetailsService;
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
@@ -48,8 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers("*/in/**").authenticated()
             .and()
                 .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilter(new AuthorizationFilter(authenticationManager()))
-                .httpBasic();
+                .addFilter(new AuthorizationFilter(authenticationManager()));
     }
 
     @Override
@@ -80,6 +72,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BasicAuthenticationProvider(userDetailsService, passwordEncoder());
     }
 
+    /**
+     * Authentication manager bean declaration.
+     *
+     * @return {@link AuthenticationManager}
+     * @throws Exception exception
+     */
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();

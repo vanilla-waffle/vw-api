@@ -16,5 +16,5 @@ public class UserDto {
     private Long id;
     private LocalDateTime createdAt;
     private UserStatus status;
-    private Set<Authority> roles;
+    private Set<Authority> authorities;
 }
