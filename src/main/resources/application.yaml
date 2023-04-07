@@ -2,13 +2,7 @@ server:
   servlet:
     context-path: /api/
 
-#springdoc:
-#  swagger-ui:
-#    url: /swagger.yaml
-
 spring:
-
-# Datasource
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${DB_URL:localhost:3306}/${DB_NAME:vwdb}
@@ -19,3 +13,29 @@ spring:
       ddl-auto: update
   jackson:
     property-naming-strategy: SNAKE_CASE
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 972474247381-i05kvb0bcucc7ckmb2hobuemv47mh83v.apps.googleusercontent.com
+            client-secret: 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
+            scope: openid,profile,email
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+
+waffle:
+  security:
+    cors-enabled: false
+    encoder-strength: 10
+    cookie:
+      secret: 0ilQ17mQF&7m
+      issuer: waffle
+      expires-after: 1800
+      always-remember: true
+
+#springdoc:
+#  swagger-ui:
+#    url: /swagger.yaml

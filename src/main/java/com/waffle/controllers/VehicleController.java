@@ -20,7 +20,7 @@ import static org.springframework.http.ResponseEntity.status;
 /**
  * Vehicle controller.
  */
-@Api("/vehicles")
+@Api("in/vehicles")
 @RequiredArgsConstructor
 public class VehicleController {
     private final UserVehicleService service;
