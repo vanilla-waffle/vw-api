@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * Custom objectmapper injection.
  */
 @Configuration
-public class SwaggerJacksonConfiguration {
+public class SwaggerConfiguration {
 
     /**
      * Model resolver bean declaration.
