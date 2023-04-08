@@ -1,34 +1,29 @@
 package com.waffle.data.constants.annotations.processors;
 
 import com.waffle.configurations.properties.SecuritySettings;
-import com.waffle.data.constants.annotations.validation.Phone;
+import com.waffle.data.constants.annotations.spring.Email;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.internal.constraintvalidators.AbstractEmailValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
-import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * Phone constraint validator.
+ * Email constrain validator.
  */
 @Component
 @RequestScope
 @RequiredArgsConstructor
-public class PhoneConstraintValidator implements ConstraintValidator<Phone, String> {
-    private static final String PATTERN = "(^$|[0-9]{11})";
+public class EmailConstrainValidator extends AbstractEmailValidator<Email> {
     private final SecuritySettings settings;
 
     @Override
-    public void initialize(final Phone constraintAnnotation) {
-    }
-
-    @Override
-    public boolean isValid(final String value, final ConstraintValidatorContext context) {
+    public boolean isValid(final CharSequence value, final ConstraintValidatorContext context) {
         if (!settings.validationEnabled()) {
             return true;
         }
 
-        return value == null || value.matches(PATTERN);
+        return super.isValid(value, context);
     }
 }

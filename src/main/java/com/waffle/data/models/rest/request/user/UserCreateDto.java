@@ -1,12 +1,12 @@
 package com.waffle.data.models.rest.request.user;
 
+import com.waffle.data.constants.annotations.spring.Email;
 import com.waffle.data.constants.annotations.validation.Password;
 import com.waffle.data.constants.annotations.validation.Phone;
 import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
 import lombok.*;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
