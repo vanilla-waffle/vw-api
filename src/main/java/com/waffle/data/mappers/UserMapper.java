@@ -1,10 +1,11 @@
 package com.waffle.data.mappers;
 
 import com.waffle.configurations.MapperConfiguration;
-import com.waffle.data.dto.request.user.UserCreateDto;
-import com.waffle.data.dto.request.user.UserUpdateDto;
-import com.waffle.data.dto.response.user.root.UserAllResponseDto;
-import com.waffle.data.dto.response.user.root.UserSlimResponseDto;
+import com.waffle.data.models.rest.request.user.UserCreateDto;
+import com.waffle.data.models.rest.request.user.UserUpdateDto;
+import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
+import com.waffle.data.models.rest.response.user.root.UserPublicResponseDto;
+import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
 import com.waffle.data.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -49,6 +50,21 @@ public interface UserMapper {
      */
     User convert(UserUpdateDto source);
 
+    /**
+     * Map from {@link User} to {@link UserPublicResponseDto}.
+     *
+     * @param source {@link User}
+     * @return {@link UserPublicResponseDto}
+     */
+    UserPublicResponseDto convertPublic(User source);
+
+    /**
+     * Map list of {@link User} to {@link UserPublicResponseDto}.
+     *
+     * @param source list of {@link User}
+     * @return list of {@link UserPublicResponseDto}
+     */
+    List<UserPublicResponseDto> convertPublic(List<User> source);
 
     /**
      * Map from {@link User} to {@link UserAllResponseDto}.

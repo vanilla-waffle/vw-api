@@ -1,11 +1,11 @@
 package com.waffle.data.mappers;
 
 import com.waffle.configurations.MapperConfiguration;
-import com.waffle.data.dto.common.LocationDto;
-import com.waffle.data.dto.request.vehicle.VehicleCreateDto;
-import com.waffle.data.dto.request.vehicle.VehicleUpdateDto;
-import com.waffle.data.dto.response.vehicle.root.VehicleAllResponseDto;
-import com.waffle.data.dto.response.vehicle.root.VehicleSlimResponseDto;
+import com.waffle.data.models.rest.common.LocationDto;
+import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
+import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
 import com.waffle.data.entities.Location;
 import com.waffle.data.entities.Vehicle;
 import org.mapstruct.Mapper;

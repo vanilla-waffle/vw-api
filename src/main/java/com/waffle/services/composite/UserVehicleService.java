@@ -1,13 +1,14 @@
 package com.waffle.services.composite;
 
-import com.waffle.data.dto.request.vehicle.VehicleCreateDto;
-import com.waffle.data.dto.request.vehicle.VehicleUpdateDto;
-import com.waffle.data.dto.request.user.UserCreateDto;
-import com.waffle.data.dto.request.user.UserUpdateDto;
-import com.waffle.data.dto.response.user.root.UserAllResponseDto;
-import com.waffle.data.dto.response.user.root.UserSlimResponseDto;
-import com.waffle.data.dto.response.vehicle.root.VehicleAllResponseDto;
-import com.waffle.data.dto.response.vehicle.root.VehicleSlimResponseDto;
+import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
+import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
+import com.waffle.data.models.rest.request.user.UserCreateDto;
+import com.waffle.data.models.rest.request.user.UserUpdateDto;
+import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
+import com.waffle.data.models.rest.response.user.root.UserPublicResponseDto;
+import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
 import com.waffle.data.entities.Vehicle;
 import com.waffle.data.entities.User;
 
@@ -27,12 +28,28 @@ public interface UserVehicleService {
     List<UserSlimResponseDto> findAllUsers(String sort);
 
     /**
+     * Find all public {@link User}.
+     *
+     * @param sort {@link String} sort query
+     * @return {@link List<UserPublicResponseDto>}
+     */
+    List<UserPublicResponseDto> findAllPublicUsers(String sort);
+
+    /**
      * Find one {@link User}.
      *
      * @param id {@link Long} user id
      * @return {@link UserAllResponseDto}
      */
     UserAllResponseDto findUserById(Long id);
+
+    /**
+     * Find one {@link User}.
+     *
+     * @param username {@link String} username
+     * @return {@link UserAllResponseDto}
+     */
+    UserAllResponseDto findUserByUsername(String username);
 
     /**
      * Save one {@link User}.

@@ -28,7 +28,8 @@ spring:
 
 waffle:
   security:
-    cors-enabled: false
+    cors-enabled: ${API_CORS_ENABLED:false}
+    validation-enabled: ${API_VALIDATED:false}
     encoder-strength: 10
     cookie:
       secret: 0ilQ17mQF&7m

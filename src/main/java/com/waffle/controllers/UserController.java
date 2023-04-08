@@ -1,8 +1,8 @@
 package com.waffle.controllers;
 
 import com.waffle.data.constants.annotations.spring.Api;
-import com.waffle.data.dto.request.user.UserUpdateDto;
-import com.waffle.data.dto.response.user.root.UserAllResponseDto;
+import com.waffle.data.models.rest.request.user.UserUpdateDto;
+import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.entities.User;
 import com.waffle.services.composite.UserVehicleService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -25,13 +25,37 @@ public class UserController {
     private final UserVehicleService service;
 
     /**
+     * Find one.
+     *
+     * @param id {@link Long}
+     * @return {@link UserAllResponseDto}
+     */
+    @GetMapping("/{id:^\\d+$}")
+    public ResponseEntity<UserAllResponseDto> find(@PathVariable @Positive final Long id) {
+        final UserAllResponseDto user = service.findUserById(id);
+        return status(OK).body(user);
+    }
+
+    /**
+     * Find one.
+     *
+     * @param username {@link String}
+     * @return {@link UserAllResponseDto}
+     */
+    @GetMapping("/{username:[a-z]+}")
+    public ResponseEntity<UserAllResponseDto> find(@PathVariable @NotBlank final String username) {
+        final UserAllResponseDto user = service.findUserByUsername(username);
+        return status(OK).body(user);
+    }
+
+    /**
      * Update one {@link User}.
      *
      * @param payload {@link UserUpdateDto}
      * @return {@link UserAllResponseDto}
      */
     @PatchMapping
-    public ResponseEntity<UserAllResponseDto> update(@RequestBody @NotNull @Valid final UserUpdateDto payload) {
+    public ResponseEntity<UserAllResponseDto> update(@RequestBody @Valid final UserUpdateDto payload) {
         final UserAllResponseDto user = service.updateUser(payload);
         return status(OK).body(user);
     }

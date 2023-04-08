@@ -17,4 +17,6 @@ public class SecuritySettings {
     private boolean corsEnabled;
     @Value("${waffle.security.encoder-strength}")
     private int encoderStrength;
+    @Value("${waffle.security.validation-enabled}")
+    private boolean validationEnabled;
 }

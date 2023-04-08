@@ -1,9 +1,9 @@
 package com.waffle.controllers;
 
 import com.waffle.data.constants.annotations.spring.Api;
-import com.waffle.data.dto.request.vehicle.VehicleCreateDto;
-import com.waffle.data.dto.request.vehicle.VehicleUpdateDto;
-import com.waffle.data.dto.response.vehicle.root.VehicleAllResponseDto;
+import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
+import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
 import com.waffle.services.composite.UserVehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
