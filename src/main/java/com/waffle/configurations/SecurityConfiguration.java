@@ -28,9 +28,13 @@ public class SecurityConfiguration {
      */
     @Bean
     public WebSecurityCustomizer webSecurity()  {
-        return web -> web
+        return securitySettings.enabled()
+            ? web -> web
                 .ignoring()
-                .antMatchers("/public/**");
+                .antMatchers("/public/**")
+            : web -> web
+                .ignoring()
+                .antMatchers("/**");
     }
 
     /**

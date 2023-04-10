@@ -13,10 +13,12 @@ import org.springframework.stereotype.Component;
 @Accessors(fluent = true)
 public class SecuritySettings {
 
+    @Value("${waffle.security.enabled}")
+    private boolean enabled;
     @Value("${waffle.security.cors-enabled}")
     private boolean corsEnabled;
     @Value("${waffle.security.encoder-strength}")
     private int encoderStrength;
-    @Value("${waffle.security.validation-enabled}")
+    @Value("${waffle.validation.enabled}")
     private boolean validationEnabled;
 }

@@ -10,7 +10,7 @@ import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +25,6 @@ import static com.waffle.repositories.specifications.UserSpecification.byUsernam
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
-    private final PasswordEncoder encoder;
     private final UserMapper mapper;
 
     @Override
@@ -84,7 +83,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void encode(final User user) {
-        final String hash = encoder.encode(user.getProfile().getPassword());
+        final String hash = new BCryptPasswordEncoder().encode(user.getProfile().getPassword());
         user.getProfile().setPassword(hash);
     }
 }

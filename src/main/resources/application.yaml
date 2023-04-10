@@ -27,9 +27,11 @@ spring:
           jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
 
 waffle:
+  validation:
+    enabled: ${API_VALIDATION_ENABLED:false}
   security:
-    cors-enabled: ${API_CORS_ENABLED:false}
-    validation-enabled: ${API_VALIDATED:false}
+    enabled: ${API_SECURITY_ENABLED:true}
+    cors-enabled: ${API_SECURITY_CORS_ENABLED:false}
     encoder-strength: 10
     cookie:
       secret: 0ilQ17mQF&7m
