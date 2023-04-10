@@ -70,7 +70,6 @@ public class SecurityConfiguration {
                 .formLogin().disable()
                 .anonymous().disable()
                 .csrf().disable()
-                .cors().disable()
                 .build();
     }
 
