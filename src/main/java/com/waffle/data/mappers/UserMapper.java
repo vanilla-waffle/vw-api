@@ -39,7 +39,6 @@ public interface UserMapper {
     @Mapping(target = "profile.username", source = "username")
     @Mapping(target = "profile.password", source = "password")
     @Mapping(target = "profile.phoneNumber", source = "phoneNumber")
-    @Mapping(target = "profile.city", source = "city")
     User convert(UserCreateDto source);
 
     /**

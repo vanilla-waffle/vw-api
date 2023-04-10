@@ -50,6 +50,5 @@ public class Profile {
     private List<Review> reviews;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private City city;
 }
