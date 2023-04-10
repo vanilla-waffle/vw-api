@@ -9,6 +9,8 @@ import com.waffle.repositories.UserRepository;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(final User payload) {
         exists(payload.getProfile());
+        encode(payload);
         return repository.save(payload);
     }
 
@@ -37,8 +40,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAll(final Sort sort) {
+        return repository.findAll(sort);
+    }
+
+    @Override
+    public List<User> findAll(final Specification<User> by) {
+        return repository.findAll(by);
+    }
+
+    @Override
     public User find(final Long id) {
         return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @Override
+    public User find(final Specification<User> by) {
+        return repository.findOne(by).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
@@ -54,11 +72,7 @@ public class UserServiceImpl implements UserService {
         repository.deleteById(id);
     }
 
-    @Override
-    public List<User> findAll(final Sort sort) {
-        return repository.findAll(sort);
-    }
-
+    @Deprecated
     private void exists(final Profile p) {
         if (p.getEmail() != null && repository.exists(byEmail(p.getEmail()))) {
             throw new UserAlreadyExistsException(p.getEmail());
@@ -66,5 +80,10 @@ public class UserServiceImpl implements UserService {
         if (p.getUsername() != null && repository.exists(byUsername(p.getUsername()))) {
             throw new UserAlreadyExistsException(p.getUsername());
         }
+    }
+
+    private void encode(final User user) {
+        final String hash = new BCryptPasswordEncoder().encode(user.getProfile().getPassword());
+        user.getProfile().setPassword(hash);
     }
 }

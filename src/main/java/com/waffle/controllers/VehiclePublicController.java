@@ -1,8 +1,8 @@
 package com.waffle.controllers;
 
 import com.waffle.data.constants.annotations.spring.Api;
-import com.waffle.data.dto.response.vehicle.root.VehicleAllResponseDto;
-import com.waffle.data.dto.response.vehicle.root.VehicleSlimResponseDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
 import com.waffle.services.composite.UserVehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

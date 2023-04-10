@@ -1,6 +1,6 @@
 package com.waffle.controllers.handler;
 
-import com.waffle.data.dto.other.ErrorMessageDto;
+import com.waffle.data.models.other.ErrorMessageDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

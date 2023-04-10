@@ -1,13 +1,14 @@
 package com.waffle.services.composite.impl;
 
-import com.waffle.data.dto.request.vehicle.VehicleCreateDto;
-import com.waffle.data.dto.request.vehicle.VehicleUpdateDto;
-import com.waffle.data.dto.request.user.UserCreateDto;
-import com.waffle.data.dto.request.user.UserUpdateDto;
-import com.waffle.data.dto.response.user.root.UserAllResponseDto;
-import com.waffle.data.dto.response.user.root.UserSlimResponseDto;
-import com.waffle.data.dto.response.vehicle.root.VehicleAllResponseDto;
-import com.waffle.data.dto.response.vehicle.root.VehicleSlimResponseDto;
+import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
+import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
+import com.waffle.data.models.rest.request.user.UserCreateDto;
+import com.waffle.data.models.rest.request.user.UserUpdateDto;
+import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
+import com.waffle.data.models.rest.response.user.root.UserPublicResponseDto;
+import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
+import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.Vehicle;
 import com.waffle.data.mappers.UserMapper;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
+import static com.waffle.repositories.specifications.UserSpecification.byUsername;
 
 /**
  * User vehicle service implementation.
@@ -47,8 +50,26 @@ public class UserVehicleServiceImpl implements UserVehicleService {
     }
 
     @Override
+    public List<UserPublicResponseDto> findAllPublicUsers(final String sort) {
+        if (sort == null) {
+            final List<User> users = userService.findAll();
+            return userMapper.convertPublic(users);
+        }
+
+        final Sort params = SortUtils.from(sort);
+        final List<User> users = userService.findAll(params);
+        return userMapper.convertPublic(users);
+    }
+
+    @Override
     public UserAllResponseDto findUserById(final Long id) {
         final User user = userService.find(id);
+        return userMapper.convertAll(user);
+    }
+
+    @Override
+    public UserAllResponseDto findUserByUsername(final String username) {
+        final User user = userService.find(byUsername(username));
         return userMapper.convertAll(user);
     }
 
