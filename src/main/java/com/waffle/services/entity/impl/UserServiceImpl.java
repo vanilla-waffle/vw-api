@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User find(final Specification<User> by) {
+    public User find(final Specification<User> by) throws UserNotFoundException {
         return repository.findOne(by).orElseThrow(UserNotFoundException::new);
     }
 

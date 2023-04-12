@@ -1,5 +1,8 @@
 package com.waffle.controllers.handler;
 
+import com.waffle.data.constants.exceptions.UserAlreadyExistsException;
+import com.waffle.data.constants.exceptions.UserNotFoundException;
+import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.models.other.ErrorMessageDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,8 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.validation.ConstraintViolationException;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.ResponseEntity.status;
 
 /**
@@ -60,7 +62,23 @@ public class ErrorController extends ResponseEntityExceptionHandler {
      * @param e exception
      * @return error message dto
      */
-    @ExceptionHandler(value = { IllegalArgumentException.class, ConstraintViolationException.class })
+    @ExceptionHandler(value = { UserNotFoundException.class, VehicleNotFoundException.class })
+    ResponseEntity<ErrorMessageDto> handle(final UserNotFoundException e) {
+        final ErrorMessageDto message = ErrorMessageDto.builder()
+                .code(NOT_FOUND)
+                .reason(e.getClass().getName())
+                .message(e.getMessage())
+                .build();
+        return status(NOT_FOUND).body(message);
+    }
+
+    /**
+     * Handles IllegalArgumentException.
+     *
+     * @param e exception
+     * @return error message dto
+     */
+    @ExceptionHandler(value = { ConstraintViolationException.class, UserAlreadyExistsException.class })
     ResponseEntity<ErrorMessageDto> handle(final RuntimeException e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(BAD_REQUEST)
