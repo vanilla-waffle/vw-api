@@ -67,6 +67,7 @@ public class SecurityConfiguration {
                 .httpBasic(b -> b
                         .realmName(cookieSettings.issuer() + "-realm")
                 )
+                .cors().and()
                 .formLogin().disable()
                 .anonymous().disable()
                 .csrf().disable()

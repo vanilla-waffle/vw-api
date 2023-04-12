@@ -4,16 +4,12 @@ import com.waffle.configurations.properties.SecuritySettings;
 import com.waffle.data.constants.annotations.spring.Email;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.internal.constraintvalidators.AbstractEmailValidator;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.RequestScope;
 
 import javax.validation.ConstraintValidatorContext;
 
 /**
  * Email constrain validator.
  */
-@Component
-@RequestScope
 @RequiredArgsConstructor
 public class EmailConstrainValidator extends AbstractEmailValidator<Email> {
     private final SecuritySettings settings;
