@@ -4,8 +4,6 @@ import com.waffle.configurations.properties.SecuritySettings;
 import com.waffle.data.constants.annotations.validation.Password;
 import lombok.RequiredArgsConstructor;
 import org.passay.*;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.RequestScope;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,8 +13,6 @@ import java.util.List;
 /**
  * Password constraint validator.
  */
-@Component
-@RequestScope
 @RequiredArgsConstructor
 public class PasswordConstraintValidator implements ConstraintValidator<Password, String> {
     private final SecuritySettings settings;
