@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com'
-version = '0.8.4'
+version = '0.8.5'
 sourceCompatibility = '11'
 
 configurations {
@@ -32,13 +32,14 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server:2.7.5"
 	implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.5'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.5'
+	implementation 'org.springframework.boot:spring-boot-starter-json:2.7.5'
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.7.5'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
 	implementation 'org.passay:passay:1.6.3'
 	implementation 'org.postgresql:postgresql:42.5.1'
 	implementation 'com.google.guava:guava:11.0.2'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
+	implementation 'com.auth0:java-jwt:4.2.1'
 	testImplementation 'org.jeasy:easy-random-core:5.0.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.7.5'
 	compileOnly 'org.projectlombok:lombok:1.18.24'

@@ -1,0 +1,89 @@
+package com.waffle.configurations.security.jwt;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
+import com.waffle.configurations.properties.JwtSettings;
+import com.waffle.data.models.other.UserContext;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Map;
+
+/**
+ * Jwt provider.
+ */
+@RequiredArgsConstructor
+public class JwtProvider {
+    private final JwtSettings settings;
+
+    /**
+     * Get principal from token.
+     *
+     * @param token {@link String}
+     * @return {@link Authentication}
+     */
+    public Authentication auth(final String token) {
+        Map<String, Claim> claims = JWT.decode(token).getClaims();
+        return new UsernamePasswordAuthenticationToken(
+                claims.get("username").asString(),
+                null,
+                claims.get("roles").asList(GrantedAuthority.class)
+        );
+    }
+
+    /**
+     * Basic token generator.
+     *
+     * @param ctx {@link UserContext}
+     * @return {@link String} token
+     */
+    public String generate(final UserContext ctx) {
+        return JWT.create()
+                .withSubject(ctx.getUsername())
+                .withClaim("username", ctx.getUsername())
+                .withClaim("roles", new ArrayList<>(ctx.getAuthorities()))
+                .withIssuer(settings.issuer())
+                .withExpiresAt(Instant.now().plusSeconds(settings.expireAt()))
+                .sign(Algorithm.HMAC256(settings.secret()));
+    }
+
+    /**
+     * Refresh token generator.
+     *
+     * @param ctx {@link UserContext}
+     * @return {@link String}
+     */
+    public String generateRefresh(final UserContext ctx) {
+        return JWT.create()
+                .withSubject(ctx.getUsername())
+                .withIssuer(settings.issuer())
+                .withExpiresAt(Instant.now().plusSeconds(settings.refreshExpireAt()))
+                .sign(Algorithm.HMAC256(settings.secret()));
+    }
+
+    /**
+     * Checks wether token is valid or not.
+     *
+     * @param token {@link String}
+     * @return {@link Boolean}
+     */
+    public boolean valid(final String token) {
+        try {
+            JWTVerifier verifier = JWT
+                    .require(Algorithm.HMAC256(settings.secret()))
+                    .withIssuer(settings.issuer())
+                    .build();
+            verifier.verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+    }
+}

@@ -6,17 +6,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * Security properties.
+ * Validation properties.
  */
 @Component
 @Data
 @Accessors(fluent = true)
-public class SecuritySettings {
+public class ValidationSettings {
 
-    @Value("${waffle.security.enabled}")
+    @Value("${waffle.validation.enabled}")
     private boolean enabled;
-    @Value("${waffle.security.cors-enabled}")
-    private boolean corsEnabled;
-    @Value("${waffle.security.encoder-strength}")
-    private int encoderStrength;
 }
