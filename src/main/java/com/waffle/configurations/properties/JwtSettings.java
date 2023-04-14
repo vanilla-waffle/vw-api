@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @Accessors(fluent = true)
-public class CookieSettings {
+public class JwtSettings {
 
-    @Value("${waffle.security.cookie.secret}")
+    @Value("${waffle.security.jwt.secret}")
     private String secret;
-    @Value("${waffle.security.cookie.issuer}")
+    @Value("${waffle.security.jwt.issuer}")
     private String issuer;
-    @Value("${waffle.security.cookie.expires-after}")
-    private int expiresAfter;
-    @Value("${waffle.security.cookie.always-remember}")
-    private boolean alwaysRemember;
+    @Value("${waffle.security.jwt.expiration.basic}")
+    private int expireAt;
+    @Value("${waffle.security.jwt.expiration.refresh}")
+    private int refreshExpireAt;
 }

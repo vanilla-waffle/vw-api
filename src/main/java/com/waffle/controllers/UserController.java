@@ -42,7 +42,7 @@ public class UserController {
      * @param username {@link String}
      * @return {@link UserAllResponseDto}
      */
-    @GetMapping("/{username:[a-z]+}")
+    @GetMapping("/{username}")
     public ResponseEntity<UserAllResponseDto> find(@PathVariable @NotBlank final String username) {
         final UserAllResponseDto user = service.findUserByUsername(username);
         return status(OK).body(user);

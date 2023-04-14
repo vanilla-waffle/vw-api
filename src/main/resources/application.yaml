@@ -33,11 +33,12 @@ waffle:
     enabled: ${API_SECURITY_ENABLED:true}
     cors-enabled: ${API_SECURITY_CORS_ENABLED:false}
     encoder-strength: 10
-    cookie:
+    jwt:
       secret: 0ilQ17mQF&7m
       issuer: waffle
-      expires-after: 1800
-      always-remember: true
+      expiration:
+        basic: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1800}
+        refresh: ${API_SECURITY_REFRESH_TOKEN_LIFETIME:1209600}
 
 #springdoc:
 #  swagger-ui:

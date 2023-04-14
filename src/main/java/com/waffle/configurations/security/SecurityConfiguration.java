@@ -1,9 +1,17 @@
-package com.waffle.configurations;
+package com.waffle.configurations.security;
 
-import com.waffle.configurations.properties.CookieSettings;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.waffle.configurations.properties.JwtSettings;
 import com.waffle.configurations.properties.SecuritySettings;
+import com.waffle.configurations.security.filters.AuthenticationFilter;
+import com.waffle.configurations.security.filters.AuthorizationFilter;
+import com.waffle.configurations.security.handlers.AuthenticationHandler;
+import com.waffle.configurations.security.handlers.AuthorizationFailedHandler;
+import com.waffle.configurations.security.jwt.Jwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -11,6 +19,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Security configuration.
@@ -18,8 +27,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
+    private final AuthenticationConfiguration authenticationConfiguration;
     private final SecuritySettings securitySettings;
-    private final CookieSettings cookieSettings;
+    private final JwtSettings cookieSettings;
+    private final ObjectMapper mapper;
+    private final Jwt jwt;
 
     /**
      * Web security bean.
@@ -55,23 +67,48 @@ public class SecurityConfiguration {
                         .deleteCookies(cookieSettings.issuer())
                         .clearAuthentication(true)
                 )
-                .rememberMe(me -> me
-                        .tokenValiditySeconds(cookieSettings.expiresAfter())
-                        .rememberMeCookieName(cookieSettings.issuer())
-                        .key(cookieSettings.secret())
-                        .alwaysRemember(cookieSettings.alwaysRemember())
-                )
                 .sessionManagement(s -> s
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .httpBasic(b -> b
-                        .realmName(cookieSettings.issuer() + "-realm")
                 )
                 .cors().and()
                 .formLogin().disable()
                 .anonymous().disable()
                 .csrf().disable()
+                .addFilterBefore(authorizationFilter(), AuthenticationFilter.class)
+                .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    /**
+     * Authorization filter bean.
+     *
+     * @return {@link AuthorizationFilter}
+     */
+    @Bean
+    public AuthorizationFilter authorizationFilter() {
+        return new AuthorizationFilter(new AuthorizationFailedHandler(mapper), jwt);
+    }
+
+    /**
+     * Authentication filter bean.
+     *
+     * @return {@link AuthenticationFilter}
+     * @throws Exception exception
+     */
+    @Bean
+    public AuthenticationFilter authenticationFilter() throws Exception {
+        return new AuthenticationFilter(authenticationManager(), new AuthenticationHandler(mapper, jwt));
+    }
+
+    /**
+     * Authentication manager bean.
+     *
+     * @return {@link AuthenticationManager}
+     * @throws Exception exception
+     */
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     /**

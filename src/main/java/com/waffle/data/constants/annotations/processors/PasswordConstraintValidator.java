@@ -1,6 +1,6 @@
 package com.waffle.data.constants.annotations.processors;
 
-import com.waffle.configurations.properties.SecuritySettings;
+import com.waffle.configurations.properties.ValidationSettings;
 import com.waffle.data.constants.annotations.validation.Password;
 import lombok.RequiredArgsConstructor;
 import org.passay.*;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 public class PasswordConstraintValidator implements ConstraintValidator<Password, String> {
-    private final SecuritySettings settings;
+    private final ValidationSettings settings;
     private static final int MIN_LENGTH = 8;
     private static final int MAX_LENGTH = 30;
 
@@ -25,7 +25,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<Password
 
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
-        if (!settings.validationEnabled()) {
+        if (!settings.enabled()) {
             return true;
         }
 
