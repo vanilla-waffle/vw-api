@@ -30,7 +30,7 @@ public class UserController {
      * @param id {@link Long}
      * @return {@link UserAllResponseDto}
      */
-    @GetMapping("/{id:^\\d+$}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserAllResponseDto> find(@PathVariable @Positive final Long id) {
         final UserAllResponseDto user = service.findUserById(id);
         return status(OK).body(user);
@@ -42,7 +42,7 @@ public class UserController {
      * @param username {@link String}
      * @return {@link UserAllResponseDto}
      */
-    @GetMapping("/{username}")
+    @GetMapping("/username/{username}")
     public ResponseEntity<UserAllResponseDto> find(@PathVariable @NotBlank final String username) {
         final UserAllResponseDto user = service.findUserByUsername(username);
         return status(OK).body(user);

@@ -4,6 +4,7 @@ import com.waffle.data.constants.exceptions.UserAlreadyExistsException;
 import com.waffle.data.constants.exceptions.UserNotFoundException;
 import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.models.other.ErrorMessageDto;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,21 @@ public class ErrorController extends ResponseEntityExceptionHandler {
 
     @Override
     @NonNull
+    protected ResponseEntity<Object> handleTypeMismatch(
+            @NonNull final TypeMismatchException ex,
+            @NonNull final HttpHeaders headers,
+            @NonNull final HttpStatus status,
+            @NonNull final WebRequest request) {
+        final ErrorMessageDto message = ErrorMessageDto.builder()
+                .code(BAD_REQUEST)
+                .reason(ex.getClass().getSimpleName())
+                .message(ex.getMessage())
+                .build();
+        return status(BAD_REQUEST).body(message);
+    }
+
+    @Override
+    @NonNull
     protected ResponseEntity<Object> handleMissingServletRequestParameter(
             @NonNull final MissingServletRequestParameterException ex,
             @NonNull final HttpHeaders headers,
@@ -35,7 +51,7 @@ public class ErrorController extends ResponseEntityExceptionHandler {
             @NonNull final WebRequest request) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(BAD_REQUEST)
-                .reason(ex.getClass().getName())
+                .reason(ex.getClass().getSimpleName())
                 .message(ex.getMessage())
                 .build();
         return status(BAD_REQUEST).body(message);
@@ -50,14 +66,14 @@ public class ErrorController extends ResponseEntityExceptionHandler {
             @NonNull final WebRequest request) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(BAD_REQUEST)
-                .reason(ex.getClass().getName())
+                .reason(ex.getClass().getSimpleName())
                 .message(ex.getMessage())
                 .build();
         return status(BAD_REQUEST).body(message);
     }
 
     /**
-     * Handles IllegalArgumentException.
+     * Handles not-found exceptions.
      *
      * @param e exception
      * @return error message dto
@@ -66,7 +82,7 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     ResponseEntity<ErrorMessageDto> handle(final UserNotFoundException e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(NOT_FOUND)
-                .reason(e.getClass().getName())
+                .reason(e.getClass().getSimpleName())
                 .message(e.getMessage())
                 .build();
         return status(NOT_FOUND).body(message);
@@ -82,14 +98,14 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     ResponseEntity<ErrorMessageDto> handle(final RuntimeException e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(BAD_REQUEST)
-                .reason(e.getClass().getName())
+                .reason(e.getClass().getSimpleName())
                 .message(e.getMessage())
                 .build();
         return status(BAD_REQUEST).body(message);
     }
 
     /**
-     * Handles IllegalArgumentException.
+     * Handles internal error exceptions.
      *
      * @param e exception
      * @return error message dto
@@ -98,7 +114,7 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     ResponseEntity<ErrorMessageDto> handle(final Exception e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(INTERNAL_SERVER_ERROR)
-                .reason(e.getClass().toString())
+                .reason(e.getClass().getSimpleName())
                 .message(e.getMessage())
                 .build();
         return status(INTERNAL_SERVER_ERROR).body(message);
