@@ -14,6 +14,7 @@ import java.util.List;
 @Configuration
 public class CrossOriginConfiguration {
     private static final List<String> ALLOWED_METHODS = List.of("GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS");
+    private static final List<String> ALLOWED_HEADERS = List.of("Authorization", "Content-Type");
     private static final List<String> ALLOWED_ORIGINS = List.of("*");
 
     /**
@@ -26,8 +27,10 @@ public class CrossOriginConfiguration {
         final CorsConfiguration configuration = new CorsConfiguration();
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-        configuration.setAllowedOrigins(ALLOWED_ORIGINS);
+        configuration.setAllowedOriginPatterns(ALLOWED_ORIGINS);
+        configuration.setAllowedHeaders(ALLOWED_HEADERS);
         configuration.setAllowedMethods(ALLOWED_METHODS);
+        configuration.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
