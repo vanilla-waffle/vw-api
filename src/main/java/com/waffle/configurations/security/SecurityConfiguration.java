@@ -5,6 +5,7 @@ import com.waffle.configurations.properties.JwtSettings;
 import com.waffle.configurations.properties.SecuritySettings;
 import com.waffle.configurations.security.filters.AuthenticationFilter;
 import com.waffle.configurations.security.filters.AuthorizationFilter;
+import com.waffle.configurations.security.filters.JwtRefreshFilter;
 import com.waffle.configurations.security.handlers.AuthenticationHandler;
 import com.waffle.configurations.security.handlers.AuthorizationFailedHandler;
 import com.waffle.configurations.security.jwt.Jwt;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -30,6 +32,7 @@ public class SecurityConfiguration {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final SecuritySettings securitySettings;
     private final JwtSettings cookieSettings;
+    private final UserDetailsService userDetailsService;
     private final ObjectMapper mapper;
     private final Jwt jwt;
 
@@ -75,8 +78,19 @@ public class SecurityConfiguration {
                 .anonymous().disable()
                 .csrf().disable()
                 .addFilterBefore(authorizationFilter(), AuthenticationFilter.class)
+                .addFilterBefore(jwtRefreshFilter(), AuthenticationFilter.class)
                 .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    /**
+     * Jwt refresh filter bean.
+     *
+     * @return {@link JwtRefreshFilter}
+     */
+    @Bean
+    public JwtRefreshFilter jwtRefreshFilter() {
+        return new JwtRefreshFilter(jwt, mapper, userDetailsService);
     }
 
     /**

@@ -55,9 +55,34 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler, Auth
         response.getWriter().write(body);
     }
 
+    /**
+     * Token refresh success handler.
+     *
+     * @param request {@link HttpServletRequest}
+     * @param response {@link HttpServletResponse}
+     * @param authentication {@link Authentication}
+     * @throws IOException e
+     */
+    public void onRefreshSuccess(
+            final HttpServletRequest request,
+            final HttpServletResponse response,
+            final Authentication authentication) throws IOException {
+        final UserContext ctx = (UserContext) authentication.getPrincipal();
+        final JwtPair jwts = jwt.pair(ctx);
+        final String body = getBody(jwts);
+
+        response.setContentType(APPLICATION_JSON_VALUE);
+        response.getWriter().write(body);
+        response.flushBuffer();
+    }
+
     private String getBody(final UserContext ctx, final JwtPair jwts) throws JsonProcessingException {
         final AuthenticationResponse response = AuthenticationResponse.builder().auth(jwts).user(ctx.data()).build();
         return mapper.writeValueAsString(response);
+    }
+
+    private String getBody(final JwtPair jwts) throws JsonProcessingException {
+        return mapper.writeValueAsString(jwts);
     }
 
     private String getBody(final AuthenticationException e) throws JsonProcessingException {
