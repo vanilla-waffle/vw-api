@@ -1,4 +1,4 @@
-package com.waffle.data.models.rest.response.vehicle;
+package com.waffle.data.models.rest.response.vehicle.passport;
 
 import com.waffle.data.models.rest.common.VehiclePassportDto;
 import lombok.Data;

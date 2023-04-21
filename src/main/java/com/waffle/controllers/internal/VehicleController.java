@@ -1,4 +1,4 @@
-package com.waffle.controllers;
+package com.waffle.controllers.internal;
 
 import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;

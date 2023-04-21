@@ -1,4 +1,4 @@
-package com.waffle.data.models.other;
+package com.waffle.data.models.other.pair;
 
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class AuthenticationResponse {
+public class AuthUserPair {
 
     private JwtPair auth;
     private UserAllResponseDto user;

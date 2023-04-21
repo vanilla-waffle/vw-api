@@ -1,7 +1,7 @@
 package com.waffle.configurations.security.jwt;
 
 import com.waffle.configurations.properties.JwtSettings;
-import com.waffle.data.models.other.JwtPair;
+import com.waffle.data.models.other.pair.JwtPair;
 import com.waffle.data.models.other.UserContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.waffle.controllers.handler;
 
 import com.waffle.data.constants.exceptions.UserAlreadyExistsException;
-import com.waffle.data.constants.exceptions.UserNotFoundException;
+import com.waffle.data.constants.exceptions.NotFoundException;
 import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.models.other.ErrorMessageDto;
 import org.springframework.beans.TypeMismatchException;
@@ -78,8 +78,8 @@ public class ErrorController extends ResponseEntityExceptionHandler {
      * @param e exception
      * @return error message dto
      */
-    @ExceptionHandler(value = { UserNotFoundException.class, VehicleNotFoundException.class })
-    ResponseEntity<ErrorMessageDto> handle(final UserNotFoundException e) {
+    @ExceptionHandler(value = { NotFoundException.class, VehicleNotFoundException.class })
+    ResponseEntity<ErrorMessageDto> handle(final NotFoundException e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(NOT_FOUND)
                 .reason(e.getClass().getSimpleName())

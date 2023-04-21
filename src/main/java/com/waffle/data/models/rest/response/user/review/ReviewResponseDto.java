@@ -1,4 +1,4 @@
-package com.waffle.data.models.rest.response.user;
+package com.waffle.data.models.rest.response.user.review;
 
 import com.waffle.data.models.rest.common.ReviewDto;
 import lombok.Data;

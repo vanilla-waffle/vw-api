@@ -34,8 +34,8 @@ public class Booking {
     @JsonBackReference
     private Vehicle vehicle;
 
-    private LocalDateTime startedAt;
-    private LocalDateTime completedAt;
+    private LocalDateTime startsAt;
+    private LocalDateTime completesAt;
 
     @Column(nullable = false)
     private Double totalPrice;

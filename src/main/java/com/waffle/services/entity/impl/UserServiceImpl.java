@@ -1,7 +1,7 @@
 package com.waffle.services.entity.impl;
 
 import com.waffle.data.constants.exceptions.UserAlreadyExistsException;
-import com.waffle.data.constants.exceptions.UserNotFoundException;
+import com.waffle.data.constants.exceptions.NotFoundException;
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.embedded.user.Profile;
 import com.waffle.data.mappers.UserMapper;
@@ -51,12 +51,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User find(final Long id) {
-        return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("User does not exist: " + id));
     }
 
     @Override
-    public User find(final Specification<User> by) throws UserNotFoundException {
-        return repository.findOne(by).orElseThrow(UserNotFoundException::new);
+    public User find(final Specification<User> by) throws NotFoundException {
+        return repository.findOne(by).orElseThrow(() -> new NotFoundException("User does not exist"));
     }
 
     @Override

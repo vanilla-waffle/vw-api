@@ -7,10 +7,8 @@ import com.waffle.data.constants.types.vehicle.Feature;
 import com.waffle.data.entities.embedded.vehicle.PaymentPlan;
 import com.waffle.data.entities.embedded.vehicle.Specification;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -23,13 +21,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vehicle {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+@EqualsAndHashCode(callSuper = true)
+public class Vehicle extends BaseEntity {
 
     @Column(nullable = false, length = TextSize.M)
     private String title;
