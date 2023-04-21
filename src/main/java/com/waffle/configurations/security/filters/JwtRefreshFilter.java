@@ -6,7 +6,9 @@ import com.waffle.configurations.security.jwt.Jwt;
 import com.waffle.data.models.other.UserContext;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -48,10 +50,18 @@ public class JwtRefreshFilter extends OncePerRequestFilter {
 
         final String token = Jwt.utils().getTokenFromRequestHeader(request);
 
-        final String username = jwt.provider().claim(token, "sub");
-        final UserContext ctx = (UserContext) userDetailsService.loadUserByUsername(username);
-        final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(ctx, null);
-        authenticationHandler.onRefreshSuccess(request, response, auth);
+        try {
+            if (token == null) {
+                throw new InvalidBearerTokenException("Token was not provided");
+            }
+
+            final String username = jwt.provider().claim(token, "sub");
+            final UserContext ctx = (UserContext) userDetailsService.loadUserByUsername(username);
+            final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(ctx, null);
+            authenticationHandler.onRefreshSuccess(request, response, auth);
+        } catch (AuthenticationException e) {
+            authenticationHandler.onAuthenticationFailure(request, response, e);
+        }
     }
 
     private boolean requiresRefresh(final HttpServletRequest request) {
