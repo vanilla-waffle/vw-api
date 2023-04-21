@@ -32,10 +32,23 @@ public class JwtProvider {
     public Authentication auth(final String token) {
         Map<String, Claim> claims = JWT.decode(token).getClaims();
         return new UsernamePasswordAuthenticationToken(
-                claims.get("username").asString(),
+                claims.get("username") == null
+                        ? claims.get("sub").asString()
+                        : claims.get("username").asString(),
                 null,
                 claims.get("roles").asList(GrantedAuthority.class)
         );
+    }
+
+    /**
+     * Get claim from token.
+     *
+     * @param token {@link String}
+     * @param name {@link String} claim
+     * @return {@link String} value
+     */
+    public String claim(final String token, final String name) {
+        return JWT.decode(token).getClaims().get(name).asString();
     }
 
     /**
@@ -63,6 +76,7 @@ public class JwtProvider {
     public String generateRefresh(final UserContext ctx) {
         return JWT.create()
                 .withSubject(ctx.getUsername())
+                .withClaim("roles", new ArrayList<>(ctx.getAuthorities()))
                 .withIssuer(settings.issuer())
                 .withExpiresAt(Instant.now().plusSeconds(settings.refreshExpireAt()))
                 .sign(Algorithm.HMAC256(settings.secret()));
