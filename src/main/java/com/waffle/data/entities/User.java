@@ -47,6 +47,6 @@ public class User {
      */
     @PrePersist
     public void onPersist() {
-        status = UserStatus.ACTIVE;
+        status = UserStatus.INACTIVE;
     }
 }
