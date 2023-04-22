@@ -1,6 +1,5 @@
 package com.waffle.services.composite;
 
-import com.waffle.data.models.rest.request.user.UserCreateDto;
 import com.waffle.data.models.rest.request.user.UserUpdateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;

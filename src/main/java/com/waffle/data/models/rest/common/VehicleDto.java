@@ -1,6 +1,5 @@
-package com.waffle.data.models.rest.common.root;
+package com.waffle.data.models.rest.common;
 
-import com.waffle.data.models.rest.common.VehiclePassportDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

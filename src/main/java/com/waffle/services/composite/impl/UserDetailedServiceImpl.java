@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.stream.Collectors;
 
-import static com.waffle.repositories.specifications.UserSpecification.byUsername;
-
 /**
  * User details service implementation.
  */

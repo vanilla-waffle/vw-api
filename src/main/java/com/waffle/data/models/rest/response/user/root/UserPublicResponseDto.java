@@ -1,6 +1,6 @@
 package com.waffle.data.models.rest.response.user.root;
 
-import com.waffle.data.models.rest.common.root.UserDto;
+import com.waffle.data.models.rest.common.UserDto;
 import com.waffle.data.models.rest.response.user.root.profile.ProfilePublicResponseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

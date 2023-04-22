@@ -1,7 +1,7 @@
 package com.waffle.data.models.rest.request.user;
 
 import com.waffle.data.constants.annotations.validation.Password;
-import com.waffle.data.models.rest.common.root.ProfileDto;
+import com.waffle.data.models.rest.common.ProfileDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

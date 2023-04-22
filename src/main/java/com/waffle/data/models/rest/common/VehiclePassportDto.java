@@ -1,5 +1,6 @@
 package com.waffle.data.models.rest.common;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -10,10 +11,12 @@ import java.time.LocalDate;
 @Data
 public class VehiclePassportDto {
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate receivedAt;
+
     private String passportNumber;
     private String modelName;
     private String categoryName;
-    private LocalDate receivedAt;
     private String vin;
     private Integer releaseYear;
     private Double engineVolume;

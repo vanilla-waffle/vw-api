@@ -1,6 +1,6 @@
 package com.waffle.data.models.rest.response.vehicle.root;
 
-import com.waffle.data.models.rest.common.root.VehicleDto;
+import com.waffle.data.models.rest.common.VehicleDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
 import com.waffle.data.models.rest.response.vehicle.LocationResponseDto;
 import com.waffle.data.entities.embedded.vehicle.PaymentPlan;

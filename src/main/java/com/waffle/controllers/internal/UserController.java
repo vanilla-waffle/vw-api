@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.ResponseEntity.status;
@@ -23,18 +22,18 @@ import static org.springframework.http.ResponseEntity.status;
 public class UserController {
     private final UserInternalService userInternalService;
 
-    /**
-     * Find one.
-     *
-     * @param id {@link Long}
-     * @return {@link UserAllResponseDto}
-     */
-    @GetMapping("/{id}")
-    @Deprecated
-    public ResponseEntity<UserAllResponseDto> find(@PathVariable @Positive final Long id) {
-        final UserAllResponseDto user = userInternalService.find(id);
-        return status(OK).body(user);
-    }
+//    /**
+//     * Find one.
+//     *
+//     * @param id {@link Long}
+//     * @return {@link UserAllResponseDto}
+//     */
+//    @GetMapping("/{id}")
+//    @Deprecated
+//    public ResponseEntity<UserAllResponseDto> findById(@PathVariable @Positive final Long id) {
+//        final UserAllResponseDto user = userInternalService.find(id);
+//        return status(OK).body(user);
+//    }
 
     /**
      * Find one.
@@ -43,7 +42,7 @@ public class UserController {
      * @return {@link UserAllResponseDto}
      */
     @GetMapping("/me")
-    public ResponseEntity<UserAllResponseDto> me(@Principal final Long id) {
+    public ResponseEntity<UserAllResponseDto> find(@Principal final Long id) {
         final UserAllResponseDto user = userInternalService.find(id);
         return status(OK).body(user);
     }

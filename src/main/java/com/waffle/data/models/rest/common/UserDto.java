@@ -1,12 +1,10 @@
-package com.waffle.data.models.rest.common.root;
+package com.waffle.data.models.rest.common;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.waffle.data.constants.types.user.UserStatus;
-import com.waffle.data.entities.Role;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * Common class for dto classes of User.
