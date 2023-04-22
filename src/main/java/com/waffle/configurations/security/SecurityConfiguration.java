@@ -1,7 +1,6 @@
 package com.waffle.configurations.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.waffle.configurations.properties.JwtSettings;
 import com.waffle.configurations.properties.SecuritySettings;
 import com.waffle.configurations.security.filters.AuthenticationFilter;
 import com.waffle.configurations.security.filters.AuthorizationFilter;
@@ -15,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,26 +29,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final SecuritySettings securitySettings;
-    private final JwtSettings cookieSettings;
     private final UserDetailsService userDetailsService;
     private final ObjectMapper mapper;
     private final Jwt jwt;
-
-    /**
-     * Web security bean.
-     *
-     * @return {@link WebSecurityCustomizer}
-     */
-    @Bean
-    public WebSecurityCustomizer webSecurity()  {
-        return securitySettings.enabled()
-            ? web -> web
-                .ignoring()
-                .antMatchers("/public/**")
-            : web -> web
-                .ignoring()
-                .antMatchers("/**");
-    }
 
     /**
      * Filter chain bean.
@@ -63,12 +44,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests(auth -> auth
+                        .antMatchers("*/public/**", "*/auth/**").permitAll()
                         .antMatchers("/in/**").authenticated()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .deleteCookies(cookieSettings.issuer())
-                        .clearAuthentication(true)
                 )
                 .sessionManagement(s -> s
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
