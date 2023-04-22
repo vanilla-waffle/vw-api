@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.stream.Collectors;
 
-import static com.waffle.repositories.specifications.UserSpecification.byUsername;
-
 /**
  * User details service implementation.
  */
@@ -30,7 +28,7 @@ public class UserDetailedServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         try {
-            final User user = userService.find(byUsername(username));
+            final User user = userService.find(username);
             return toDetails(user);
         } catch (UserNotFoundException e) {
             throw new UsernameNotFoundException(e.getMessage());

@@ -46,4 +46,12 @@ public interface BasicService<T> {
      * @param id primary key
      */
     void delete(Long id);
+
+    /**
+     * Exists by id.
+     *
+     * @param id {@link Long}
+     * @return {@code boolean}
+     */
+    boolean exists(Long id);
 }

@@ -6,6 +6,8 @@ import com.waffle.data.mappers.VehicleMapper;
 import com.waffle.repositories.VehicleRepository;
 import com.waffle.services.entity.VehicleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,36 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public List<Vehicle> findAll(final Sort sort) {
+        return repository.findAll(sort);
+    }
+
+    @Override
+    public List<Vehicle> findAll(final Sort sort, final Long userId) {
+        return repository.findAll(byUser(userId), sort);
+    }
+
+    @Override
+    public Page<Vehicle> findAll(final Sort sort, final Long userId, final PageRequest page) {
+        return repository.findAll(byUser(userId), page.withSort(sort));
+    }
+
+    @Override
+    public List<Vehicle> findAll(final Long userId) {
+        return repository.findAll(byUser(userId));
+    }
+
+    @Override
+    public Page<Vehicle> findAll(final PageRequest page) {
+        return repository.findAll(page);
+    }
+
+    @Override
+    public Page<Vehicle> findAll(final Sort sort, final PageRequest page) {
+        return repository.findAll(page.withSort(sort));
+    }
+
+    @Override
     public Vehicle find(final Long id) {
         return repository.findById(id).orElseThrow(() -> new VehicleNotFoundException(id));
     }
@@ -50,17 +82,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> findAll(final Sort sort) {
-        return repository.findAll(sort);
-    }
-
-    @Override
-    public List<Vehicle> findAll(final Sort sort, final Long userId) {
-        return repository.findAll(byUser(userId), sort);
-    }
-
-    @Override
-    public List<Vehicle> findAll(final Long userId) {
-        return repository.findAll(byUser(userId));
+    public boolean exists(final Long id) {
+        return repository.existsById(id);
     }
 }

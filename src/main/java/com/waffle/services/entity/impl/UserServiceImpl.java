@@ -8,6 +8,8 @@ import com.waffle.data.mappers.UserMapper;
 import com.waffle.repositories.UserRepository;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,8 +52,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<User> findAll(final PageRequest page) {
+        return repository.findAll(page);
+    }
+
+    @Override
+    public Page<User> findAll(final Sort sort, final PageRequest page) {
+        return repository.findAll(page.withSort(sort));
+    }
+
+    @Override
     public User find(final Long id) {
         return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @Override
+    public User find(final String username) {
+        return repository.findOne(byUsername(username)).orElseThrow(() -> new UserNotFoundException(username));
     }
 
     @Override
@@ -82,8 +99,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public boolean exists(final Long id) {
+        return repository.existsById(id);
+    }
+
+    private boolean existsByUsernameOrEmail(final String value) {
+        return repository.exists(byUsername(value).or(byEmail(value)));
+    }
+
     private void encode(final User user) {
-        final String hash = new BCryptPasswordEncoder().encode(user.getProfile().getPassword());
-        user.getProfile().setPassword(hash);
+        final String hashed = new BCryptPasswordEncoder().encode(user.getProfile().getPassword());
+        user.getProfile().setPassword(hashed);
     }
 }
