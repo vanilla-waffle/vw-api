@@ -1,10 +1,10 @@
-package com.waffle.controllers;
+package com.waffle.controllers.internal;
 
 import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
 import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
-import com.waffle.services.composite.UserVehicleService;
+import com.waffle.services.composite.VehicleUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ import static org.springframework.http.ResponseEntity.status;
 @Api("in/vehicles")
 @RequiredArgsConstructor
 public class VehicleController {
-    private final UserVehicleService service;
+    private final VehicleUserService service;
 
     /**
      * Save one.
@@ -33,7 +33,7 @@ public class VehicleController {
      */
     @PostMapping
     public ResponseEntity<VehicleAllResponseDto> save(@RequestBody @NotNull @Valid final VehicleCreateDto payload) {
-        final VehicleAllResponseDto vehicle = service.saveVehicle(payload, payload.getUserId());
+        final VehicleAllResponseDto vehicle = service.save(payload, payload.getUserId());
         return status(CREATED).body(vehicle);
     }
 
@@ -44,20 +44,18 @@ public class VehicleController {
      * @return {@link VehicleAllResponseDto}
      */
     @PatchMapping
-    public ResponseEntity<VehicleAllResponseDto> update(@RequestBody @NotNull @Valid final VehicleUpdateDto payload) {
-        VehicleAllResponseDto vehicle = service.updateVehicle(payload);
+    public ResponseEntity<VehicleAllResponseDto> update(@RequestBody @Valid final VehicleUpdateDto payload) {
+        VehicleAllResponseDto vehicle = service.update(payload);
         return status(OK).body(vehicle);
     }
 
     /**
-     * Delete one by id.
+     * Delete one.
      *
      * @param id {@link Long} vehicle id
-     * @return {@link Boolean} true
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable @Positive final Long id) {
-        service.deleteVehicle(id);
-        return status(OK).body(true);
+    public void delete(@PathVariable @Positive final Long id) {
+        service.delete(id);
     }
 }

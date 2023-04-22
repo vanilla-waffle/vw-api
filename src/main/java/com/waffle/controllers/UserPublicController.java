@@ -1,21 +1,17 @@
 package com.waffle.controllers;
 
 import com.waffle.data.constants.annotations.spring.Api;
-import com.waffle.data.models.rest.request.user.UserCreateDto;
-import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserPublicResponseDto;
-import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
-import com.waffle.services.composite.UserVehicleService;
+import com.waffle.services.composite.UserPublicService;
+import com.waffle.services.composite.VehicleUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.ResponseEntity.status;
 
@@ -25,44 +21,42 @@ import static org.springframework.http.ResponseEntity.status;
 @Api("public/users")
 @RequiredArgsConstructor
 public class UserPublicController {
-    private final UserVehicleService service;
+    private final UserPublicService userPublicService;
+    private final VehicleUserService vehicleUserService;
 
     /**
-     * Find all {@link UserPublicResponseDto}.
+     * Find all.
      *
+     * @param page {@code int}
+     * @param size {@code size}
      * @param sort {@link String}
-     * @return {@link List<UserPublicResponseDto>}
+     * @return {@link Page<UserPublicResponseDto>}
      */
     @GetMapping
-    public ResponseEntity<List<UserPublicResponseDto>> findAll(@RequestParam(required = false) final String sort) {
-        final List<UserPublicResponseDto> users = service.findAllPublicUsers(sort);
+    public ResponseEntity<Page<UserPublicResponseDto>> findAll(
+            @RequestParam(defaultValue = "0") final int page,
+            @RequestParam(defaultValue = "12") final int size,
+            @RequestParam(defaultValue = "id ASC") final String sort) {
+        final Page<UserPublicResponseDto> users = userPublicService.findAll(sort, PageRequest.of(page, size));
         return status(OK).body(users);
     }
 
     /**
-     * Find all {@link VehicleAllResponseDto}.
+     * Find all.
      *
-     * @param userId {@link Long} user id
-     * @param sort {@link String} sort query
-     * @return {@link List<VehicleSlimResponseDto>}
+     * @param userId {@link Long}
+     * @param page {@code int}
+     * @param size {@code int}
+     * @param sort {@link String}
+     * @return {@link Page<VehicleSlimResponseDto>}
      */
     @GetMapping("/{userId}/vehicles")
-    public ResponseEntity<List<VehicleSlimResponseDto>> findAll(
+    public ResponseEntity<Page<VehicleSlimResponseDto>> findAll(
             @PathVariable @Positive final Long userId,
-            @RequestParam(required = false) final String sort) {
-        final List<VehicleSlimResponseDto> response = service.findAllVehicles(sort, userId);
+            @RequestParam(defaultValue = "0") final int page,
+            @RequestParam(defaultValue = "10") final int size,
+            @RequestParam(defaultValue = "id ASC") final String sort) {
+        final Page<VehicleSlimResponseDto> response = vehicleUserService.findAll(sort, userId, PageRequest.of(page, size));
         return status(OK).body(response);
-    }
-
-    /**
-     * Save one.
-     *
-     * @param payload {@link UserCreateDto}
-     * @return {@link UserAllResponseDto}
-     */
-    @PostMapping
-    public ResponseEntity<UserAllResponseDto> save(@RequestBody @Valid final UserCreateDto payload) {
-        final UserAllResponseDto user = service.saveUser(payload);
-        return status(CREATED).body(user);
     }
 }

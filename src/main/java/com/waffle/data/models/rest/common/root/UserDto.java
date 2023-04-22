@@ -18,5 +18,4 @@ public class UserDto {
     @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
     private LocalDateTime createdAt;
     private UserStatus status;
-    private Set<Role> roles;
 }

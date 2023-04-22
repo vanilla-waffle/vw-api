@@ -1,16 +1,15 @@
-package com.waffle.controllers;
+package com.waffle.controllers.internal;
 
 import com.waffle.data.constants.annotations.spring.Api;
+import com.waffle.data.constants.annotations.spring.Principal;
 import com.waffle.data.models.rest.request.user.UserUpdateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
-import com.waffle.data.entities.User;
-import com.waffle.services.composite.UserVehicleService;
+import com.waffle.services.composite.UserInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -22,7 +21,7 @@ import static org.springframework.http.ResponseEntity.status;
 @Api("in/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserVehicleService service;
+    private final UserInternalService userInternalService;
 
     /**
      * Find one.
@@ -31,44 +30,48 @@ public class UserController {
      * @return {@link UserAllResponseDto}
      */
     @GetMapping("/{id}")
+    @Deprecated
     public ResponseEntity<UserAllResponseDto> find(@PathVariable @Positive final Long id) {
-        final UserAllResponseDto user = service.findUserById(id);
+        final UserAllResponseDto user = userInternalService.find(id);
         return status(OK).body(user);
     }
 
     /**
      * Find one.
      *
-     * @param username {@link String}
+     * @param id {@link Long}
      * @return {@link UserAllResponseDto}
      */
-    @GetMapping("/username/{username}")
-    public ResponseEntity<UserAllResponseDto> find(@PathVariable @NotBlank final String username) {
-        final UserAllResponseDto user = service.findUserByUsername(username);
+    @GetMapping("/me")
+    public ResponseEntity<UserAllResponseDto> me(@Principal final Long id) {
+        final UserAllResponseDto user = userInternalService.find(id);
         return status(OK).body(user);
     }
 
     /**
-     * Update one {@link User}.
+     * Update one.
      *
+     * @param id {@link Long}
      * @param payload {@link UserUpdateDto}
      * @return {@link UserAllResponseDto}
      */
-    @PatchMapping
-    public ResponseEntity<UserAllResponseDto> update(@RequestBody @Valid final UserUpdateDto payload) {
-        final UserAllResponseDto user = service.updateUser(payload);
+    @PatchMapping("/me")
+    public ResponseEntity<UserAllResponseDto> update(
+            @Principal final Long id,
+            @RequestBody @Valid final UserUpdateDto payload
+    ) {
+        payload.setId(id);
+        final UserAllResponseDto user = userInternalService.update(payload);
         return status(OK).body(user);
     }
 
     /**
-     * Delete one by id.
+     * Delete one.
      *
      * @param id {@link Long} user id
-     * @return {@link Boolean} true
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable @Positive final Long id) {
-        service.deleteUser(id);
-        return status(OK).body(true);
+    @DeleteMapping("/me")
+    public void delete(@Principal final Long id) {
+        userInternalService.delete(id);
     }
 }
