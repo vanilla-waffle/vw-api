@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -32,7 +31,7 @@ public class VehicleController {
      * @return {@link VehicleAllResponseDto}
      */
     @PostMapping
-    public ResponseEntity<VehicleAllResponseDto> save(@RequestBody @NotNull @Valid final VehicleCreateDto payload) {
+    public ResponseEntity<VehicleAllResponseDto> save(@RequestBody @Valid final VehicleCreateDto payload) {
         final VehicleAllResponseDto vehicle = service.save(payload, payload.getUserId());
         return status(CREATED).body(vehicle);
     }

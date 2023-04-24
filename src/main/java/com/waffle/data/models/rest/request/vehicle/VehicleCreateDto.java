@@ -41,7 +41,6 @@ public class VehicleCreateDto {
     @Positive
     private Integer releaseYear;
 
-    @NotNull
     private VehiclePassportDto passport;
 
     @NotNull

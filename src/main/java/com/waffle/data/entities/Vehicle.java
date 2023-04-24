@@ -62,7 +62,6 @@ public class Vehicle {
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(nullable = false)
     @JsonManagedReference(value = "vehicle-passport")
     private VehiclePassport passport;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

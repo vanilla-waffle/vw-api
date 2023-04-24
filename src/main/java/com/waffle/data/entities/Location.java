@@ -38,7 +38,7 @@ public class Location {
     @Column(nullable = false)
     private Double latitude;
     @Column(nullable = false)
-    private Double longitue;
+    private Double longitude;
 
     @OneToOne(mappedBy = "location")
     @JsonBackReference(value = "vehicle-location")
