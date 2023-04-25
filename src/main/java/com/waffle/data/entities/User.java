@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.entities.embedded.user.Profile;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -19,13 +17,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+@EqualsAndHashCode(callSuper = true)
+public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;

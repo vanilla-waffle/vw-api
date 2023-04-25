@@ -18,11 +18,9 @@ import java.util.Collection;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriverLicense {
+@EqualsAndHashCode(callSuper = true)
+public class DriverLicense extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(nullable = false)
     private String licenseNumber;
 

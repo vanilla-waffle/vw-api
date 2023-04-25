@@ -5,7 +5,7 @@ import com.waffle.data.models.rest.common.PaymentPlanDto;
 import com.waffle.data.models.rest.common.SpecificationDto;
 import com.waffle.data.models.rest.common.VehicleDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
-import com.waffle.data.models.rest.response.vehicle.LocationResponseDto;
+import com.waffle.data.models.rest.response.vehicle.location.LocationResponseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

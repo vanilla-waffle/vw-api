@@ -1,4 +1,4 @@
-package com.waffle.data.models.rest.response.user;
+package com.waffle.data.models.rest.response.user.payment;
 
 import com.waffle.data.models.rest.common.PaymentMethodDto;
 import lombok.Data;

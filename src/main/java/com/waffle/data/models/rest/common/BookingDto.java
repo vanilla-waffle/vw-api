@@ -16,8 +16,8 @@ public class BookingDto {
     private UserSlimResponseDto user;
     private VehicleSlimResponseDto vehicle;
 
-    private LocalDateTime startedAt;
-    private LocalDateTime completedAt;
+    private LocalDateTime startsAt;
+    private LocalDateTime completesAt;
 
     private Double totalPrice;
 

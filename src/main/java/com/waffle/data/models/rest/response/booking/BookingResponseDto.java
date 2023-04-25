@@ -1,4 +1,4 @@
-package com.waffle.data.models.rest.response.user;
+package com.waffle.data.models.rest.response.booking;
 
 import com.waffle.data.models.rest.common.BookingDto;
 import lombok.Data;
@@ -16,3 +16,4 @@ public class BookingResponseDto extends BookingDto {
     private Long id;
     private LocalDateTime createdAt;
 }
+
