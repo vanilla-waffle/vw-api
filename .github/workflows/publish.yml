@@ -1,4 +1,4 @@
-name: Publish to Docker Hub (vwaf/api)
+name: Publish to Docker Hub (vwapi)
 
 on:
   push:
@@ -34,4 +34,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: vwaf/api:${{ env.BRANCH_NAME }}${{ env.PROJECT_VERSION }}
+          tags: vwapi/${{ startsWith(env.BRANCH_NAME, 'dev') && 'oreo' || 'apollo' }}:${{ env.PROJECT_VERSION }}
