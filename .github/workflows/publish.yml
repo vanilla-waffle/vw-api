@@ -34,4 +34,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: vwapi/${{ startsWith(env.BRANCH_NAME, 'dev') && 'oreo' || 'apollo' }}:${{ env.PROJECT_VERSION }}
+          tags: vwapi/${{ startsWith(env.BRANCH_NAME, 'dev') && 'oreo' || 'apollo' }}:${{ env.PROJECT_VERSION }}, vwapi/${{ startsWith(env.BRANCH_NAME, 'dev') && 'oreo' || 'apollo' }}:latest
