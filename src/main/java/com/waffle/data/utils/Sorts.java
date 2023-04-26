@@ -5,9 +5,9 @@ import org.springframework.data.domain.Sort;
 /**
  * Sort utils.
  */
-public final class SortUtils {
+public final class Sorts {
 
-    private SortUtils() {
+    private Sorts() {
     }
 
     /**
@@ -16,7 +16,7 @@ public final class SortUtils {
      * @param query {@link String} sort query
      * @return {@link Sort}
      */
-    public static Sort from(final String query) {
+    public static Sort of(final String query) {
         final String[] args = query.split(" ");
 
         if (args.length != 2) {

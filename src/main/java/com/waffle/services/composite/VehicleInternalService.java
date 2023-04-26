@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * User vehicle service.
  */
-public interface VehicleUserService {
+public interface VehicleInternalService {
 
     /**
      * Find all.

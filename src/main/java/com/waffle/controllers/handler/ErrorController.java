@@ -105,6 +105,22 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     }
 
     /**
+     * Handles IllegalArgumentException.
+     *
+     * @param e exception
+     * @return error message dto
+     */
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    ResponseEntity<ErrorMessageDto> handle(final IllegalArgumentException e) {
+        final ErrorMessageDto message = ErrorMessageDto.builder()
+                .code(BAD_REQUEST)
+                .reason(e.getClass().getSimpleName())
+                .message(e.getMessage())
+                .build();
+        return status(BAD_REQUEST).body(message);
+    }
+
+    /**
      * Handles internal error exceptions.
      *
      * @param e exception

@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class VehiclePassport extends BaseEntity {
+public class VehiclePassport extends BasicEntity {
 
     private String passportNumber;
     private String modelName;
@@ -36,6 +35,5 @@ public class VehiclePassport extends BaseEntity {
     private String serialNumber;
 
     @OneToOne(mappedBy = "passport")
-    @JsonBackReference(value = "vehicle-passport")
     private Vehicle vehicle;
 }

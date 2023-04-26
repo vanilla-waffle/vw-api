@@ -6,13 +6,10 @@ import com.waffle.data.models.rest.request.user.UserUpdateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.services.composite.UserInternalService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.ResponseEntity.status;
+import javax.validation.constraints.Positive;
 
 /**
  * User controller for authorities.
@@ -22,18 +19,18 @@ import static org.springframework.http.ResponseEntity.status;
 public class UserController {
     private final UserInternalService userInternalService;
 
-//    /**
-//     * Find one.
-//     *
-//     * @param id {@link Long}
-//     * @return {@link UserAllResponseDto}
-//     */
-//    @GetMapping("/{id}")
-//    @Deprecated
-//    public ResponseEntity<UserAllResponseDto> findById(@PathVariable @Positive final Long id) {
-//        final UserAllResponseDto user = userInternalService.find(id);
-//        return status(OK).body(user);
-//    }
+    /**
+     * Find one.
+     *
+     * @param id {@link Long}
+     * @deprecated is not suitable for internal calls, since it returns any profile.
+     * @return {@link UserAllResponseDto}
+     */
+    @GetMapping("/{id}")
+    @Deprecated
+    public UserAllResponseDto findById(@PathVariable @Positive final Long id) {
+        return userInternalService.find(id);
+    }
 
     /**
      * Find one.
@@ -42,9 +39,8 @@ public class UserController {
      * @return {@link UserAllResponseDto}
      */
     @GetMapping("/me")
-    public ResponseEntity<UserAllResponseDto> find(@Principal final Long id) {
-        final UserAllResponseDto user = userInternalService.find(id);
-        return status(OK).body(user);
+    public UserAllResponseDto find(@Principal final Long id) {
+        return userInternalService.find(id);
     }
 
     /**
@@ -55,13 +51,12 @@ public class UserController {
      * @return {@link UserAllResponseDto}
      */
     @PatchMapping("/me")
-    public ResponseEntity<UserAllResponseDto> update(
+    public UserAllResponseDto update(
             @Principal final Long id,
             @RequestBody @Valid final UserUpdateDto payload
     ) {
         payload.setId(id);
-        final UserAllResponseDto user = userInternalService.update(payload);
-        return status(OK).body(user);
+        return userInternalService.update(payload);
     }
 
     /**

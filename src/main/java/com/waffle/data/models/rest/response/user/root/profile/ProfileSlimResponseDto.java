@@ -12,8 +12,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ProfileSlimResponseDto extends ProfileDto {
 
-    private String email;
-    private String phoneNumber;
-
     private DriverLicenseDto driverLicense;
 }

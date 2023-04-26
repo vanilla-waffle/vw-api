@@ -1,11 +1,7 @@
 package com.waffle.data.models.rest.common;
 
 import com.waffle.data.constants.types.common.City;
-import com.waffle.data.constants.types.common.TextSize;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.NotEmpty;
 
 /**
  * Common class for dto classes of Profile.
@@ -13,14 +9,10 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class ProfileDto {
 
-    @NotEmpty
-    @Length(max = TextSize.XS)
+    private String email;
     private String username;
-    @NotEmpty
-    @Length(max = TextSize.XS)
     private String firstName;
-    @NotEmpty
-    @Length(max = TextSize.XS)
     private String lastName;
+    private String phoneNumber;
     private City city;
 }

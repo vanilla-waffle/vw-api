@@ -29,8 +29,7 @@ public class AuthPublicController {
      * @return {@link UserAllResponseDto}
      */
     @PostMapping("/register")
-    public ResponseEntity<UserAllResponseDto> register(@RequestBody @Valid final UserCreateDto payload) {
-        final UserAllResponseDto response = userPublicService.save(payload);
-        return status(CREATED).body(response);
+    public UserAllResponseDto register(@RequestBody @Valid final UserCreateDto payload) {
+        return userPublicService.save(payload);
     }
 }

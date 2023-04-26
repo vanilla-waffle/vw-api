@@ -1,6 +1,5 @@
 package com.waffle.data.entities.embedded.user;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.entities.*;
@@ -34,19 +33,14 @@ public class Profile {
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "user-driverLicense")
     private DriverLicense driverLicense;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "user-paymentMethods")
     private List<PaymentMethod> paymentMethods;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "user-vehicles")
     private List<Vehicle> vehicles;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "user-bookings")
     private List<Booking> bookings;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "user-reviews")
     private List<Review> reviews;
 
     @Enumerated(EnumType.STRING)

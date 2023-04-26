@@ -7,8 +7,8 @@ import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.Vehicle;
 import com.waffle.data.mappers.VehicleMapper;
-import com.waffle.data.utils.SortUtils;
-import com.waffle.services.composite.VehicleUserService;
+import com.waffle.data.utils.Sorts;
+import com.waffle.services.composite.VehicleInternalService;
 import com.waffle.services.entity.UserService;
 import com.waffle.services.entity.VehicleService;
 import lombok.RequiredArgsConstructor;
@@ -25,35 +25,35 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class VehicleUserServiceImpl implements VehicleUserService {
+public class VehicleInternalServiceImpl implements VehicleInternalService {
     private final VehicleService vehicleService;
     private final UserService userService;
     private final VehicleMapper vehicleMapper;
 
     @Override
     public List<VehicleSlimResponseDto> findAll(final String query) {
-        final Sort sort = SortUtils.from(query);
+        final Sort sort = Sorts.of(query);
         final List<Vehicle> vehicles = vehicleService.findAll(sort);
         return vehicleMapper.convertSlim(vehicles);
     }
 
     @Override
     public List<VehicleSlimResponseDto> findAll(final String query, final Long userId) {
-        final Sort sort = SortUtils.from(query);
+        final Sort sort = Sorts.of(query);
         final List<Vehicle> vehicles = vehicleService.findAll(sort, userId);
         return vehicleMapper.convertSlim(vehicles);
     }
 
     @Override
     public Page<VehicleSlimResponseDto> findAll(final String query, final Long userId, final PageRequest page) {
-        final Sort sort = SortUtils.from(query);
+        final Sort sort = Sorts.of(query);
         final Page<Vehicle> vehicles = vehicleService.findAll(sort, userId, page);
         return vehicles.map(vehicleMapper::convertSlim);
     }
 
     @Override
     public Page<VehicleSlimResponseDto> findAll(final String query, final PageRequest page) {
-        final Sort sort = SortUtils.from(query);
+        final Sort sort = Sorts.of(query);
         final Page<Vehicle> vehicles = vehicleService.findAll(sort, page);
         return vehicles.map(vehicleMapper::convertSlim);
     }

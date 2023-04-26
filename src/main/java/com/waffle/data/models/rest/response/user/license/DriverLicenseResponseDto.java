@@ -1,4 +1,4 @@
-package com.waffle.data.models.rest.response.user;
+package com.waffle.data.models.rest.response.user.license;
 
 import com.waffle.data.models.rest.common.DriverLicenseDto;
 import lombok.Data;

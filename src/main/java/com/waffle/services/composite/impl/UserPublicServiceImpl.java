@@ -5,7 +5,7 @@ import com.waffle.data.mappers.UserMapper;
 import com.waffle.data.models.rest.request.user.UserCreateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserPublicResponseDto;
-import com.waffle.data.utils.SortUtils;
+import com.waffle.data.utils.Sorts;
 import com.waffle.services.composite.UserPublicService;
 import com.waffle.services.entity.UserService;
 import lombok.AllArgsConstructor;
@@ -27,14 +27,14 @@ public class UserPublicServiceImpl implements UserPublicService {
 
     @Override
     public List<UserPublicResponseDto> findAll(final String query) {
-        final Sort sort = SortUtils.from(query);
+        final Sort sort = Sorts.of(query);
         final List<User> users = userService.findAll(sort);
         return userMapper.convertPublic(users);
     }
 
     @Override
     public Page<UserPublicResponseDto> findAll(final String query, final PageRequest page) {
-        final Sort sort = SortUtils.from(query);
+        final Sort sort = Sorts.of(query);
         final Page<User> users = userService.findAll(sort, page);
         return users.map(userMapper::convertPublic);
     }

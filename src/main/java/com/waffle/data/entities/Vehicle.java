@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.vehicle.Feature;
@@ -22,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Vehicle extends BaseEntity {
+public class Vehicle extends BasicEntity {
 
     @Column(nullable = false, length = TextSize.M)
     private String title;
@@ -51,7 +50,6 @@ public class Vehicle extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @JsonBackReference(value = "user-vehicles")
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

@@ -26,4 +26,12 @@ public interface SpecificService<T> {
      * @return {@link List}
      */
     List<T> findAll(Specification<T> by);
+
+    /**
+     * Exists by specified parameters.
+     *
+     * @param by {@link Specification}
+     * @return {@code boolean}
+     */
+    boolean exists(Specification<T> by);
 }

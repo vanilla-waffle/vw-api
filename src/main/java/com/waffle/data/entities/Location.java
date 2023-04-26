@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
 import lombok.*;
@@ -17,7 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Location extends BaseEntity {
+public class Location extends BasicEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -31,6 +30,5 @@ public class Location extends BaseEntity {
     private Double longitude;
 
     @OneToOne(mappedBy = "location")
-    @JsonBackReference(value = "vehicle-location")
     private Vehicle vehicle;
 }

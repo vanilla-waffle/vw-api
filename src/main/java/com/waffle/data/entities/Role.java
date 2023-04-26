@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.user.RoleType;
 import lombok.*;
 
@@ -17,13 +16,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Role extends BaseEntity {
+public class Role extends BasicEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RoleType role;
 
     @ManyToMany(mappedBy = "roles")
-    @JsonBackReference
     private Set<User> users;
 }

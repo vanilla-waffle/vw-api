@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.TextSize;
 import lombok.*;
 
@@ -16,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PaymentMethod extends BaseEntity {
+public class PaymentMethod extends BasicEntity {
 
     @Column(length = TextSize.S)
     private String name;
@@ -27,6 +26,5 @@ public class PaymentMethod extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    @JsonBackReference(value = "user-paymentMethods")
     private User user;
 }
