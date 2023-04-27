@@ -78,10 +78,10 @@ public class UserInternalServiceImpl implements UserInternalService {
 
     @Override
     public UserAllResponseDto grant(final Long id, final RoleType roleType) {
-        final Role role = roleService.find(roleType);
-        User user = userService.find(id);
-        user.getRoles().add(role);
-        user = userService.update(user);
+        final User user = userService.find(id);
+        Role role = roleService.find(roleType);
+        role.getUsers().add(user);
+        roleService.update(role);
         return userMapper.convertAll(user);
     }
 }

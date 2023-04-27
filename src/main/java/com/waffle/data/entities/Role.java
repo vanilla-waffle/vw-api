@@ -22,6 +22,11 @@ public class Role extends BasicEntity {
     @Column(nullable = false)
     private RoleType role;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany
+    @JoinTable(
+            name = "vw_users_roles",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users;
 }

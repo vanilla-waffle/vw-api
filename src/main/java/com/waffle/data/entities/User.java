@@ -25,12 +25,7 @@ public class User extends BasicEntity {
     @Embedded
     private Profile profile;
 
-    @ManyToMany
-    @JoinTable(
-            name = "vw_users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @ManyToMany(mappedBy = "users")
     private List<Role> roles;
 
     /**

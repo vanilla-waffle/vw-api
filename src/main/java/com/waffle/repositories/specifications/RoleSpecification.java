@@ -21,7 +21,7 @@ public final class RoleSpecification {
     public static Specification<Role> byRoleType(final RoleType type) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(
-                        root.get("name"),
+                        root.get("role"),
                         type
                 );
     }
