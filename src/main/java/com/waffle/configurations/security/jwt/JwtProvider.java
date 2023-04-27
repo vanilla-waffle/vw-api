@@ -11,10 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Jwt provider.
@@ -34,7 +35,9 @@ public class JwtProvider {
         return new UsernamePasswordAuthenticationToken(
                 claims.get("id").asLong(),
                 null,
-                claims.get("roles").asList(GrantedAuthority.class)
+                claims.get("roles").asList(String.class).stream()
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList())
         );
     }
 
@@ -56,10 +59,11 @@ public class JwtProvider {
      * @return {@link String} token
      */
     public String generate(final UserContext ctx) {
+        final List<String> authorities = ctx.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         return JWT.create()
                 .withSubject(ctx.getUsername())
                 .withClaim("id", ctx.data().getId())
-                .withClaim("roles", new ArrayList<>(ctx.getAuthorities()))
+                .withClaim("roles", authorities)
                 .withIssuer(settings.issuer())
                 .withExpiresAt(Instant.now().plusSeconds(settings.expireAt()))
                 .sign(Algorithm.HMAC256(settings.secret()));
@@ -72,9 +76,10 @@ public class JwtProvider {
      * @return {@link String}
      */
     public String generateRefresh(final UserContext ctx) {
+        final List<String> authorities = ctx.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         return JWT.create()
                 .withSubject(ctx.getUsername())
-                .withClaim("roles", new ArrayList<>(ctx.getAuthorities()))
+                .withClaim("roles", authorities)
                 .withIssuer(settings.issuer())
                 .withExpiresAt(Instant.now().plusSeconds(settings.refreshExpireAt()))
                 .sign(Algorithm.HMAC256(settings.secret()));

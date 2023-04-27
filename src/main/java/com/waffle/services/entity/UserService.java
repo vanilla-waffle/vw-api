@@ -1,6 +1,7 @@
 package com.waffle.services.entity;
 
 
+import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.entities.User;
 import com.waffle.services.common.BasicService;
 import com.waffle.services.common.PagingService;
@@ -23,4 +24,13 @@ public interface UserService extends
      * @return {@link User}
      */
     User find(String username);
+
+    /**
+     * Change user status.
+     *
+     * @param id {@link Long}
+     * @param status {@link UserStatus}
+     * @return {@link User}
+     */
+    User changeStatus(Long id, UserStatus status);
 }

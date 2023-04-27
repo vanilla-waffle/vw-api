@@ -4,7 +4,7 @@ import com.waffle.data.constants.types.user.RoleType;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Authority entity for role managements.
@@ -23,5 +23,5 @@ public class Role extends BasicEntity {
     private RoleType role;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private List<User> users;
 }

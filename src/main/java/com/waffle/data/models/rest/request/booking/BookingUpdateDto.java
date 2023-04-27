@@ -5,6 +5,9 @@ import com.waffle.data.models.rest.common.BookingDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 /**
  * Booking update dto.
  */
@@ -12,6 +15,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class BookingUpdateDto extends BookingDto {
 
+    @NotNull
+    @Positive
     private Long id;
 
     @JsonIgnore

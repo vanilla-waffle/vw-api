@@ -1,5 +1,6 @@
 package com.waffle.services.entity.impl;
 
+import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.entities.User;
 import com.waffle.data.mappers.UserMapper;
 import com.waffle.repositories.UserRepository;
@@ -114,6 +115,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean exists(final Specification<User> by) {
         return repository.exists(by);
+    }
+
+    @Override
+    public User changeStatus(final Long id, final UserStatus status) {
+        final User user = find(id);
+        user.setStatus(status);
+        return repository.save(user);
     }
 
     private void encode(final User user) {

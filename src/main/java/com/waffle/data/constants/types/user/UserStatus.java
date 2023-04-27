@@ -20,5 +20,9 @@ public enum UserStatus {
     /**
      * Status of banned accounts.
      */
-    BANNED
+    BANNED,
+    /**
+     * Deleted user.
+     */
+    DELETED
 }
