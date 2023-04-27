@@ -55,7 +55,7 @@ public class BookingController {
      * @param payload {@link BookingUpdateDto}
      * @return {@link BookingAllResponseDto}
      */
-    @PutMapping
+    @PatchMapping
     public BookingAllResponseDto update(
             @Principal final Long userId,
             @RequestBody @Valid final BookingUpdateDto payload) {
