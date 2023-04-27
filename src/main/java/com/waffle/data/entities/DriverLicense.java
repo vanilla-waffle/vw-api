@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.user.DriverLicenseCategory;
 import lombok.*;
@@ -18,11 +17,9 @@ import java.util.Collection;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriverLicense {
+@EqualsAndHashCode(callSuper = true)
+public class DriverLicense extends BasicEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(nullable = false)
     private String licenseNumber;
 
@@ -36,7 +33,6 @@ public class DriverLicense {
     private LocalDate expirationDate;
 
     @OneToOne(mappedBy = "profile.driverLicense")
-    @JsonBackReference(value = "user-driverLicense")
     private User user;
 
     @ElementCollection(targetClass = DriverLicenseCategory.class)

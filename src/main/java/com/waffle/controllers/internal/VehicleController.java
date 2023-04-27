@@ -4,17 +4,14 @@ import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
 import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
-import com.waffle.services.composite.VehicleUserService;
+import com.waffle.services.composite.VehicleInternalService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.ResponseEntity.status;
 
 /**
  * Vehicle controller.
@@ -22,7 +19,7 @@ import static org.springframework.http.ResponseEntity.status;
 @Api("in/vehicles")
 @RequiredArgsConstructor
 public class VehicleController {
-    private final VehicleUserService service;
+    private final VehicleInternalService service;
 
     /**
      * Save one.
@@ -31,9 +28,9 @@ public class VehicleController {
      * @return {@link VehicleAllResponseDto}
      */
     @PostMapping
-    public ResponseEntity<VehicleAllResponseDto> save(@RequestBody @Valid final VehicleCreateDto payload) {
-        final VehicleAllResponseDto vehicle = service.save(payload, payload.getUserId());
-        return status(CREATED).body(vehicle);
+    @ResponseStatus(CREATED)
+    public VehicleAllResponseDto save(@RequestBody @Valid final VehicleCreateDto payload) {
+        return service.save(payload, payload.getUserId());
     }
 
     /**
@@ -43,9 +40,8 @@ public class VehicleController {
      * @return {@link VehicleAllResponseDto}
      */
     @PatchMapping
-    public ResponseEntity<VehicleAllResponseDto> update(@RequestBody @Valid final VehicleUpdateDto payload) {
-        VehicleAllResponseDto vehicle = service.update(payload);
-        return status(OK).body(vehicle);
+    public VehicleAllResponseDto update(@RequestBody @Valid final VehicleUpdateDto payload) {
+        return service.update(payload);
     }
 
     /**

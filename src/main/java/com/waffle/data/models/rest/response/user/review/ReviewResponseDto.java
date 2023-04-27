@@ -1,5 +1,6 @@
-package com.waffle.data.models.rest.response.user;
+package com.waffle.data.models.rest.response.user.review;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.waffle.data.models.rest.common.ReviewDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@JsonPropertyOrder({ "id", "createdAt" })
 public class ReviewResponseDto extends ReviewDto {
 
     private Long id;

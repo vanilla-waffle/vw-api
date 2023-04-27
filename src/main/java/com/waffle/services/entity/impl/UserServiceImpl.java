@@ -1,9 +1,6 @@
 package com.waffle.services.entity.impl;
 
-import com.waffle.data.constants.exceptions.UserAlreadyExistsException;
-import com.waffle.data.constants.exceptions.UserNotFoundException;
 import com.waffle.data.entities.User;
-import com.waffle.data.entities.embedded.user.Profile;
 import com.waffle.data.mappers.UserMapper;
 import com.waffle.repositories.UserRepository;
 import com.waffle.services.entity.UserService;
@@ -31,7 +28,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(final User payload) {
-        exists(payload.getProfile());
+        final String username = payload.getProfile().getUsername();
+        final String email = payload.getProfile().getEmail();
+
+        if (exists(byEmail(email))) {
+            throw new IllegalArgumentException("Email is already in use: " + email);
+        }
+
+        if (exists(byUsername(username))) {
+            throw new IllegalArgumentException("Username is already in use: " + email);
+        }
+
         encode(payload);
         return repository.save(payload);
     }
@@ -63,23 +70,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User find(final Long id) {
-        return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found: " + id));
     }
 
     @Override
     public User find(final String username) {
-        return repository.findOne(byUsername(username)).orElseThrow(() -> new UserNotFoundException(username));
+        return repository.findOne(byUsername(username)).orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
     }
 
     @Override
-    public User find(final Specification<User> by) throws UserNotFoundException {
-        return repository.findOne(by).orElseThrow(UserNotFoundException::new);
+    public User find(final Specification<User> by) {
+        return repository.findOne(by).orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
     @Override
     public User update(final User payload) {
-        exists(payload.getProfile());
+        final String username = payload.getProfile().getUsername();
+        final String email = payload.getProfile().getEmail();
         final User actual = find(payload.getId());
+
+        if (exists(byEmail(email))) {
+            throw new IllegalArgumentException("Email is already in use: " + email);
+        }
+
+        if (exists(byUsername(username))) {
+            throw new IllegalArgumentException("Username is already in use: " + email);
+        }
+
         User user = mapper.update(payload, actual);
         return repository.save(user);
     }
@@ -89,23 +106,14 @@ public class UserServiceImpl implements UserService {
         repository.deleteById(id);
     }
 
-    @Deprecated
-    private void exists(final Profile p) {
-        if (p.getEmail() != null && repository.exists(byEmail(p.getEmail()))) {
-            throw new UserAlreadyExistsException(p.getEmail());
-        }
-        if (p.getUsername() != null && repository.exists(byUsername(p.getUsername()))) {
-            throw new UserAlreadyExistsException(p.getUsername());
-        }
-    }
-
     @Override
     public boolean exists(final Long id) {
         return repository.existsById(id);
     }
 
-    private boolean existsByUsernameOrEmail(final String value) {
-        return repository.exists(byUsername(value).or(byEmail(value)));
+    @Override
+    public boolean exists(final Specification<User> by) {
+        return repository.exists(by);
     }
 
     private void encode(final User user) {

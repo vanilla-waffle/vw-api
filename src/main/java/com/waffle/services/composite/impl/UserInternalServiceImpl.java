@@ -5,7 +5,7 @@ import com.waffle.data.mappers.UserMapper;
 import com.waffle.data.models.rest.request.user.UserUpdateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
-import com.waffle.data.utils.SortUtils;
+import com.waffle.data.utils.Sorts;
 import com.waffle.services.composite.UserInternalService;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class UserInternalServiceImpl implements UserInternalService {
             return userMapper.convertSlim(users);
         }
 
-        final Sort params = SortUtils.from(sort);
+        final Sort params = Sorts.of(sort);
         final List<User> users = userService.findAll(params);
         return userMapper.convertSlim(users);
     }

@@ -2,7 +2,7 @@ package com.waffle.configurations.security.filters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waffle.configurations.security.handlers.AuthenticationHandler;
-import com.waffle.data.models.other.CredentialsPair;
+import com.waffle.data.models.other.pair.CredentialsPair;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

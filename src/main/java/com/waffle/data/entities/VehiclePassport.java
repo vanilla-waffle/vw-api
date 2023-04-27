@@ -1,15 +1,9 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Vehicle passport entity.
@@ -20,13 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehiclePassport {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+@EqualsAndHashCode(callSuper = true)
+public class VehiclePassport extends BasicEntity {
 
     private String passportNumber;
     private String modelName;
@@ -46,6 +35,5 @@ public class VehiclePassport {
     private String serialNumber;
 
     @OneToOne(mappedBy = "passport")
-    @JsonBackReference(value = "vehicle-passport")
     private Vehicle vehicle;
 }

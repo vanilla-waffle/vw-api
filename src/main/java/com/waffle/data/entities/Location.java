@@ -1,16 +1,10 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * Vehicle location entity.
@@ -21,13 +15,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+@EqualsAndHashCode(callSuper = true)
+public class Location extends BasicEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -41,6 +30,5 @@ public class Location {
     private Double longitude;
 
     @OneToOne(mappedBy = "location")
-    @JsonBackReference(value = "vehicle-location")
     private Vehicle vehicle;
 }

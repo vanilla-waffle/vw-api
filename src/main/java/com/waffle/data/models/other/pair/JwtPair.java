@@ -1,4 +1,4 @@
-package com.waffle.data.models.other;
+package com.waffle.data.models.other.pair;
 
 import lombok.Builder;
 import lombok.Data;

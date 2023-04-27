@@ -1,7 +1,7 @@
 package com.waffle.controllers.handler;
 
 import com.waffle.data.constants.exceptions.UserAlreadyExistsException;
-import com.waffle.data.constants.exceptions.UserNotFoundException;
+import com.waffle.data.constants.exceptions.NotFoundException;
 import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.models.other.ErrorMessageDto;
 import org.springframework.beans.TypeMismatchException;
@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.validation.ConstraintViolationException;
 
+import java.util.stream.Collectors;
+
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.ResponseEntity.status;
 
@@ -25,7 +28,7 @@ import static org.springframework.http.ResponseEntity.status;
  * Exceptions handler.
  */
 @ControllerAdvice
-public class ErrorController extends ResponseEntityExceptionHandler {
+public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
     @Override
     @NonNull
@@ -67,7 +70,11 @@ public class ErrorController extends ResponseEntityExceptionHandler {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(BAD_REQUEST)
                 .reason(ex.getClass().getSimpleName())
-                .message(ex.getMessage())
+                .message(
+                        ex.getBindingResult().getFieldErrors().stream()
+                                .map(FieldError::getDefaultMessage)
+                                .collect(Collectors.joining(","))
+                )
                 .build();
         return status(BAD_REQUEST).body(message);
     }
@@ -78,8 +85,8 @@ public class ErrorController extends ResponseEntityExceptionHandler {
      * @param e exception
      * @return error message dto
      */
-    @ExceptionHandler(value = { UserNotFoundException.class, VehicleNotFoundException.class })
-    ResponseEntity<ErrorMessageDto> handle(final UserNotFoundException e) {
+    @ExceptionHandler(value = { NotFoundException.class, VehicleNotFoundException.class })
+    ResponseEntity<ErrorMessageDto> handle(final NotFoundException e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(NOT_FOUND)
                 .reason(e.getClass().getSimpleName())
@@ -96,6 +103,22 @@ public class ErrorController extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = { ConstraintViolationException.class, UserAlreadyExistsException.class })
     ResponseEntity<ErrorMessageDto> handle(final RuntimeException e) {
+        final ErrorMessageDto message = ErrorMessageDto.builder()
+                .code(BAD_REQUEST)
+                .reason(e.getClass().getSimpleName())
+                .message(e.getMessage())
+                .build();
+        return status(BAD_REQUEST).body(message);
+    }
+
+    /**
+     * Handles IllegalArgumentException.
+     *
+     * @param e exception
+     * @return error message dto
+     */
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    ResponseEntity<ErrorMessageDto> handle(final IllegalArgumentException e) {
         final ErrorMessageDto message = ErrorMessageDto.builder()
                 .code(BAD_REQUEST)
                 .reason(e.getClass().getSimpleName())

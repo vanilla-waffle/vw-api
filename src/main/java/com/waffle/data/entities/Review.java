@@ -1,15 +1,9 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.waffle.data.constants.types.common.TextSize;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * Review entity.
@@ -20,13 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+@EqualsAndHashCode(callSuper = true)
+public class Review extends BasicEntity {
 
     @Column(nullable = false)
     private Integer rating;
@@ -35,10 +24,8 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @JsonBackReference(value = "user-reviews")
     private User user;
     @ManyToOne
     @JoinColumn(nullable = false)
-    @JsonBackReference(value = "vehicle-reviews")
     private Vehicle vehicle;
 }

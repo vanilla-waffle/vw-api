@@ -3,9 +3,9 @@ package com.waffle.configurations.security.handlers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waffle.configurations.security.jwt.Jwt;
-import com.waffle.data.models.other.AuthenticationResponse;
+import com.waffle.data.models.other.pair.AuthUserPair;
 import com.waffle.data.models.other.ErrorMessageDto;
-import com.waffle.data.models.other.JwtPair;
+import com.waffle.data.models.other.pair.JwtPair;
 import com.waffle.data.models.other.UserContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -77,7 +77,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler, Auth
     }
 
     private String getBody(final UserContext ctx, final JwtPair jwts) throws JsonProcessingException {
-        final AuthenticationResponse response = AuthenticationResponse.builder().auth(jwts).user(ctx.data()).build();
+        final AuthUserPair response = AuthUserPair.builder().auth(jwts).user(ctx.data()).build();
         return mapper.writeValueAsString(response);
     }
 

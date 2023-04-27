@@ -19,9 +19,7 @@ import javax.persistence.Enumerated;
 public class PaymentPlan {
 
     @Column(nullable = false)
-    private Long price;
-    @Column(nullable = false)
-    private Long duration;
+    private Double price;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

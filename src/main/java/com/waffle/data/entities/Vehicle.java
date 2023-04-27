@@ -1,16 +1,13 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.vehicle.Feature;
 import com.waffle.data.entities.embedded.vehicle.PaymentPlan;
 import com.waffle.data.entities.embedded.vehicle.Specification;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -23,13 +20,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vehicle {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+@EqualsAndHashCode(callSuper = true)
+public class Vehicle extends BasicEntity {
 
     @Column(nullable = false, length = TextSize.M)
     private String title;
@@ -58,7 +50,6 @@ public class Vehicle {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @JsonBackReference(value = "user-vehicles")
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
