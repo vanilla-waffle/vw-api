@@ -1,6 +1,6 @@
 package com.waffle.services.entity.impl;
 
-import com.waffle.data.constants.exceptions.NotFoundException;
+import com.waffle.data.constants.types.booking.BookingStatus;
 import com.waffle.data.entities.Booking;
 import com.waffle.data.mappers.BookingMapper;
 import com.waffle.repositories.BookingRepository;
@@ -83,5 +83,12 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public boolean exists(final Long id) {
         return repository.existsById(id);
+    }
+
+    @Override
+    public Booking changeStatus(final Long id, final BookingStatus status) {
+        final Booking booking = find(id);
+        booking.setStatus(status);
+        return repository.save(booking);
     }
 }

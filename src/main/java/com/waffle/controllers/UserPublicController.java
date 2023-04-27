@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
 
-import static org.springframework.http.ResponseEntity.status;
-
 /**
  * User public controller.
  */

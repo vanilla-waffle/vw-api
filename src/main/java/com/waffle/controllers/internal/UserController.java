@@ -53,8 +53,7 @@ public class UserController {
     @PatchMapping("/me")
     public UserAllResponseDto update(
             @Principal final Long id,
-            @RequestBody @Valid final UserUpdateDto payload
-    ) {
+            @RequestBody @Valid final UserUpdateDto payload) {
         payload.setId(id);
         return userInternalService.update(payload);
     }

@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.ResponseEntity.status;
 
 /**
  * Vehicle controller.

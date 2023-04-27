@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
  * Request, dto class to create a User.
  */
 @Data
-@Builder
 @EqualsAndHashCode(callSuper = true)
 public class UserCreateDto extends ProfileDto {
 

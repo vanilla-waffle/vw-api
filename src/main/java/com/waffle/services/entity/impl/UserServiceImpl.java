@@ -1,8 +1,6 @@
 package com.waffle.services.entity.impl;
 
-import com.waffle.data.constants.exceptions.NotFoundException;
 import com.waffle.data.entities.User;
-import com.waffle.data.entities.embedded.user.Profile;
 import com.waffle.data.mappers.UserMapper;
 import com.waffle.repositories.UserRepository;
 import com.waffle.services.entity.UserService;
@@ -15,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 import static com.waffle.repositories.specifications.UserSpecification.byEmail;
 import static com.waffle.repositories.specifications.UserSpecification.byUsername;

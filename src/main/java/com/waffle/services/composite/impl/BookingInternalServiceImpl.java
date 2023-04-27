@@ -1,5 +1,6 @@
 package com.waffle.services.composite.impl;
 
+import com.waffle.data.constants.types.booking.BookingStatus;
 import com.waffle.data.entities.Booking;
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.Vehicle;
@@ -93,5 +94,17 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     @Transactional
     public void delete(final Long id) {
         bookingService.delete(id);
+    }
+
+    @Override
+    public BookingAllResponseDto cancel(final Long id) {
+        final Booking booking = bookingService.changeStatus(id, BookingStatus.CANCELED);
+        return bookingMapper.convertAll(booking);
+    }
+
+    @Override
+    public BookingAllResponseDto complete(final Long id) {
+        final Booking booking = bookingService.changeStatus(id, BookingStatus.COMPLETED);
+        return bookingMapper.convertAll(booking);
     }
 }

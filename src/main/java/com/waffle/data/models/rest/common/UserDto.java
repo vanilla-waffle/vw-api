@@ -1,6 +1,5 @@
 package com.waffle.data.models.rest.common;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.waffle.data.constants.types.user.UserStatus;
 import lombok.Data;
 

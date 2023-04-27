@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import static com.waffle.data.constants.types.vehicle.Payment.HOUR;
+
 /**
  * Booking entity.
  */
@@ -27,8 +29,13 @@ public class Booking extends BasicEntity {
     @JoinColumn(nullable = false)
     private Vehicle vehicle;
 
+    @Column(nullable = false)
     private LocalDateTime startsAt;
+    @Column(nullable = false)
     private LocalDateTime completesAt;
+
+    @Column(nullable = false)
+    private Integer duration;
 
     @Column(nullable = false)
     private Double totalPrice;
@@ -42,14 +49,10 @@ public class Booking extends BasicEntity {
      */
     @PrePersist
     public void onPersist() {
-        long duration;
+        final Payment type = vehicle.getPaymentPlan().getPayment();
+        final Duration period = Duration.between(startsAt, completesAt);
 
-        if (vehicle.getPaymentPlan().getPayment().equals(Payment.HOUR)) {
-            duration = Duration.between(startsAt, completesAt).toHoursPart();
-        } else {
-            duration = Duration.between(startsAt, completesAt).toDaysPart();
-        }
-
+        duration = type.equals(HOUR) ? period.toHoursPart() : (int) period.toDaysPart();
         totalPrice = duration * vehicle.getPaymentPlan().getPrice();
         status = BookingStatus.ACTIVE;
     }

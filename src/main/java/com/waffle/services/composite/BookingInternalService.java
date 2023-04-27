@@ -38,4 +38,20 @@ public interface BookingInternalService extends
      * @return {@link List<BookingAllResponseDto>}
      */
     Page<BookingAllResponseDto> findAllByVehicle(String query, PageRequest page, Long vehicleId);
+
+    /**
+     * Cancel booking.
+     *
+     * @param id {@link Long}
+     * @return {@link BookingAllResponseDto}
+     */
+    BookingAllResponseDto cancel(Long id);
+
+    /**
+     * Complete booking.
+     *
+     * @param id {@link Long}
+     * @return {@link BookingAllResponseDto}
+     */
+    BookingAllResponseDto complete(Long id);
 }
