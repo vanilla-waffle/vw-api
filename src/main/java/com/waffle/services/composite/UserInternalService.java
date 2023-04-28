@@ -1,6 +1,5 @@
 package com.waffle.services.composite;
 
-import com.waffle.data.constants.types.user.RoleType;
 import com.waffle.data.models.rest.request.user.UserUpdateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
@@ -69,13 +68,4 @@ public interface UserInternalService {
      * @param id {@link Long}
      */
     void erase(Long id);
-
-    /**
-     * Grant specific role to user.
-     *
-     * @param id {@link Long}
-     * @param role {@link RoleType}
-     * @return {@link UserAllResponseDto}
-     */
-    UserAllResponseDto grant(Long id, RoleType role);
 }

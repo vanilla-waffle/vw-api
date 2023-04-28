@@ -86,7 +86,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     @Override
     public BookingAllResponseDto update(final BookingUpdateDto payload) {
         Booking booking = bookingMapper.convert(payload);
-        booking = bookingService.update(booking);
+        booking = bookingService.merge(booking);
         return bookingMapper.convertAll(booking);
     }
 
@@ -98,13 +98,17 @@ public class BookingInternalServiceImpl implements BookingInternalService {
 
     @Override
     public BookingAllResponseDto cancel(final Long id) {
-        final Booking booking = bookingService.changeStatus(id, BookingStatus.CANCELED);
+        Booking booking = bookingService.find(id);
+        booking.setStatus(BookingStatus.CANCELED);
+        booking = bookingService.update(booking);
         return bookingMapper.convertAll(booking);
     }
 
     @Override
     public BookingAllResponseDto complete(final Long id) {
-        final Booking booking = bookingService.changeStatus(id, BookingStatus.COMPLETED);
+        Booking booking = bookingService.find(id);
+        booking.setStatus(BookingStatus.COMPLETED);
+        booking = bookingService.update(booking);
         return bookingMapper.convertAll(booking);
     }
 }

@@ -2,6 +2,7 @@ package com.waffle.data.entities;
 
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.user.DriverLicenseCategory;
+import com.waffle.data.entities.root.DocumentEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class DriverLicense extends BasicEntity {
+public class DriverLicense extends DocumentEntity {
 
     @Column(nullable = false)
     private String licenseNumber;

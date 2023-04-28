@@ -6,6 +6,9 @@ import com.waffle.repositories.RoleRepository;
 import com.waffle.services.entity.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +38,16 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Page<Role> findAll(final PageRequest page) {
+        return repository.findAll(page);
+    }
+
+    @Override
+    public Page<Role> findAll(final Sort sort, final PageRequest page) {
+        return repository.findAll(page.withSort(sort));
+    }
+
+    @Override
     public Role find(final Long id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Role does not exist: " + id));
     }
@@ -42,6 +55,19 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role find(final RoleType role) {
         return repository.findOne(byRoleType(role)).orElseThrow(() -> new IllegalArgumentException("Role does not exist: " + role));
+    }
+
+    @Override
+    public Role merge(final Role payload) {
+        if (!exists(payload.getId())) {
+            throw new IllegalArgumentException("Role does not exist: " + payload.getId());
+        }
+
+        if (exists(payload.getRole().name())) {
+            throw new IllegalArgumentException("Role already exists: " + payload.getRole().name());
+        }
+
+        return repository.save(payload);
     }
 
     @Override

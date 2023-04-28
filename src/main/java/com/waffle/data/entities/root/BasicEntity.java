@@ -1,4 +1,4 @@
-package com.waffle.data.entities;
+package com.waffle.data.entities.root;
 
 import lombok.AccessLevel;
 import lombok.Data;

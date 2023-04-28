@@ -1,7 +1,7 @@
 package com.waffle.services.entity.impl;
 
-import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.entities.User;
+import com.waffle.data.entities.embedded.user.Profile;
 import com.waffle.data.mappers.UserMapper;
 import com.waffle.repositories.UserRepository;
 import com.waffle.services.entity.UserService;
@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static com.waffle.repositories.specifications.UserSpecification.byEmail;
 import static com.waffle.repositories.specifications.UserSpecification.byUsername;
@@ -29,16 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(final User payload) {
-        final String username = payload.getProfile().getUsername();
-        final String email = payload.getProfile().getEmail();
-
-        if (exists(byEmail(email))) {
-            throw new IllegalArgumentException("Email is already in use: " + email);
-        }
-
-        if (exists(byUsername(username))) {
-            throw new IllegalArgumentException("Username is already in use: " + email);
-        }
+        ifExists(payload.getProfile(), (s) -> new IllegalArgumentException("Profile already exists: " + s));
 
         encode(payload);
         return repository.save(payload);
@@ -85,25 +77,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User merge(final User payload) {
+        ifExists(payload.getProfile(), (s) -> new IllegalArgumentException("Profile already exists: " + s));
+
+        User actual = find(payload.getId());
+        actual = mapper.update(payload, actual);
+        return repository.save(actual);
+    }
+
+    @Override
     public User update(final User payload) {
-        final String username = payload.getProfile().getUsername();
-        final String email = payload.getProfile().getEmail();
-        final User actual = find(payload.getId());
-
-        if (exists(byEmail(email))) {
-            throw new IllegalArgumentException("Email is already in use: " + email);
+        if (!exists(payload.getId())) {
+            throw new IllegalArgumentException("User does not exist: " + payload.getId());
         }
 
-        if (exists(byUsername(username))) {
-            throw new IllegalArgumentException("Username is already in use: " + email);
-        }
-
-        User user = mapper.update(payload, actual);
-        return repository.save(user);
+        return repository.save(payload);
     }
 
     @Override
     public void delete(final Long id) {
+        if (!exists(id)) {
+            throw new IllegalArgumentException("User does not exist: " + id);
+        }
+
         repository.deleteById(id);
     }
 
@@ -117,11 +113,17 @@ public class UserServiceImpl implements UserService {
         return repository.exists(by);
     }
 
-    @Override
-    public User changeStatus(final Long id, final UserStatus status) {
-        final User user = find(id);
-        user.setStatus(status);
-        return repository.save(user);
+    private void ifExists(final Profile p, final Function<String, ? extends RuntimeException> supplier) {
+        final String username = p.getUsername();
+        final String email = p.getEmail();
+
+        if (exists(byEmail(email))) {
+            supplier.apply(email);
+        }
+
+        if (exists(byUsername(username))) {
+            supplier.apply(username);
+        }
     }
 
     private void encode(final User user) {

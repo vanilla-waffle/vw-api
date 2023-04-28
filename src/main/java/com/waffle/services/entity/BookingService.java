@@ -1,6 +1,5 @@
 package com.waffle.services.entity;
 
-import com.waffle.data.constants.types.booking.BookingStatus;
 import com.waffle.data.entities.Booking;
 import com.waffle.services.common.BasicService;
 import com.waffle.services.common.PagingService;
@@ -27,13 +26,4 @@ public interface BookingService extends
      * @return {@link Page<Booking>}
      */
     Page<Booking> findAll(Sort sort, PageRequest page, Specification<Booking> by);
-
-    /**
-     * Alter booking status.
-     *
-     * @param id {@link Long}
-     * @param status {@link BookingStatus}
-     * @return {@link Booking}
-     */
-    Booking changeStatus(Long id, BookingStatus status);
 }

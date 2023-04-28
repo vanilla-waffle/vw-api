@@ -70,10 +70,19 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Vehicle update(final Vehicle payload) {
+    public Vehicle merge(final Vehicle payload) {
         Vehicle vehicle = find(payload.getId());
         vehicle = mapper.update(payload, vehicle);
         return repository.save(vehicle);
+    }
+
+    @Override
+    public Vehicle update(final Vehicle payload) {
+        if (!exists(payload.getId())) {
+            throw new IllegalArgumentException("Vehicle does not exist: " + payload.getId());
+        }
+
+        return repository.save(payload);
     }
 
     @Override

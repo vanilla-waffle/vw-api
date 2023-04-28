@@ -1,8 +1,6 @@
 package com.waffle.services.composite.impl;
 
-import com.waffle.data.constants.types.user.RoleType;
 import com.waffle.data.constants.types.user.UserStatus;
-import com.waffle.data.entities.Role;
 import com.waffle.data.entities.User;
 import com.waffle.data.mappers.UserMapper;
 import com.waffle.data.models.rest.request.user.UserUpdateDto;
@@ -10,7 +8,6 @@ import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
 import com.waffle.data.utils.Sorts;
 import com.waffle.services.composite.UserInternalService;
-import com.waffle.services.entity.RoleService;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,7 +25,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserInternalServiceImpl implements UserInternalService {
     private final UserService userService;
-    private final RoleService roleService;
     private final UserMapper userMapper;
 
     @Override
@@ -54,19 +50,23 @@ public class UserInternalServiceImpl implements UserInternalService {
     @Override
     public UserAllResponseDto update(final UserUpdateDto payload) {
         User user = userMapper.convert(payload);
-        user = userService.update(user);
+        user = userService.merge(user);
         return userMapper.convertAll(user);
     }
 
     @Override
     public UserAllResponseDto activate(final Long id) {
-        final User user = userService.changeStatus(id, UserStatus.ACTIVE);
+        User user = userService.find(id);
+        user.setStatus(UserStatus.ACTIVE);
+        user = userService.update(user);
         return userMapper.convertAll(user);
     }
 
     @Override
     public UserAllResponseDto delete(final Long id) {
-        final User user = userService.changeStatus(id, UserStatus.DELETED);
+        User user = userService.find(id);
+        user.setStatus(UserStatus.DELETED);
+        user = userService.update(user);
         return userMapper.convertAll(user);
     }
 
@@ -74,14 +74,5 @@ public class UserInternalServiceImpl implements UserInternalService {
     @Transactional
     public void erase(final Long id) {
         userService.delete(id);
-    }
-
-    @Override
-    public UserAllResponseDto grant(final Long id, final RoleType roleType) {
-        final User user = userService.find(id);
-        Role role = roleService.find(roleType);
-        role.getUsers().add(user);
-        roleService.update(role);
-        return userMapper.convertAll(user);
     }
 }

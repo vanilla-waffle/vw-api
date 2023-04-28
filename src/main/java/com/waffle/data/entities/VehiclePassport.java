@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.waffle.data.entities.root.DocumentEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class VehiclePassport extends BasicEntity {
+public class VehiclePassport extends DocumentEntity {
 
     private String passportNumber;
     private String modelName;

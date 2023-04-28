@@ -1,7 +1,6 @@
 package com.waffle.controllers.admin;
 
 import com.waffle.data.constants.annotations.spring.Api;
-import com.waffle.data.constants.types.user.RoleType;
 import com.waffle.data.models.rest.request.user.UserCreateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
@@ -59,20 +58,6 @@ public class AdminUserController {
     @PostMapping
     public UserAllResponseDto save(@RequestBody final UserCreateDto payload) {
         return userPublicService.save(payload);
-    }
-
-    /**
-     * Grant role.
-     *
-     * @param id {@link Long}
-     * @param role {@link RoleType}
-     * @return {@link UserAllResponseDto}
-     */
-    @PutMapping("/{id}/grant")
-    public UserAllResponseDto grant(
-            @PathVariable @Positive final Long id,
-            @RequestParam final RoleType role) {
-        return userInternalService.grant(id, role);
     }
 
     /**

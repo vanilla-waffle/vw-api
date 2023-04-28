@@ -2,6 +2,8 @@ package com.waffle.data.entities;
 
 import com.waffle.data.constants.types.booking.BookingStatus;
 import com.waffle.data.constants.types.vehicle.Payment;
+import com.waffle.data.entities.behaviour.Persistable;
+import com.waffle.data.entities.root.BasicEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +22,7 @@ import static com.waffle.data.constants.types.vehicle.Payment.HOUR;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Booking extends BasicEntity {
+public class Booking extends BasicEntity implements Persistable {
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -44,9 +46,7 @@ public class Booking extends BasicEntity {
     @Column(nullable = false)
     private BookingStatus status;
 
-    /**
-     * Listener function that gets executed on insert/persist operation.
-     */
+    @Override
     @PrePersist
     public void onPersist() {
         final Payment type = vehicle.getPaymentPlan().getPayment();

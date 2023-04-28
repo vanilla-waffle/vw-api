@@ -9,12 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 
 /**
  * User controller for authorities.
  */
-@Api("in/users")
+@Api("in/users/me")
 @RequiredArgsConstructor
 public class UserController {
     private final UserInternalService userInternalService;
@@ -23,22 +22,9 @@ public class UserController {
      * Find one.
      *
      * @param id {@link Long}
-     * @deprecated is not suitable for internal calls, since it returns any profile.
      * @return {@link UserAllResponseDto}
      */
-    @GetMapping("/{id}")
-    @Deprecated
-    public UserAllResponseDto findById(@PathVariable @Positive final Long id) {
-        return userInternalService.find(id);
-    }
-
-    /**
-     * Find one.
-     *
-     * @param id {@link Long}
-     * @return {@link UserAllResponseDto}
-     */
-    @GetMapping("/me")
+    @GetMapping
     public UserAllResponseDto find(@Principal final Long id) {
         return userInternalService.find(id);
     }
@@ -50,7 +36,7 @@ public class UserController {
      * @param payload {@link UserUpdateDto}
      * @return {@link UserAllResponseDto}
      */
-    @PatchMapping("/me")
+    @PatchMapping
     public UserAllResponseDto update(
             @Principal final Long id,
             @RequestBody @Valid final UserUpdateDto payload) {
@@ -63,7 +49,7 @@ public class UserController {
      *
      * @param id {@link Long} user id
      */
-    @DeleteMapping("/me")
+    @DeleteMapping
     public void delete(@Principal final Long id) {
         userInternalService.delete(id);
     }

@@ -77,7 +77,7 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     @Override
     public VehicleAllResponseDto update(final VehicleUpdateDto payload) {
         Vehicle vehicle = vehicleMapper.convert(payload);
-        vehicle = vehicleService.update(vehicle);
+        vehicle = vehicleService.merge(vehicle);
         return vehicleMapper.convertAll(vehicle);
     }
 
