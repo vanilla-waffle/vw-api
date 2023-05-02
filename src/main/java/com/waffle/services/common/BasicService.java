@@ -33,7 +33,15 @@ public interface BasicService<T> {
     T find(Long id);
 
     /**
-     * Update one entity.
+     * Merge updated fields to entity.
+     *
+     * @param payload data to merge
+     * @return updated entity
+     */
+    T merge(T payload);
+
+    /**
+     * Update entity.
      *
      * @param payload data to update
      * @return updated entity

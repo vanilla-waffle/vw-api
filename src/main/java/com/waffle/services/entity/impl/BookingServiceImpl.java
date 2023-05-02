@@ -1,8 +1,7 @@
 package com.waffle.services.entity.impl;
 
-import com.waffle.data.constants.types.booking.BookingStatus;
 import com.waffle.data.entities.Booking;
-import com.waffle.data.mappers.BookingMapper;
+import com.waffle.data.utils.mappers.BookingMapper;
 import com.waffle.repositories.BookingRepository;
 import com.waffle.services.entity.BookingService;
 import lombok.RequiredArgsConstructor;
@@ -59,11 +58,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking update(final Booking payload) {
+    public Booking merge(final Booking payload) {
         final long id = payload.getId();
 
         if (!exists(id)) {
-            throw new IllegalArgumentException("User does not exist: " + id);
+            throw new IllegalArgumentException("Booking does not exist: " + id);
         }
 
         final Booking actual = find(id);
@@ -72,9 +71,20 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public Booking update(final Booking payload) {
+        final long id = payload.getId();
+
+        if (!exists(id)) {
+            throw new IllegalArgumentException("Booking does not exist: " + id);
+        }
+
+        return repository.save(payload);
+    }
+
+    @Override
     public void delete(final Long id) {
         if (!exists(id)) {
-            throw new IllegalArgumentException("User does not exist: " + id);
+            throw new IllegalArgumentException("Booking does not exist: " + id);
         }
 
         repository.deleteById(id);
@@ -83,12 +93,5 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public boolean exists(final Long id) {
         return repository.existsById(id);
-    }
-
-    @Override
-    public Booking changeStatus(final Long id, final BookingStatus status) {
-        final Booking booking = find(id);
-        booking.setStatus(status);
-        return repository.save(booking);
     }
 }

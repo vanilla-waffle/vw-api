@@ -1,4 +1,4 @@
-package com.waffle.data.mappers;
+package com.waffle.data.utils.mappers;
 
 import com.waffle.configurations.MapperConfiguration;
 import com.waffle.data.models.rest.request.user.UserCreateDto;

@@ -7,6 +7,7 @@ import com.waffle.data.models.rest.common.SpecificationDto;
 import com.waffle.data.models.rest.common.VehicleDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
 import com.waffle.data.models.rest.response.vehicle.location.LocationResponseDto;
+import com.waffle.data.models.rest.response.vehicle.passport.VehiclePassportResponseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -28,4 +29,6 @@ public class VehicleAllResponseDto extends VehicleDto {
     private Set<Feature> features;
     private UserSlimResponseDto user;
     private LocationResponseDto location;
+
+    private VehiclePassportResponseDto passport;
 }

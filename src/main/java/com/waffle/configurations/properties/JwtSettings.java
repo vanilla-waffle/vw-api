@@ -1,15 +1,17 @@
 package com.waffle.configurations.properties;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * Cookie security properties.
+ * JWT properties.
  */
 @Component
-@Data
+@Getter
+@Setter
 @Accessors(fluent = true)
 public class JwtSettings {
 
@@ -17,8 +19,8 @@ public class JwtSettings {
     private String secret;
     @Value("${waffle.security.jwt.issuer}")
     private String issuer;
-    @Value("${waffle.security.jwt.expiration.basic}")
-    private int expireAt;
+    @Value("${waffle.security.jwt.expiration.access}")
+    private int accessExpiresAt;
     @Value("${waffle.security.jwt.expiration.refresh}")
-    private int refreshExpireAt;
+    private int refreshExpiresAt;
 }

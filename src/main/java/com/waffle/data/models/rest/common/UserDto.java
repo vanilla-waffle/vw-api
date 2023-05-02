@@ -13,5 +13,7 @@ public class UserDto {
 
     private Long id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
     private UserStatus status;
 }

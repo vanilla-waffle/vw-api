@@ -1,4 +1,4 @@
-package com.waffle.configurations.security;
+package com.waffle.configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waffle.configurations.properties.SecuritySettings;
@@ -45,6 +45,7 @@ public class SecurityConfiguration {
         return http
                 .authorizeRequests(auth -> auth
                         .antMatchers("*/public/**", "*/auth/**").permitAll()
+                        .antMatchers("/admin/**").hasAnyAuthority("SUPERADMIN", "ADMIN")
                         .antMatchers("/in/**").authenticated()
                 )
                 .sessionManagement(s -> s
@@ -52,6 +53,7 @@ public class SecurityConfiguration {
                 )
                 .cors().and()
                 .formLogin().disable()
+                .logout().disable()
                 .anonymous().disable()
                 .csrf().disable()
                 .addFilterBefore(authorizationFilter(), AuthenticationFilter.class)

@@ -1,24 +1,26 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.waffle.data.constants.types.user.UserStatus;
+import com.waffle.data.entities.behaviour.Persistable;
 import com.waffle.data.entities.embedded.user.Profile;
+import com.waffle.data.entities.root.BasicEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * User entity.
  */
 @Entity
 @Table(name = "vw_users")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class User extends BasicEntity {
+public class User extends BasicEntity implements Persistable {
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
@@ -26,18 +28,10 @@ public class User extends BasicEntity {
     @Embedded
     private Profile profile;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "vw_users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    @JsonManagedReference
-    private Set<Role> roles;
+    @ManyToMany(mappedBy = "users")
+    private List<Role> roles;
 
-    /**
-     * Listener function that gets executed on insert/persist operation.
-     */
+    @Override
     @PrePersist
     public void onPersist() {
         status = UserStatus.INACTIVE;

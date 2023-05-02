@@ -2,7 +2,7 @@ package com.waffle.services.composite.impl;
 
 import com.waffle.data.constants.exceptions.NotFoundException;
 import com.waffle.data.entities.User;
-import com.waffle.data.mappers.UserMapper;
+import com.waffle.data.utils.mappers.UserMapper;
 import com.waffle.data.models.other.UserContext;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;

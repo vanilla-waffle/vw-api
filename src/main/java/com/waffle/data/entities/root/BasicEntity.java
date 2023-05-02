@@ -1,7 +1,7 @@
-package com.waffle.data.entities;
+package com.waffle.data.entities.root;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 /**
  * Base entity.
  */
-@Data
+@Getter
 @MappedSuperclass
 public class BasicEntity {
 

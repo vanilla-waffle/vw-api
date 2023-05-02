@@ -19,6 +19,7 @@ public class BookingAllResponseDto extends BookingDto {
 
     private Long id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     private UserSlimResponseDto user;
     private VehicleSlimResponseDto vehicle;

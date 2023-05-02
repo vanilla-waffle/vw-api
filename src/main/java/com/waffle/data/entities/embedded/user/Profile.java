@@ -12,7 +12,8 @@ import java.util.List;
  * Embedded Profile class for User entity.
  */
 @Embeddable
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,24 +24,33 @@ public class Profile {
     @Column(nullable = false)
     private String password;
 
-    @Column(unique = true, length = TextSize.XS)
+    @Column(unique = true, length = TextSize.M)
     private String username;
     @Column(length = TextSize.S)
     private String firstName;
     @Column(length = TextSize.S)
     private String lastName;
-    @Column(length = TextSize.XS)
+    @Column(length = TextSize.M)
     private String phoneNumber;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
     private DriverLicense driverLicense;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+
+    @OneToMany(
+            mappedBy = "user",
+            orphanRemoval = true)
     private List<PaymentMethod> paymentMethods;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "user",
+            orphanRemoval = true)
     private List<Vehicle> vehicles;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "user",
+            orphanRemoval = true)
     private List<Booking> bookings;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "user",
+            orphanRemoval = true)
     private List<Review> reviews;
 
     @Enumerated(EnumType.STRING)

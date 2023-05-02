@@ -6,8 +6,8 @@ import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.Vehicle;
-import com.waffle.data.mappers.VehicleMapper;
-import com.waffle.data.utils.Sorts;
+import com.waffle.data.utils.mappers.VehicleMapper;
+import com.waffle.services.utils.Sorts;
 import com.waffle.services.composite.VehicleInternalService;
 import com.waffle.services.entity.UserService;
 import com.waffle.services.entity.VehicleService;
@@ -77,7 +77,7 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     @Override
     public VehicleAllResponseDto update(final VehicleUpdateDto payload) {
         Vehicle vehicle = vehicleMapper.convert(payload);
-        vehicle = vehicleService.update(vehicle);
+        vehicle = vehicleService.merge(vehicle);
         return vehicleMapper.convertAll(vehicle);
     }
 

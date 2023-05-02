@@ -2,7 +2,7 @@ package com.waffle.services.entity.impl;
 
 import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.entities.Vehicle;
-import com.waffle.data.mappers.VehicleMapper;
+import com.waffle.data.utils.mappers.VehicleMapper;
 import com.waffle.repositories.VehicleRepository;
 import com.waffle.services.entity.VehicleService;
 import lombok.RequiredArgsConstructor;
@@ -70,10 +70,19 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Vehicle update(final Vehicle payload) {
+    public Vehicle merge(final Vehicle payload) {
         Vehicle vehicle = find(payload.getId());
         vehicle = mapper.update(payload, vehicle);
         return repository.save(vehicle);
+    }
+
+    @Override
+    public Vehicle update(final Vehicle payload) {
+        if (!exists(payload.getId())) {
+            throw new IllegalArgumentException("Vehicle does not exist: " + payload.getId());
+        }
+
+        return repository.save(payload);
     }
 
     @Override

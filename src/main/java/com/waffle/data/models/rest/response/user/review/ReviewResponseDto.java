@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder({ "id", "createdAt" })
+@JsonPropertyOrder({ "id", "createdAt", "updatedAt" })
 public class ReviewResponseDto extends ReviewDto {
 
     private Long id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
