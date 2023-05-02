@@ -1,11 +1,11 @@
 package com.waffle.services.composite.impl;
 
 import com.waffle.data.entities.User;
-import com.waffle.data.mappers.UserMapper;
+import com.waffle.data.utils.mappers.UserMapper;
 import com.waffle.data.models.rest.request.user.UserCreateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserPublicResponseDto;
-import com.waffle.data.utils.Sorts;
+import com.waffle.services.utils.Sorts;
 import com.waffle.services.composite.UserPublicService;
 import com.waffle.services.entity.UserService;
 import lombok.AllArgsConstructor;

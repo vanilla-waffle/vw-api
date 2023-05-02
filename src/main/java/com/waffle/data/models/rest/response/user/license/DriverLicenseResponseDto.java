@@ -1,10 +1,12 @@
 package com.waffle.data.models.rest.response.user.license;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.waffle.data.models.rest.common.DriverLicenseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -12,9 +14,28 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder({ "id", "createdAt" })
+@JsonPropertyOrder({ "id", "createdAt", "updatedAt" })
 public class DriverLicenseResponseDto extends DriverLicenseDto {
 
     private Long id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @Override
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getBirthDate() {
+        return super.getBirthDate();
+    }
+
+    @Override
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getIssueDate() {
+        return super.getIssueDate();
+    }
+
+    @Override
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getExpirationDate() {
+        return super.getExpirationDate();
+    }
 }

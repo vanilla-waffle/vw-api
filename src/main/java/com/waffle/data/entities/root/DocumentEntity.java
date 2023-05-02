@@ -1,14 +1,16 @@
 package com.waffle.data.entities.root;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.MappedSuperclass;
 
 /**
  * Common class for all documents.
  */
-@Data
+@Getter
+@Setter
 @MappedSuperclass
 @EqualsAndHashCode(callSuper = true)
 public class DocumentEntity extends BasicEntity {

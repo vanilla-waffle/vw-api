@@ -65,7 +65,7 @@ public class JwtProvider {
                 .withClaim("id", ctx.data().getId())
                 .withClaim("roles", authorities)
                 .withIssuer(settings.issuer())
-                .withExpiresAt(Instant.now().plusSeconds(settings.expireAt()))
+                .withExpiresAt(Instant.now().plusSeconds(settings.accessExpiresAt()))
                 .sign(Algorithm.HMAC256(settings.secret()));
     }
 
@@ -81,7 +81,7 @@ public class JwtProvider {
                 .withSubject(ctx.getUsername())
                 .withClaim("roles", authorities)
                 .withIssuer(settings.issuer())
-                .withExpiresAt(Instant.now().plusSeconds(settings.refreshExpireAt()))
+                .withExpiresAt(Instant.now().plusSeconds(settings.refreshExpiresAt()))
                 .sign(Algorithm.HMAC256(settings.secret()));
     }
 

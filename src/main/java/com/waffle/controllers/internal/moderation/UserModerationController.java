@@ -2,7 +2,6 @@ package com.waffle.controllers.internal.moderation;
 
 import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.constants.annotations.spring.Principal;
-import com.waffle.data.models.rest.request.moderation.UserModerationCreateDto;
 import com.waffle.data.models.rest.response.moderation.UserModerationAllResponseDto;
 import com.waffle.services.composite.UserModerationInternalService;
 import lombok.RequiredArgsConstructor;
@@ -51,14 +50,10 @@ public class UserModerationController {
      * Save one.
      *
      * @param id {@link Long}
-     * @param payload {@link UserModerationCreateDto}
      * @return {@link UserModerationAllResponseDto}
      */
     @PostMapping("/me")
-    public UserModerationAllResponseDto save(
-            @Principal final Long id,
-            @RequestBody final UserModerationCreateDto payload) {
-        payload.setUserId(id);
-        return userModerationInternalService.save(payload);
+    public UserModerationAllResponseDto save(@Principal final Long id) {
+        return userModerationInternalService.save(id);
     }
 }

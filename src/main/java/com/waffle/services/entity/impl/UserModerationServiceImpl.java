@@ -30,7 +30,7 @@ public class UserModerationServiceImpl implements UserModerationService {
             throw new IllegalArgumentException("Provided license is already being moderated: " + licenseId);
         }
 
-        return null;
+        return repository.save(payload);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class UserModerationServiceImpl implements UserModerationService {
 
     @Override
     public boolean exists(final Long id) {
-        return false;
+        return repository.existsById(id);
     }
 
     private boolean exists(final Specification<UserModeration> by) {

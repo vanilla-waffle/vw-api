@@ -13,6 +13,7 @@ import java.util.Collection;
 public class DriverLicenseDto {
 
     private Long id;
+    private boolean approved;
     private String licenseNumber;
 
     private String firstName;

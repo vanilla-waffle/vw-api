@@ -83,7 +83,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected boolean requiresAuthentication(final HttpServletRequest request, final HttpServletResponse response) {
         return request.getMethod().equals("POST")
-                && request.getServletPath().contains("/auth/login");
+                && request.getServletPath().contains("auth/login");
     }
 
     @Override

@@ -49,19 +49,20 @@ public class Vehicle extends BasicEntity {
     @Column(name = "feature_name")
     private Set<Feature> features;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
     @JsonManagedReference(value = "vehicle-passport")
     private VehiclePassport passport;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(nullable = false)
     @JsonManagedReference(value = "vehicle-location")
     private Location location;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     @JsonManagedReference(value = "vehicle-reviews")
     private List<Review> reviews;
 }

@@ -3,10 +3,9 @@ package com.waffle.services.composite.impl;
 import com.waffle.data.entities.DriverLicense;
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.admin.UserModeration;
-import com.waffle.data.mappers.UserModerationMapper;
-import com.waffle.data.models.rest.request.moderation.UserModerationCreateDto;
+import com.waffle.data.utils.mappers.UserModerationMapper;
 import com.waffle.data.models.rest.response.moderation.UserModerationAllResponseDto;
-import com.waffle.data.utils.Sorts;
+import com.waffle.services.utils.Sorts;
 import com.waffle.services.composite.UserModerationInternalService;
 import com.waffle.services.entity.DriverLicenseService;
 import com.waffle.services.entity.UserModerationService;
@@ -16,8 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.waffle.repositories.specifications.UserModerationSpecification.byUser;
 import static com.waffle.data.constants.types.admin.ModerationStatus.*;
@@ -55,14 +53,11 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     }
 
     @Override
-    public UserModerationAllResponseDto save(final UserModerationCreateDto payload) {
-        final User user = userService.find(payload.getUserId());
+    public UserModerationAllResponseDto save(final Long userId) {
+        final User user = userService.find(userId);
         final DriverLicense license = user.getProfile().getDriverLicense();
 
-        UserModeration moderation = userModerationMapper.convert(payload);
-        moderation.setUser(user);
-        moderation.setLicense(license);
-
+        UserModeration moderation = UserModeration.of(user, license);
         moderation = userModerationService.save(moderation);
         return userModerationMapper.convertAll(moderation);
     }
@@ -70,11 +65,15 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     @Override
     @Transactional
     public UserModerationAllResponseDto approve(final Long id, final Long adminId) {
-        final User admin = userService.find(adminId);
-
         UserModeration moderation = userModerationService.find(id);
-        final DriverLicense license = moderation.getLicense();
+
+        if (!moderation.getStatus().equals(ON_REVIEW)) {
+            throw new IllegalArgumentException("Moderation request was already processed: " + id);
+        }
+
+        final User admin = userService.find(adminId);
         final User user = moderation.getUser();
+        final DriverLicense license = moderation.getLicense();
 
         moderation.setStatus(APPROVED);
         moderation.setAdmin(admin);
@@ -89,9 +88,13 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
 
     @Override
     public UserModerationAllResponseDto reject(final Long id, final Long adminId, final String message) {
-        final User admin = userService.find(adminId);
-
         UserModeration moderation = userModerationService.find(id);
+
+        if (!moderation.getStatus().equals(ON_REVIEW)) {
+            throw new IllegalArgumentException("Moderation request was already processed: " + id);
+        }
+
+        final User admin = userService.find(adminId);
 
         moderation.setStatus(REJECTED);
         moderation.setAdmin(admin);

@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @Data
 public class VehiclePassportDto {
 
+    private boolean approved;
+
     private LocalDate receivedAt;
 
     private String passportNumber;

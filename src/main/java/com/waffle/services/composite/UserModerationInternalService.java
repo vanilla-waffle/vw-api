@@ -40,10 +40,10 @@ public interface UserModerationInternalService {
     /**
      * Save one.
      *
-     * @param payload {@link UserModerationCreateDto}
+     * @param userId {@link UserModerationCreateDto}
      * @return {@link UserModerationAllResponseDto}
      */
-    UserModerationAllResponseDto save(UserModerationCreateDto payload);
+    UserModerationAllResponseDto save(Long userId);
 
     /**
      * Approve.

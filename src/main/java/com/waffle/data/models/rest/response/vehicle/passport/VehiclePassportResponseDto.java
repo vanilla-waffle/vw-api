@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder({ "id", "createdAt" })
+@JsonPropertyOrder({ "id", "createdAt", "updatedAt" })
 public class VehiclePassportResponseDto extends VehiclePassportDto {
 
     private Long id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
 

@@ -47,4 +47,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             authorizationFailedHandler.handle(request, response, e);
         }
     }
+
+    @Override
+    protected boolean shouldNotFilter(@NonNull final HttpServletRequest request) {
+        return request.getContextPath().contains("auth/login");
+    }
 }

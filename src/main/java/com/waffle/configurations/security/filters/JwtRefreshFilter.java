@@ -12,10 +12,10 @@ import org.springframework.security.oauth2.server.resource.InvalidBearerTokenExc
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 /**
  * Jwt refresh filter.
@@ -42,17 +42,16 @@ public class JwtRefreshFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull final HttpServletRequest request,
             @NonNull final HttpServletResponse response,
-            @NonNull final FilterChain chain) throws ServletException, IOException {
-        if (!requiresRefresh(request)) {
-            chain.doFilter(request, response);
-            return;
-        }
-
+            @NonNull final FilterChain chain) throws IOException {
         final String token = Jwt.utils().getTokenFromRequestHeader(request);
 
         try {
             if (token == null) {
                 throw new InvalidBearerTokenException("Token was not provided");
+            }
+
+            if (!jwt.provider().valid(token)) {
+                throw new AccessDeniedException("Access denied. Authentication is required.");
             }
 
             final String username = jwt.provider().claim(token, "sub");
@@ -64,9 +63,9 @@ public class JwtRefreshFilter extends OncePerRequestFilter {
         }
     }
 
-    private boolean requiresRefresh(final HttpServletRequest request) {
-        return request.getServletPath().contains("auth/refresh")
-                && request.getMethod().equals("POST")
-                && request.getHeader("Authorization") != null;
+    @Override
+    protected boolean shouldNotFilter(@NonNull final HttpServletRequest request) {
+        return !request.getServletPath().contains("auth/refresh")
+                || !request.getMethod().equals("POST");
     }
 }

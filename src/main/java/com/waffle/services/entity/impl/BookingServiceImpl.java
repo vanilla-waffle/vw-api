@@ -1,7 +1,7 @@
 package com.waffle.services.entity.impl;
 
 import com.waffle.data.entities.Booking;
-import com.waffle.data.mappers.BookingMapper;
+import com.waffle.data.utils.mappers.BookingMapper;
 import com.waffle.repositories.BookingRepository;
 import com.waffle.services.entity.BookingService;
 import lombok.RequiredArgsConstructor;

@@ -13,11 +13,12 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder({ "id", "createdAt" })
+@JsonPropertyOrder({ "id", "createdAt", "updatedAt" })
 public class UserModerationAllResponseDto extends ModerationDto {
 
     private Long id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     private DriverLicenseResponseDto license;
 }

@@ -14,7 +14,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "vw_users")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

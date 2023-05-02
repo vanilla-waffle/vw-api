@@ -1,4 +1,4 @@
-package com.waffle.data.utils;
+package com.waffle.services.utils;
 
 import org.springframework.data.domain.Sort;
 

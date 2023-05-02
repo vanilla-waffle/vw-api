@@ -1,20 +1,21 @@
 package com.waffle.data.entities;
 
 import com.waffle.data.constants.types.common.TextSize;
-import com.waffle.data.constants.types.user.DriverLicenseCategory;
+import com.waffle.data.converters.StringSetConverter;
 import com.waffle.data.entities.root.DocumentEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Driver license entity.
  */
 @Entity
 @Table(name = "vw_driver_licenses")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,9 +37,6 @@ public class DriverLicense extends DocumentEntity {
     @OneToOne(mappedBy = "profile.driverLicense")
     private User user;
 
-    @ElementCollection(targetClass = DriverLicenseCategory.class)
-    @CollectionTable(name = "vw_driver_license_categories", joinColumns = @JoinColumn(name = "driver_license_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "category_name")
-    private Collection<DriverLicenseCategory> categories;
+    @Convert(converter = StringSetConverter.class)
+    private Set<String> categories;
 }

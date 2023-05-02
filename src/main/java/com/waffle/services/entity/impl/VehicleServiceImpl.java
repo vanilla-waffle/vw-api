@@ -2,7 +2,7 @@ package com.waffle.services.entity.impl;
 
 import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.entities.Vehicle;
-import com.waffle.data.mappers.VehicleMapper;
+import com.waffle.data.utils.mappers.VehicleMapper;
 import com.waffle.repositories.VehicleRepository;
 import com.waffle.services.entity.VehicleService;
 import lombok.RequiredArgsConstructor;

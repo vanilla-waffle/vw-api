@@ -2,7 +2,7 @@ package com.waffle.services.entity.impl;
 
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.embedded.user.Profile;
-import com.waffle.data.mappers.UserMapper;
+import com.waffle.data.utils.mappers.UserMapper;
 import com.waffle.repositories.UserRepository;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;

@@ -24,11 +24,11 @@ public class ModerationEntity extends BasicEntity implements Persistable {
     @Column(length = TextSize.XXL)
     private String message;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "admin_id")
     private User admin;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

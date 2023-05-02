@@ -53,6 +53,7 @@ public class SecurityConfiguration {
                 )
                 .cors().and()
                 .formLogin().disable()
+                .logout().disable()
                 .anonymous().disable()
                 .csrf().disable()
                 .addFilterBefore(authorizationFilter(), AuthenticationFilter.class)
