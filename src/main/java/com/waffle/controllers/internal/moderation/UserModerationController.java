@@ -40,8 +40,11 @@ public class UserModerationController {
      *
      * @param id {@link Long}
      * @return {@link UserModerationAllResponseDto}
+     *
+     * @deprecated endpoint was designed for development purposes and will be excluded in future releases.
      */
     @GetMapping("/{id}")
+    @Deprecated
     public UserModerationAllResponseDto find(@PathVariable final Long id) {
         return userModerationInternalService.find(id);
     }
