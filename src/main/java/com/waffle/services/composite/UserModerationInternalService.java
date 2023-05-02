@@ -15,7 +15,7 @@ public interface UserModerationInternalService {
      *
      * @param query {@link String}
      * @param page {@link PageRequest}
-     * @return {@link Page< UserModerationAllResponseDto >}
+     * @return {@link Page<UserModerationAllResponseDto>}
      */
     Page<UserModerationAllResponseDto> findAll(String query, PageRequest page);
 
