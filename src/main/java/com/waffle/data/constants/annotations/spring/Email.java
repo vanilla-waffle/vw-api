@@ -1,6 +1,6 @@
 package com.waffle.data.constants.annotations.spring;
 
-import com.waffle.data.constants.annotations.processors.EmailConstrainValidator;
+import com.waffle.data.constants.annotations.validation.processors.EmailConstrainValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

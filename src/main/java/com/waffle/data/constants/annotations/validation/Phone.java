@@ -1,6 +1,6 @@
 package com.waffle.data.constants.annotations.validation;
 
-import com.waffle.data.constants.annotations.processors.PhoneConstraintValidator;
+import com.waffle.data.constants.annotations.validation.processors.PhoneConstraintValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
