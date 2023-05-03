@@ -30,7 +30,7 @@ public class BookingCrossController {
      * @param sort {@link String}
      * @return {@link Page<BookingAllResponseDto>}
      */
-    @GetMapping("/users/my/bookings")
+    @GetMapping("/users/me/bookings")
     public Page<BookingAllResponseDto> findAllByUserMy(
             @Principal final Long userId,
             @RequestParam(defaultValue = "0") final int page,

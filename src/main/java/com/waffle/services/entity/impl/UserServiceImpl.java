@@ -118,11 +118,11 @@ public class UserServiceImpl implements UserService {
         final String email = p.getEmail();
 
         if (exists(byEmail(email))) {
-            supplier.apply(email);
+            throw supplier.apply(email);
         }
 
         if (exists(byUsername(username))) {
-            supplier.apply(username);
+            throw supplier.apply(username);
         }
     }
 

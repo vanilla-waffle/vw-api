@@ -49,6 +49,11 @@ public class UserModerationServiceImpl implements UserModerationService {
     }
 
     @Override
+    public List<UserModeration> findAll(final Specification<UserModeration> by) {
+        return repository.findAll(by);
+    }
+
+    @Override
     public Page<UserModeration> findAll(final Sort sort, final PageRequest page, final Specification<UserModeration> by) {
         return repository.findAll(by, page.withSort(sort));
     }
@@ -56,6 +61,11 @@ public class UserModerationServiceImpl implements UserModerationService {
     @Override
     public UserModeration find(final Long id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Request not found: " + id));
+    }
+
+    @Override
+    public UserModeration find(final Specification<UserModeration> by) {
+        return repository.findOne(by).orElseThrow(() -> new IllegalArgumentException("Request not found"));
     }
 
     @Override
@@ -88,7 +98,8 @@ public class UserModerationServiceImpl implements UserModerationService {
         return repository.existsById(id);
     }
 
-    private boolean exists(final Specification<UserModeration> by) {
+    @Override
+    public boolean exists(final Specification<UserModeration> by) {
         return repository.exists(by);
     }
 }

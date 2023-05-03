@@ -1,4 +1,4 @@
-package com.waffle.data.constants.annotations.processors;
+package com.waffle.data.constants.annotations.validation.processors;
 
 import com.waffle.configurations.properties.ValidationSettings;
 import com.waffle.data.constants.annotations.validation.Password;

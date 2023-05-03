@@ -1,4 +1,4 @@
-package com.waffle.controllers.handler;
+package com.waffle.aspects.advices;
 
 import com.waffle.data.constants.exceptions.UserAlreadyExistsException;
 import com.waffle.data.constants.exceptions.NotFoundException;
