@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Positive;
+import java.util.List;
+import java.util.Map;
+
+import static com.waffle.services.utils.Filters.toMap;
 
 /**
  * Vehicle public controller.
@@ -27,14 +31,16 @@ public class VehiclePublicController {
      * @param page {@code int}
      * @param size {@code int}
      * @param sort {@link String} sort query
+     * @param params {@link Map}
      * @return {@link Page<VehicleSlimResponseDto>}
      */
     @GetMapping
     public Page<VehicleSlimResponseDto> findAll(
             @RequestParam(defaultValue = "0") final int page,
             @RequestParam(defaultValue = "12") final int size,
-            @RequestParam(defaultValue = "id ASC") final String sort) {
-        return service.findAll(sort, PageRequest.of(page, size));
+            @RequestParam(defaultValue = "id ASC") final String sort,
+            @RequestParam(name = "by", required = false) final List<String> params) {
+        return service.findAll(sort, PageRequest.of(page, size), toMap(params));
     }
 
     /**

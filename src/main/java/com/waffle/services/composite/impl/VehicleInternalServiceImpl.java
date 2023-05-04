@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User vehicle service implementation.
@@ -52,9 +53,9 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     }
 
     @Override
-    public Page<VehicleSlimResponseDto> findAll(final String query, final PageRequest page) {
+    public Page<VehicleSlimResponseDto> findAll(final String query, final PageRequest page, final Map<String, String> params) {
         final Sort sort = Sorts.of(query);
-        final Page<Vehicle> vehicles = vehicleService.findAll(sort, page);
+        final Page<Vehicle> vehicles = vehicleService.findAll(params, page.withSort(sort));
         return vehicles.map(vehicleMapper::convertSlim);
     }
 

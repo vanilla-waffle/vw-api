@@ -1,5 +1,6 @@
 package com.waffle.services.common;
 
+import com.waffle.data.entities.root.BasicEntity;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @param <T> any valid entity that has corresponding repository
  */
-public interface SortingService<T> {
+public interface SortingService<T extends BasicEntity> {
 
     /**
      * Find all entities sorted.

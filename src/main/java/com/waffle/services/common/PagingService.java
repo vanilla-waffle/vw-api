@@ -1,5 +1,6 @@
 package com.waffle.services.common;
 
+import com.waffle.data.entities.root.BasicEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Sort;
  *
  * @param <T> any valid entity that has corresponding repository
  */
-public interface PagingService<T> {
+public interface PagingService<T extends BasicEntity> {
 
     /**
      * Find all entities with pagination.

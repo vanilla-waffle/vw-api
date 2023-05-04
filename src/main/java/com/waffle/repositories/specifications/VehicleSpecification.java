@@ -25,17 +25,38 @@ public final class VehicleSpecification {
                 );
     }
 
-    /**
-     * Search post by title.
-     *
-     * @param title post title
-     * @return search parameter
-     */
-    public static Specification<Vehicle> byTitle(final String title) {
-        return (root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(
-                        root.get("title"),
-                        title
-                );
-    }
+//    /**
+//     * Search post by title.
+//     *
+//     * @param title post title
+//     * @return search parameter
+//     */
+//    public static Specification<Vehicle> byTitle(final String title) {
+//        return (root, query, criteriaBuilder) ->
+//                criteriaBuilder.like(
+//                        root.get("title"),
+//                        "%" + title + "%"
+//                );
+//    }
+//
+//    public static Specification<Vehicle> byManuf(final String manuf) {
+//        return (root, query, criteriaBuilder) ->
+//                criteriaBuilder.like(
+//                        root.get("manuf"),
+//                        "%" + manuf + "%"
+//                );
+//    }
+//
+//    public static Specification<Vehicle> byModel(final String model) {
+//        return (root, query, criteriaBuilder) ->
+//                criteriaBuilder.like(
+//                        root.get("model"),
+//                        "%" + model + "%"
+//                );
+//    }
+//
+//    public static Specification<Vehicle> byCity(final City city) {
+//        return (root, query, criteriaBuilder) ->
+//
+//    }
 }

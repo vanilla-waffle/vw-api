@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * User vehicle service.
@@ -45,11 +46,12 @@ public interface VehicleInternalService {
     /**
      * Find all.
      *
-     * @param query {@link String}
-     * @param page {@link PageRequest}
+     * @param query  {@link String}
+     * @param page   {@link PageRequest}
+     * @param params {@link Map}
      * @return {@link Page<VehicleSlimResponseDto>}
      */
-    Page<VehicleSlimResponseDto> findAll(String query, PageRequest page);
+    Page<VehicleSlimResponseDto> findAll(String query, PageRequest page, Map<String, String> params);
 
     /**
      * Find one {@link Vehicle}.

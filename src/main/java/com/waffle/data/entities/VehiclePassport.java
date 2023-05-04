@@ -35,6 +35,6 @@ public class VehiclePassport extends DocumentEntity {
 
     private String serialNumber;
 
-    @OneToOne(mappedBy = "passport")
+    @OneToOne(mappedBy = "passport", fetch = FetchType.LAZY)
     private Vehicle vehicle;
 }

@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.vehicle.Feature;
 import com.waffle.data.entities.embedded.vehicle.PaymentPlan;
@@ -54,15 +53,12 @@ public class Vehicle extends BasicEntity {
     private User user;
 
     @OneToOne(orphanRemoval = true)
-    @JsonManagedReference(value = "vehicle-passport")
     private VehiclePassport passport;
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(nullable = false)
-    @JsonManagedReference(value = "vehicle-location")
     private Location location;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
-    @JsonManagedReference(value = "vehicle-reviews")
     private List<Review> reviews;
 }
