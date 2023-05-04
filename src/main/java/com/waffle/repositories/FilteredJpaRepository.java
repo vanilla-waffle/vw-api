@@ -1,5 +1,6 @@
 package com.waffle.repositories;
 
+import com.waffle.data.entities.root.BasicEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,7 +18,7 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @param <ID> id
  */
 @NoRepositoryBean
-public interface FilteredJpaRepository<T, ID> extends JpaRepository<T, ID> {
+public interface FilteredJpaRepository<T extends BasicEntity, ID> extends JpaRepository<T, ID> {
 
     /**
      * Find all matching the given {@link Filter}.

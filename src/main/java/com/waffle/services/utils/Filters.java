@@ -43,7 +43,7 @@ public final class Filters {
     public static Predicate[] toPredicates(final Map<String, String> params, final CriteriaBuilder cb, final Root<?> root) {
         return params.entrySet()
                 .stream()
-                .map((entry) -> cb.equal(cb.lower(root.get(entry.getKey())), entry.getValue().toLowerCase()))
+                .map((entry) -> cb.like(cb.lower(root.get(entry.getKey())), "%" + entry.getValue().toLowerCase() + "%"))
                 .toArray(Predicate[]::new);
     }
 }

@@ -1,10 +1,11 @@
 package com.waffle.repositories.impl;
 
-import com.waffle.data.entities.Vehicle;
+import com.waffle.data.entities.root.BasicEntity;
 import com.waffle.repositories.FilteredJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -18,14 +19,15 @@ import java.util.List;
 import java.util.Map;
 
 import static com.waffle.services.utils.Filters.toPredicates;
+import static org.springframework.data.jpa.repository.query.QueryUtils.toOrders;
 
 /**
  * Vehicle filtered repository implementation.
  *
- * @param <T> entity
+ * @param <T> entity extending {@link BasicEntity}
  * @param <ID> id
  */
-public class FilteredJpaRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implements FilteredJpaRepository<T, ID> {
+public class FilteredJpaRepositoryImpl<T extends BasicEntity, ID> extends SimpleJpaRepository<T, ID> implements FilteredJpaRepository<T, ID> {
     private final EntityManager entityManager;
 
     /**
@@ -46,16 +48,12 @@ public class FilteredJpaRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
 
     @Override
     public Page<T> findAll(final Map<String, String> params, final Pageable pageable) {
-        if (params.isEmpty()) {
-            return findAll(pageable);
-        }
-
         if (pageable.isUnpaged()) {
             return new PageImpl<>(findAll(params));
         }
 
         return PageableExecutionUtils.getPage(
-                query(params).getResultList(),
+                query(params, pageable).getResultList(),
                 pageable,
                 () -> count(params)
         );
@@ -66,7 +64,20 @@ public class FilteredJpaRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
         final CriteriaQuery<T> query = builder.createQuery(getDomainClass());
         final Root<T> root = query.from(getDomainClass());
 
+        if (!params.isEmpty()) {
+            query.where(toPredicates(params, builder, root));
+        }
+
+        return entityManager.createQuery(query);
+    }
+
+    private TypedQuery<T> query(final Map<String, String> params, final Pageable pageable) {
+        final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<T> query = builder.createQuery(getDomainClass());
+        final Root<T> root = query.from(getDomainClass());
+
         query.where(toPredicates(params, builder, root));
+        query.orderBy(toOrders(pageable.getSort(), root, builder));
 
         return entityManager.createQuery(query);
     }
@@ -74,7 +85,7 @@ public class FilteredJpaRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     private long count(final Map<String, String> params) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Long> query = builder.createQuery(Long.class);
-        final Root<Vehicle> root = query.from(Vehicle.class);
+        final Root<T> root = query.from(getDomainClass());
 
         query.select(builder.count(root)).where(toPredicates(params, builder, root));
 
