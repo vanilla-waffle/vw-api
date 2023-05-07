@@ -47,6 +47,8 @@ public interface UserMapper {
      * @param source {@link UserUpdateDto}
      * @return {@link User}
      */
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "profile.city.id", source = "profile.city.id")
     User convert(UserUpdateDto source);
 
     /**

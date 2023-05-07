@@ -11,11 +11,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "vw_cities")
-@Getter
-@Setter
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class City extends BasicEntity {
 
     private String name;
