@@ -40,9 +40,10 @@ public interface UserModerationInternalService {
     /**
      * Save one.
      *
-     * @param payload@return {@link UserModerationAllResponseDto}
+     * @param payload {@link DriverLicenseCreateDto}
+     * @return {@link UserModerationAllResponseDto}
      */
-    UserModerationAllResponseDto save(final DriverLicenseCreateDto payload);
+    UserModerationAllResponseDto save(DriverLicenseCreateDto payload);
 
     /**
      * Approve.
