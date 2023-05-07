@@ -5,7 +5,6 @@ import com.waffle.repositories.FilteredJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -76,8 +75,9 @@ public class FilteredJpaRepositoryImpl<T extends BasicEntity, ID> extends Simple
         final CriteriaQuery<T> query = builder.createQuery(getDomainClass());
         final Root<T> root = query.from(getDomainClass());
 
-        query.where(toPredicates(params, builder, root));
-        query.orderBy(toOrders(pageable.getSort(), root, builder));
+        query
+                .where(toPredicates(params, builder, root))
+                .orderBy(toOrders(pageable.getSort(), root, builder));
 
         return entityManager.createQuery(query);
     }
@@ -87,7 +87,9 @@ public class FilteredJpaRepositoryImpl<T extends BasicEntity, ID> extends Simple
         final CriteriaQuery<Long> query = builder.createQuery(Long.class);
         final Root<T> root = query.from(getDomainClass());
 
-        query.select(builder.count(root)).where(toPredicates(params, builder, root));
+        query
+                .select(builder.count(root))
+                .where(toPredicates(params, builder, root));
 
         return entityManager.createQuery(query).getSingleResult();
     }
