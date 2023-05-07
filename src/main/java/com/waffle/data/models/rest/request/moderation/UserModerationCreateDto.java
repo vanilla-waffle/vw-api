@@ -1,10 +1,10 @@
 package com.waffle.data.models.rest.request.moderation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.waffle.data.models.rest.request.license.DriverLicenseCreateDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 /**
  * User moderation create dto.
@@ -14,7 +14,13 @@ public class UserModerationCreateDto {
 
     @JsonIgnore
     private Long userId;
+
     @NotNull
-    @Positive
-    private Long licenseId;
+    private String firstName;
+
+    @NotNull
+    private String lastName;
+
+    @NotNull
+    private DriverLicenseCreateDto license;
 }

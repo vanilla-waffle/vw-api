@@ -1,6 +1,6 @@
 package com.waffle.data.models.rest.common;
 
-import com.waffle.data.constants.types.common.City;
+import com.waffle.data.models.rest.response.city.CityResponseDto;
 import lombok.Data;
 
 /**
@@ -14,5 +14,5 @@ public class ProfileDto {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private City city;
+    private CityResponseDto city;
 }

@@ -30,14 +30,14 @@ public final class UserModerationSpecification {
     /**
      * Search by license.
      *
-     * @param id {@link Long}
+     * @param licenseNumber {@link String}
      * @return {@link Specification<UserModeration>}
      */
-    public static Specification<UserModeration> byLicense(final Long id) {
+    public static Specification<UserModeration> byLicenseNumber(final String licenseNumber) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(
-                        root.join("license").get("id"),
-                        id
+                        root.join("license").get("licenseNumber"),
+                        licenseNumber
                 );
     }
 
@@ -52,6 +52,19 @@ public final class UserModerationSpecification {
                 criteriaBuilder.equal(
                         root.join("user").get("id"),
                         id
+                );
+    }
+
+    /**
+     * Search by pending request status.
+     *
+     * @return {@link Specification<UserModeration>}
+     */
+    public static Specification<UserModeration> hasPending() {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(
+                        root.get("status"),
+                        ON_REVIEW
                 );
     }
 }

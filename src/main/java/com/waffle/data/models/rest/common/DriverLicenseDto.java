@@ -12,8 +12,6 @@ import java.util.Collection;
 @Data
 public class DriverLicenseDto {
 
-    private Long id;
-    private boolean approved;
     private String licenseNumber;
 
     private String firstName;

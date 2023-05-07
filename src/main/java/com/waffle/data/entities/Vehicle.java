@@ -17,11 +17,11 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "vw_vehicles")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class Vehicle extends BasicEntity {
 
     @Column(nullable = false, length = TextSize.M)

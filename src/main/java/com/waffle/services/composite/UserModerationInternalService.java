@@ -1,6 +1,6 @@
 package com.waffle.services.composite;
 
-import com.waffle.data.models.rest.request.moderation.UserModerationCreateDto;
+import com.waffle.data.models.rest.request.license.DriverLicenseCreateDto;
 import com.waffle.data.models.rest.response.moderation.UserModerationAllResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,10 +40,9 @@ public interface UserModerationInternalService {
     /**
      * Save one.
      *
-     * @param userId {@link UserModerationCreateDto}
-     * @return {@link UserModerationAllResponseDto}
+     * @param payload@return {@link UserModerationAllResponseDto}
      */
-    UserModerationAllResponseDto save(Long userId);
+    UserModerationAllResponseDto save(final DriverLicenseCreateDto payload);
 
     /**
      * Approve.

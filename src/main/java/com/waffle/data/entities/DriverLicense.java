@@ -22,7 +22,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class DriverLicense extends DocumentEntity {
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String licenseNumber;
 
     @Column(nullable = false, length = TextSize.S)

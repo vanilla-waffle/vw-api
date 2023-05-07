@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.entities.root.BasicEntity;
 import lombok.*;
@@ -12,15 +11,15 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "vw_locations")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class Location extends BasicEntity {
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
     @Column(nullable = false, length = TextSize.M)
     private String address;

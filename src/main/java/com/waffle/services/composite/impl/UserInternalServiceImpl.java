@@ -57,6 +57,11 @@ public class UserInternalServiceImpl implements UserInternalService {
     @Override
     public UserAllResponseDto activate(final Long id) {
         User user = userService.find(id);
+
+        if (user.getStatus().equals(UserStatus.ACTIVE)) {
+            throw new IllegalArgumentException("User is already active: " + id);
+        }
+
         user.setStatus(UserStatus.ACTIVE);
         user = userService.update(user);
         return userMapper.convertAll(user);
@@ -65,6 +70,11 @@ public class UserInternalServiceImpl implements UserInternalService {
     @Override
     public UserAllResponseDto delete(final Long id) {
         User user = userService.find(id);
+
+        if (user.getStatus().equals(UserStatus.DELETED)) {
+            throw new IllegalArgumentException("User is already marked as deleted: " + id);
+        }
+
         user.setStatus(UserStatus.DELETED);
         user = userService.update(user);
         return userMapper.convertAll(user);

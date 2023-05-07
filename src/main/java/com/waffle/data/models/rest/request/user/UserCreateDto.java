@@ -32,14 +32,4 @@ public class UserCreateDto extends ProfileDto {
     public String getUsername() {
         return super.getUsername();
     }
-
-    @Override
-    public String getFirstName() {
-        return super.getFirstName();
-    }
-
-    @Override
-    public String getLastName() {
-        return super.getLastName();
-    }
 }
