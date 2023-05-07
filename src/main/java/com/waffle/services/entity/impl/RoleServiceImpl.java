@@ -63,10 +63,6 @@ public class RoleServiceImpl implements RoleService {
             throw new IllegalArgumentException("Role does not exist: " + payload.getId());
         }
 
-        if (exists(payload.getRole().name())) {
-            throw new IllegalArgumentException("Role already exists: " + payload.getRole().name());
-        }
-
         return repository.save(payload);
     }
 

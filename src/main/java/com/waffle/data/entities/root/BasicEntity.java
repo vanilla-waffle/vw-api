@@ -16,18 +16,16 @@ import java.time.LocalDateTime;
  * Base entity.
  */
 @Getter
+@Setter(AccessLevel.PRIVATE)
 @MappedSuperclass
 public class BasicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.PRIVATE)
     private Long id;
 
     @CreationTimestamp
-    @Setter(AccessLevel.PRIVATE)
     private LocalDateTime createdAt;
     @UpdateTimestamp
-    @Setter(AccessLevel.PRIVATE)
     private LocalDateTime updatedAt;
 }

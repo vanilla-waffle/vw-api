@@ -3,6 +3,8 @@ package com.waffle.services.composite.impl;
 import com.waffle.data.entities.DriverLicense;
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.admin.UserModeration;
+import com.waffle.data.models.rest.request.license.DriverLicenseCreateDto;
+import com.waffle.data.utils.mappers.DriverLicenseMapper;
 import com.waffle.data.utils.mappers.UserModerationMapper;
 import com.waffle.data.models.rest.response.moderation.UserModerationAllResponseDto;
 import com.waffle.services.utils.Sorts;
@@ -31,6 +33,7 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     private final DriverLicenseService driverLicenseService;
     private final UserService userService;
     private final UserModerationMapper userModerationMapper;
+    private final DriverLicenseMapper driverLicenseMapper;
 
     @Override
     public Page<UserModerationAllResponseDto> findAll(final String query, final PageRequest page) {
@@ -53,10 +56,16 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     }
 
     @Override
-    public UserModerationAllResponseDto save(final Long userId) {
-        final User user = userService.find(userId);
-        final DriverLicense license = user.getProfile().getDriverLicense();
+    @Transactional
+    public UserModerationAllResponseDto save(final DriverLicenseCreateDto payload) {
+        final User user = userService.find(payload.getUserId());
 
+        if (user.getStatus().equals(ACTIVE) && user.getProfile().getDriverLicense() != null) {
+            throw new IllegalArgumentException("User is already active");
+        }
+
+        DriverLicense license = driverLicenseMapper.convert(payload);
+        license = driverLicenseService.save(license);
         UserModeration moderation = UserModeration.of(user, license);
         moderation = userModerationService.save(moderation);
         return userModerationMapper.convertAll(moderation);
@@ -78,9 +87,9 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
         moderation.setStatus(APPROVED);
         moderation.setAdmin(admin);
         license.setApproved(true);
+        user.getProfile().setDriverLicense(license);
         user.setStatus(ACTIVE);
 
-        driverLicenseService.update(license);
         userService.update(user);
         moderation = userModerationService.update(moderation);
         return userModerationMapper.convertAll(moderation);

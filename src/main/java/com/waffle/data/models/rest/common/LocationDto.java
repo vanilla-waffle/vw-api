@@ -1,6 +1,6 @@
 package com.waffle.data.models.rest.common;
 
-import com.waffle.data.constants.types.common.City;
+import com.waffle.data.models.rest.response.city.CityResponseDto;
 import lombok.Data;
 
 /**
@@ -9,9 +9,8 @@ import lombok.Data;
 @Data
 public class LocationDto {
 
-    private City city;
-    private String address;
-
     private Double latitude;
     private Double longitude;
+    private String address;
+    private CityResponseDto city;
 }
