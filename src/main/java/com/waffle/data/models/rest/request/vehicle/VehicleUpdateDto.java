@@ -1,5 +1,7 @@
 package com.waffle.data.models.rest.request.vehicle;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.waffle.data.constants.types.vehicle.VehicleStatus;
 import com.waffle.data.models.rest.common.PaymentPlanDto;
 import com.waffle.data.models.rest.common.SpecificationDto;
 import com.waffle.data.models.rest.common.VehicleDto;
@@ -12,12 +14,18 @@ import java.util.Set;
 /**
  * Request, dto class to update a Post.
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class VehicleUpdateDto extends VehicleDto {
 
     private Long id;
     private PaymentPlanDto paymentPlan;
     private SpecificationDto specification;
     private Set<Feature> features;
+
+    @Override
+    @JsonIgnore
+    public VehicleStatus getStatus() {
+        return super.getStatus();
+    }
 }

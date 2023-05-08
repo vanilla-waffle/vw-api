@@ -40,18 +40,38 @@ public interface BookingInternalService extends
     Page<BookingAllResponseDto> findAllByVehicle(String query, PageRequest page, Long vehicleId);
 
     /**
-     * Cancel booking.
+     * Approve booking.
      *
-     * @param id {@link Long}
+     * @param userId {@link Long}
+     * @param id     {@link Long}
      * @return {@link BookingAllResponseDto}
      */
-    BookingAllResponseDto cancel(Long id);
+    BookingAllResponseDto approve(Long userId, Long id);
+
+    /**
+     * Reject booking.
+     *
+     * @param userId
+     * @param id     {@link Long}
+     * @return {@link BookingAllResponseDto}
+     */
+    BookingAllResponseDto reject(Long userId, Long id);
+
+    /**
+     * Cancel booking.
+     *
+     * @param userId {@link Long}
+     * @param id     {@link Long}
+     * @return {@link BookingAllResponseDto}
+     */
+    BookingAllResponseDto cancel(Long userId, Long id);
 
     /**
      * Complete booking.
      *
-     * @param id {@link Long}
+     * @param userId {@link Long}
+     * @param id     {@link Long}
      * @return {@link BookingAllResponseDto}
      */
-    BookingAllResponseDto complete(Long id);
+    BookingAllResponseDto complete(Long userId, Long id);
 }

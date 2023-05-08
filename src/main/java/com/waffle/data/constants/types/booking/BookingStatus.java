@@ -6,6 +6,10 @@ package com.waffle.data.constants.types.booking;
 public enum BookingStatus {
 
     /**
+     * Pending state.
+     */
+    PENDING,
+    /**
      * Active state.
      */
     ACTIVE,
@@ -16,5 +20,9 @@ public enum BookingStatus {
     /**
      * Canceled state.
      */
-    CANCELED;
+    CANCELED,
+    /**
+     * Rejected state.
+     */
+    REJECTED
 }
