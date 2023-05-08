@@ -55,7 +55,7 @@ public interface BookingInternalService extends
      * @param id     {@link Long}
      * @return {@link BookingAllResponseDto}
      */
-    BookingAllResponseDto reject(final Long userId, Long id);
+    BookingAllResponseDto reject(Long userId, Long id);
 
     /**
      * Cancel booking.
