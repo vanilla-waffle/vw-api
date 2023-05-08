@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder({ "id, createdAt" })
+@JsonPropertyOrder({ "id, createdAt", "updatedAt" })
 public class BookingAllResponseDto extends BookingDto {
 
     private Long id;

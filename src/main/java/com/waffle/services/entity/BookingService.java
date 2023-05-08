@@ -4,6 +4,7 @@ import com.waffle.data.entities.Booking;
 import com.waffle.services.common.BasicService;
 import com.waffle.services.common.PagingService;
 import com.waffle.services.common.SortingService;
+import com.waffle.services.common.SpecificService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,7 +16,8 @@ import org.springframework.data.jpa.domain.Specification;
 public interface BookingService extends
         BasicService<Booking>,
         SortingService<Booking>,
-        PagingService<Booking> {
+        PagingService<Booking>,
+        SpecificService<Booking> {
 
     /**
      * Find all.

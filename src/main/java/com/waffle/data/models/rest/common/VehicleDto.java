@@ -1,5 +1,6 @@
 package com.waffle.data.models.rest.common;
 
+import com.waffle.data.constants.types.vehicle.VehicleStatus;
 import lombok.Data;
 
 /**
@@ -8,12 +9,11 @@ import lombok.Data;
 @Data
 public class VehicleDto {
 
+    private VehicleStatus status;
+
     private String title;
-
     private String description;
-
     private String manuf;
     private String model;
-
     private Integer releaseYear;
 }

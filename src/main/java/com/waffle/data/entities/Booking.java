@@ -9,6 +9,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.waffle.data.constants.types.vehicle.Payment.HOUR;
 
@@ -49,11 +50,35 @@ public class Booking extends BasicEntity implements Persistable {
     @Override
     @PrePersist
     public void onPersist() {
+        final double price = vehicle.getPaymentPlan().getPrice();
         final Payment type = vehicle.getPaymentPlan().getPayment();
         final Duration period = Duration.between(startsAt, completesAt);
 
-        duration = type.equals(HOUR) ? period.toHoursPart() : (int) period.toDaysPart();
-        totalPrice = duration * vehicle.getPaymentPlan().getPrice();
-        status = BookingStatus.ACTIVE;
+        duration = type.equals(HOUR) ? (int) period.toHours() : (int) period.toDays();
+        totalPrice = duration * price;
+        status = BookingStatus.PENDING;
+    }
+
+    /**
+     * Check whether booking overlaps with another list of bookings or not.
+     *
+     * @param bookings {@link List<Booking>}
+     * @return {@code boolean}
+     */
+    public boolean overlaps(final List<Booking> bookings) {
+        return bookings.stream()
+                .filter(b -> b.status.equals(BookingStatus.ACTIVE))
+                .anyMatch(this::overlaps);
+    }
+
+    /**
+     * Check whether booking overlaps with another or not.
+     *
+     * @param another {@link Booking}
+     * @return {@code boolean}
+     */
+    public boolean overlaps(final Booking another) {
+        return startsAt.isBefore(another.completesAt)
+                && another.startsAt.isBefore(completesAt);
     }
 }

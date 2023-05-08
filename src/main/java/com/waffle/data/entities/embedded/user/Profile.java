@@ -32,7 +32,9 @@ public class Profile {
     @Column(length = TextSize.M)
     private String phoneNumber;
 
-    @OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToOne(
+            cascade = CascadeType.MERGE,
+            orphanRemoval = true)
     private DriverLicense driverLicense;
 
     @OneToMany(
