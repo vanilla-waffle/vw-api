@@ -40,6 +40,24 @@ public class BookingCrossController {
     }
 
     /**
+     * Find all pending.
+     *
+     * @param userId {@link Long}
+     * @param page {@code int}
+     * @param size {@code int}
+     * @param sort {@link String}
+     * @return {@link Page<BookingAllResponseDto>}
+     */
+    @GetMapping("/users/me/bookings/pending")
+    public Page<BookingAllResponseDto> findAllByUserMyPending(
+            @Principal final Long userId,
+            @RequestParam(defaultValue = "0") final int page,
+            @RequestParam(defaultValue = "12") final int size,
+            @RequestParam(defaultValue = "id ASC") final String sort) {
+        return bookingInternalService.findAllPending(sort, PageRequest.of(page, size), userId);
+    }
+
+    /**
      * Find all.
      *
      * @param userId {@link Long}

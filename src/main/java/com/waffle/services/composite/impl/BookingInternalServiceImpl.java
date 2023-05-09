@@ -24,8 +24,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.waffle.repositories.specifications.BookingSpecification.byUser;
-import static com.waffle.repositories.specifications.BookingSpecification.byVehicle;
+import static com.waffle.repositories.specifications.BookingSpecification.*;
 import static java.time.LocalDateTime.now;
 
 /**
@@ -76,6 +75,13 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     public Page<BookingAllResponseDto> findAllByVehicle(final String query, final PageRequest page, final Long vehicleId) {
         final Sort sort = Sorts.of(query);
         final Page<Booking> bookings = bookingService.findAll(sort, page, byVehicle(vehicleId));
+        return bookings.map(bookingMapper::convertAll);
+    }
+
+    @Override
+    public Page<BookingAllResponseDto> findAllPending(final String query, final PageRequest page, final Long userId) {
+        final Sort sort = Sorts.of(query);
+        final Page<Booking> bookings = bookingService.findAll(sort, page, byOwner(userId).and(byPending()));
         return bookings.map(bookingMapper::convertAll);
     }
 
