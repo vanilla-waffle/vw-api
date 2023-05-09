@@ -34,6 +34,10 @@ public class RoleManagementServiceImpl implements RoleManagementService {
         final User user = userService.find(id);
         final Role role = roleService.find(type);
 
+        if (role.getUsers().contains(user)) {
+            throw new IllegalArgumentException("User has been already promoted to: " + type.name());
+        }
+
         role.getUsers().add(user);
         roleService.merge(role);
 
@@ -44,6 +48,10 @@ public class RoleManagementServiceImpl implements RoleManagementService {
     public UserAllResponseDto demote(final Long id, final RoleType type) {
         final User user = userService.find(id);
         final Role role = roleService.find(type);
+
+        if (!role.getUsers().contains(user)) {
+            throw new IllegalArgumentException("User never had the provided role: " + type.name());
+        }
 
         role.getUsers().remove(user);
         roleService.merge(role);

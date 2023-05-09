@@ -1,6 +1,5 @@
 package com.waffle.data.entities.embedded.user;
 
-import com.waffle.data.constants.types.common.City;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.entities.*;
 import lombok.*;
@@ -33,7 +32,9 @@ public class Profile {
     @Column(length = TextSize.M)
     private String phoneNumber;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(
+            cascade = CascadeType.MERGE,
+            orphanRemoval = true)
     private DriverLicense driverLicense;
 
     @OneToMany(
@@ -53,6 +54,7 @@ public class Profile {
             orphanRemoval = true)
     private List<Review> reviews;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
 }

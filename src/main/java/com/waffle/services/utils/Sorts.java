@@ -2,6 +2,9 @@ package com.waffle.services.utils;
 
 import org.springframework.data.domain.Sort;
 
+import static com.google.common.base.CaseFormat.LOWER_CAMEL;
+import static com.google.common.base.CaseFormat.LOWER_UNDERSCORE;
+
 /**
  * Sort utils.
  */
@@ -23,7 +26,7 @@ public final class Sorts {
             throw new IllegalArgumentException("Invalid sort query was provided: " + query);
         }
 
-        final String by = CaseFormats.snakeToCamel(args[0]);
+        final String by = LOWER_UNDERSCORE.to(LOWER_CAMEL, args[0]);
         final Sort.Direction dir = Sort.Direction.fromString(args[1]);
         return Sort.by(dir, by);
     }

@@ -21,6 +21,8 @@ public class DriverLicenseResponseDto extends DriverLicenseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    private boolean approved;
+
     @Override
     @JsonFormat(pattern = "yyyy-MM-dd")
     public LocalDate getBirthDate() {

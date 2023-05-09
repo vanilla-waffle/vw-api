@@ -21,7 +21,7 @@ public class BasicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.PRIVATE)
+    @Setter
     private Long id;
 
     @CreationTimestamp

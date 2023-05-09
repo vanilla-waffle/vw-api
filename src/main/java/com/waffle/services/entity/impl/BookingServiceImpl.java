@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.waffle.repositories.specifications.BookingSpecification.byUser;
+
 /**
  * Booking service implementation.
  */
@@ -24,12 +26,23 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking save(final Booking payload) {
+        final List<Booking> bookings = findAll(byUser(payload.getUser().getId()));
+
+        if (payload.overlaps(bookings)) {
+            throw new IllegalArgumentException("Current booking overlaps with another existing ones.");
+        }
+
         return repository.save(payload);
     }
 
     @Override
     public List<Booking> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Booking> findAll(final Specification<Booking> by) {
+        return repository.findAll(by);
     }
 
     @Override
@@ -55,6 +68,11 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking find(final Long id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Booking does not exist: " + id));
+    }
+
+    @Override
+    public Booking find(final Specification<Booking> by) {
+        return repository.findOne(by).orElseThrow(() -> new IllegalArgumentException("Booking does not exist"));
     }
 
     @Override
@@ -93,5 +111,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public boolean exists(final Long id) {
         return repository.existsById(id);
+    }
+
+    @Override
+    public boolean exists(final Specification<Booking> by) {
+        return repository.exists(by);
     }
 }

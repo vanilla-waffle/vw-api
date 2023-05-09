@@ -19,10 +19,12 @@ import java.util.Set;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder({ "id", "createdAt" })
+@JsonPropertyOrder({ "id", "createdAt", "updatedAt" })
 public class VehicleAllResponseDto extends VehicleDto {
+
     private Long id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     private PaymentPlanDto paymentPlan;
     private SpecificationDto spec;

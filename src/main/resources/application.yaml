@@ -35,8 +35,8 @@ waffle:
       secret: 0ilQ17mQF&7m
       issuer: waffle
       expiration:
-#        basic: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1800}
-        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1209600}
+        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1800}
+#        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1209600}
         refresh: ${API_SECURITY_REFRESH_TOKEN_LIFETIME:1209600}
 
 #springdoc:

@@ -2,12 +2,15 @@ package com.waffle.controllers.internal.moderation;
 
 import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.constants.annotations.spring.Principal;
+import com.waffle.data.models.rest.request.license.DriverLicenseCreateDto;
 import com.waffle.data.models.rest.response.moderation.UserModerationAllResponseDto;
 import com.waffle.services.composite.UserModerationInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * User moderation controller.
@@ -53,10 +56,14 @@ public class UserModerationController {
      * Save one.
      *
      * @param id {@link Long}
+     * @param payload {@link DriverLicenseCreateDto}
      * @return {@link UserModerationAllResponseDto}
      */
     @PostMapping("/me")
-    public UserModerationAllResponseDto save(@Principal final Long id) {
-        return userModerationInternalService.save(id);
+    public UserModerationAllResponseDto save(
+            @Principal final Long id,
+            @RequestBody final @Valid DriverLicenseCreateDto payload) {
+        payload.setUserId(id);
+        return userModerationInternalService.save(payload);
     }
 }

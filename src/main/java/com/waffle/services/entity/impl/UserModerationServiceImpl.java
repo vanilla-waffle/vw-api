@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.waffle.repositories.specifications.UserModerationSpecification.byLicense;
+import static com.waffle.repositories.specifications.UserModerationSpecification.*;
 
 /**
  * User moderation service implementation.
@@ -24,10 +24,14 @@ public class UserModerationServiceImpl implements UserModerationService {
 
     @Override
     public UserModeration save(final UserModeration payload) {
-        final Long licenseId = payload.getLicense().getId();
+        final String licenseNumber = payload.getLicense().getLicenseNumber();
 
-        if (exists(byLicense(licenseId))) {
-            throw new IllegalArgumentException("Provided license is already being moderated: " + licenseId);
+        if (exists(byUser(payload.getUser().getId()).and(hasPending()))) {
+            throw new IllegalArgumentException("User already has a pending moderation request");
+        }
+
+        if (exists(byLicenseNumber(licenseNumber))) {
+            throw new IllegalArgumentException("Provided license is already being moderated: " + licenseNumber);
         }
 
         return repository.save(payload);

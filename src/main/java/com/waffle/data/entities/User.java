@@ -14,9 +14,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "vw_users")
-@Getter
-@Setter
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
