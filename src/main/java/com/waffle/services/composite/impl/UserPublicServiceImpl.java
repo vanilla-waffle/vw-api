@@ -1,7 +1,6 @@
 package com.waffle.services.composite.impl;
 
 import com.waffle.data.entities.User;
-import com.waffle.data.entities.media.UserPictureMedia;
 import com.waffle.data.utils.mappers.MediaMapper;
 import com.waffle.data.utils.mappers.UserMapper;
 import com.waffle.data.models.rest.request.user.UserCreateDto;
@@ -49,16 +48,6 @@ public class UserPublicServiceImpl implements UserPublicService {
     @Transactional
     public UserAllResponseDto save(final UserCreateDto payload, final MultipartFile file) {
         User user = userMapper.convert(payload);
-        final UserPictureMedia media;
-
-        try {
-            media = mediaMapper.convert(file);
-            media.setUser(user);
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
-
-        user.getProfile().setPicture(media);
         user = userService.save(user);
         return userMapper.convertAll(user);
     }

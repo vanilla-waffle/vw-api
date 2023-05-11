@@ -1,4 +1,4 @@
-package com.waffle.repositories.specifications;
+package com.waffle.data.repositories.specifications;
 
 import com.waffle.data.entities.DriverLicense;
 import org.springframework.data.jpa.domain.Specification;

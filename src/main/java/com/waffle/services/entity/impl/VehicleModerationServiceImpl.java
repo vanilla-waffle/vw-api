@@ -1,7 +1,7 @@
 package com.waffle.services.entity.impl;
 
 import com.waffle.data.entities.admin.VehicleModeration;
-import com.waffle.repositories.VehicleModerationRepository;
+import com.waffle.data.repositories.VehicleModerationRepository;
 import com.waffle.services.entity.VehicleModerationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

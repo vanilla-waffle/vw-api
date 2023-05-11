@@ -2,7 +2,6 @@ package com.waffle.data.entities.embedded.user;
 
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.entities.*;
-import com.waffle.data.entities.media.UserPictureMedia;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,9 +33,9 @@ public class Profile {
     private String phoneNumber;
 
     @OneToOne(
-            cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            cascade = CascadeType.PERSIST,
             orphanRemoval = true)
-    private UserPictureMedia picture;
+    private Image image;
     @OneToOne(
             cascade = CascadeType.MERGE,
             orphanRemoval = true)

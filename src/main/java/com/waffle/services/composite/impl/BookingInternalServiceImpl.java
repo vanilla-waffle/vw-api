@@ -24,7 +24,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.waffle.repositories.specifications.BookingSpecification.*;
+import static com.waffle.data.repositories.specifications.BookingSpecification.*;
 import static java.time.LocalDateTime.now;
 
 /**

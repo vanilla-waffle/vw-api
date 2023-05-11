@@ -1,7 +1,7 @@
 package com.waffle.services.entity.impl;
 
 import com.waffle.data.entities.DriverLicense;
-import com.waffle.repositories.DriverLicenseRepository;
+import com.waffle.data.repositories.DriverLicenseRepository;
 import com.waffle.services.entity.DriverLicenseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.waffle.repositories.specifications.DriverLicenseSpecification.byLicenseNumber;
+import static com.waffle.data.repositories.specifications.DriverLicenseSpecification.byLicenseNumber;
 
 /**
  * Driver license service implementation.

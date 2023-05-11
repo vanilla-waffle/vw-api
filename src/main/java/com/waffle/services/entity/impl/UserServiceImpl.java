@@ -3,7 +3,7 @@ package com.waffle.services.entity.impl;
 import com.waffle.data.entities.User;
 import com.waffle.data.entities.embedded.user.Profile;
 import com.waffle.data.utils.mappers.UserMapper;
-import com.waffle.repositories.UserRepository;
+import com.waffle.data.repositories.UserRepository;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.waffle.repositories.specifications.UserSpecification.byEmail;
-import static com.waffle.repositories.specifications.UserSpecification.byUsername;
+import static com.waffle.data.repositories.specifications.UserSpecification.byEmail;
+import static com.waffle.data.repositories.specifications.UserSpecification.byUsername;
 
 /**
  * UserService implementation.

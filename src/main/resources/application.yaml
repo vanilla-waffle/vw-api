@@ -26,6 +26,10 @@ spring:
         jwt:
           issuer-uri: https://accounts.google.com
           jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
 
 waffle:
   validation:
@@ -36,8 +40,8 @@ waffle:
       secret: 0ilQ17mQF&7m
       issuer: waffle
       expiration:
-        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1800}
-#        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1209600}
+#        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1800}
+        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1209600}
         refresh: ${API_SECURITY_REFRESH_TOKEN_LIFETIME:1209600}
 
 #springdoc:

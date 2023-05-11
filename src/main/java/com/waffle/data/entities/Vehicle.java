@@ -7,7 +7,6 @@ import com.waffle.data.constants.types.vehicle.VehicleStatus;
 import com.waffle.data.entities.behaviour.Persistable;
 import com.waffle.data.entities.embedded.vehicle.PaymentPlan;
 import com.waffle.data.entities.embedded.vehicle.Specification;
-import com.waffle.data.entities.media.VehiclePictureMedia;
 import com.waffle.data.entities.root.BasicEntity;
 import lombok.*;
 
@@ -54,8 +53,10 @@ public class Vehicle extends BasicEntity implements Persistable {
     @JoinColumn(nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "vehicle", orphanRemoval = true)
-    private List<VehiclePictureMedia> pictures;
+    @OneToMany(
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true)
+    private List<Image> images;
 
     @ElementCollection(targetClass = Feature.class)
     @CollectionTable(name = "vw_vehicle_feature", joinColumns = @JoinColumn(name = "vehicle_id"))

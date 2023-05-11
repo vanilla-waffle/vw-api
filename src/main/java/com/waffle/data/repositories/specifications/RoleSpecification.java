@@ -1,4 +1,4 @@
-package com.waffle.repositories.specifications;
+package com.waffle.data.repositories.specifications;
 
 import com.waffle.data.constants.types.user.RoleType;
 import com.waffle.data.entities.Role;

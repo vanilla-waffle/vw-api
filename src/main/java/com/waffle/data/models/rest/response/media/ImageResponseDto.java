@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @JsonPropertyOrder({ "id", "createdAt" })
-public class MediaResponseDto extends MediaDto {
+public class ImageResponseDto extends MediaDto {
 
     private Long id;
     private LocalDateTime createdAt;

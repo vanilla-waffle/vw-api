@@ -19,7 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.waffle.repositories.specifications.UserModerationSpecification.byUser;
+import static com.waffle.data.repositories.specifications.UserModerationSpecification.byUser;
 import static com.waffle.data.constants.types.admin.ModerationStatus.*;
 import static com.waffle.data.constants.types.user.UserStatus.ACTIVE;
 

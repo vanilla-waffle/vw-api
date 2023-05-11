@@ -1,4 +1,4 @@
-package com.waffle.repositories;
+package com.waffle.data.repositories;
 
 import com.waffle.data.entities.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;

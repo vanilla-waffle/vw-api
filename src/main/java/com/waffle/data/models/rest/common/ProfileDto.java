@@ -1,7 +1,7 @@
 package com.waffle.data.models.rest.common;
 
 import com.waffle.data.models.rest.response.city.CityResponseDto;
-import com.waffle.data.models.rest.response.media.MediaResponseDto;
+import com.waffle.data.models.rest.response.media.ImageResponseDto;
 import lombok.Data;
 
 /**
@@ -16,6 +16,6 @@ public class ProfileDto {
     private String lastName;
     private String phoneNumber;
 
-    private MediaResponseDto picture;
+    private ImageResponseDto picture;
     private CityResponseDto city;
 }

@@ -3,7 +3,7 @@ package com.waffle.services.entity.impl;
 import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.entities.Vehicle;
 import com.waffle.data.utils.mappers.VehicleMapper;
-import com.waffle.repositories.VehicleRepository;
+import com.waffle.data.repositories.VehicleRepository;
 import com.waffle.services.entity.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.waffle.repositories.specifications.VehicleSpecification.byUser;
+import static com.waffle.data.repositories.specifications.VehicleSpecification.byUser;
 
 /**
  * PostService implementation.
