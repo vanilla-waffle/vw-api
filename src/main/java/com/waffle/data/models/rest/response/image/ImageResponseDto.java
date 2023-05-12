@@ -1,7 +1,7 @@
-package com.waffle.data.models.rest.response.media;
+package com.waffle.data.models.rest.response.image;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.waffle.data.models.rest.common.MediaDto;
+import com.waffle.data.models.rest.common.ImageDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @JsonPropertyOrder({ "id", "createdAt" })
-public class ImageResponseDto extends MediaDto {
+public class ImageResponseDto extends ImageDto {
 
     private Long id;
     private LocalDateTime createdAt;

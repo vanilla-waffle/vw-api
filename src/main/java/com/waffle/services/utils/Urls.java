@@ -12,12 +12,6 @@ public final class Urls {
     }
 
     @NonDocumented
-    public static String current() {
-        final UriComponents uri = buildUriComponents();
-        return uri.getHost() + uri.getPath();
-    }
-
-    @NonDocumented
     public static String host() {
         return "http://" + buildUriComponents().getHost();
     }

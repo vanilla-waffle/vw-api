@@ -1,7 +1,7 @@
 package com.waffle.data.models.rest.common;
 
 import com.waffle.data.constants.types.vehicle.VehicleStatus;
-import com.waffle.data.models.rest.response.media.ImageResponseDto;
+import com.waffle.data.models.rest.response.image.ImageResponseDto;
 import lombok.Data;
 
 import java.util.List;

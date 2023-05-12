@@ -1,6 +1,6 @@
 package com.waffle.services.composite.internal;
 
-import com.waffle.data.models.rest.response.media.ImageResponseDto;
+import com.waffle.data.models.rest.response.image.ImageResponseDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public interface ImageInternalService {
     /**
      * Delete.
      *
-     * @param ownerId
+     * @param ownerId {@link Long}
      * @param uuid    {@link String}
      */
     void delete(Long ownerId, String uuid);

@@ -29,7 +29,7 @@ public class AuthPublicController {
     @PostMapping("/register")
     public UserAllResponseDto register(
             @RequestPart("user") @Valid final UserCreateDto payload,
-            @RequestPart(name = "media", required = false) final MultipartFile file) {
+            @RequestPart(name = "file", required = false) final MultipartFile file) {
         return userPublicService.save(payload, file);
     }
 }

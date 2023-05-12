@@ -2,7 +2,7 @@ package com.waffle.controllers.internal;
 
 import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.constants.annotations.spring.Principal;
-import com.waffle.data.models.rest.response.media.ImageResponseDto;
+import com.waffle.data.models.rest.response.image.ImageResponseDto;
 import com.waffle.services.composite.internal.UserImageInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;

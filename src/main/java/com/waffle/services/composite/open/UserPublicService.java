@@ -35,7 +35,7 @@ public interface UserPublicService {
      * Save new user.
      *
      * @param payload {@link UserCreateDto}
-     * @param file
+     * @param file {@link MultipartFile}
      * @return {@link UserAllResponseDto}
      */
     UserAllResponseDto save(UserCreateDto payload, MultipartFile file);

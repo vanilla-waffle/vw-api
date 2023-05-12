@@ -2,7 +2,7 @@ package com.waffle.data.utils.mappers;
 
 import com.waffle.configurations.MapperConfiguration;
 import com.waffle.data.entities.Image;
-import com.waffle.data.models.rest.response.media.ImageResponseDto;
+import com.waffle.data.models.rest.response.image.ImageResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.web.multipart.MultipartFile;

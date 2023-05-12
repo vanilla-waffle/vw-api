@@ -6,8 +6,9 @@ import lombok.Data;
  * Media dto.
  */
 @Data
-public class MediaDto {
+public class ImageDto {
 
+    private String uuid;
     private String url;
     private String type;
     private String size;
