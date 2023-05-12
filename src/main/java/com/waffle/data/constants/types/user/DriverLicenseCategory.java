@@ -5,5 +5,5 @@ package com.waffle.data.constants.types.user;
  */
 public enum DriverLicenseCategory {
 
-    A, B, C, D, E, F;
+    A, B, C, D, E, F
 }

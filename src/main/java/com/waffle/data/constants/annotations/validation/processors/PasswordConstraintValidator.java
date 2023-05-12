@@ -19,10 +19,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<Password
     private static final int MAX_LENGTH = 30;
 
     @Override
-    public void initialize(final Password arg0) {
-    }
-
-    @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
         if (!settings.enabled()) {
             return true;

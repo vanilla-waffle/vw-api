@@ -8,5 +8,5 @@ public enum RoleType {
     SUPERADMIN,
     ADMIN,
     USER_HOST,
-    USER_RENTER;
+    USER_RENTER
 }

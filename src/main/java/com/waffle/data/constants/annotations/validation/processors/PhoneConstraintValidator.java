@@ -15,10 +15,6 @@ public class PhoneConstraintValidator implements ConstraintValidator<Phone, Stri
     private final ValidationSettings settings;
 
     @Override
-    public void initialize(final Phone constraintAnnotation) {
-    }
-
-    @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
         if (!settings.enabled()) {
             return true;
