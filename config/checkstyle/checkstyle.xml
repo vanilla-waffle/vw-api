@@ -80,7 +80,7 @@
         <module name="JavadocStyle"/>
         <module name="MissingJavadocType">
             <property name="severity" value="error"/>
-            <property name="skipAnnotations" value="SpringBootApplication,Api,ControllerAdvice,Service,Repository,Entity,NonDocumented,Utils"/>
+            <property name="skipAnnotations" value="SpringBootApplication, Api, ControllerAdvice, Service, Repository, Configuration, Mapper, Entity, NonDocumented, Utils"/>
         </module>
         <module name="MissingJavadocMethod">
             <property name="severity" value="error"/>

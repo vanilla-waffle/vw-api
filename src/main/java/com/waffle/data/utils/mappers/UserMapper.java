@@ -13,9 +13,6 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-/**
- * Mappers class for mapping {@link com.waffle.data.entities.User} entity.
- */
 @Mapper(componentModel = "spring", config = MapperConfiguration.class)
 public interface UserMapper {
 

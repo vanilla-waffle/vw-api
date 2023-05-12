@@ -5,9 +5,6 @@ import io.swagger.v3.core.jackson.ModelResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Custom objectmapper injection.
- */
 @Configuration
 public class SwaggerConfiguration {
 

@@ -10,9 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Media mapper.
- */
 @Mapper(componentModel = "spring", config = MapperConfiguration.class)
 public interface ImageMapper {
 

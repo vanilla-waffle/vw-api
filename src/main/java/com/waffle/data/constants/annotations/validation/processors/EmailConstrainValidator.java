@@ -2,15 +2,14 @@ package com.waffle.data.constants.annotations.validation.processors;
 
 import com.waffle.configurations.properties.ValidationSettings;
 import com.waffle.data.constants.annotations.spring.Email;
+import com.waffle.data.constants.annotations.spring.NonDocumented;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.internal.constraintvalidators.AbstractEmailValidator;
 
 import javax.validation.ConstraintValidatorContext;
 
-/**
- * Email constrain validator.
- */
 @RequiredArgsConstructor
+@NonDocumented
 public class EmailConstrainValidator extends AbstractEmailValidator<Email> {
     private final ValidationSettings settings;
 

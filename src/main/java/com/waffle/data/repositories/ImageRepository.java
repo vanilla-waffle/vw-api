@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Image repository.
- */
 @Repository
 public interface ImageRepository extends CrudRepository<Image, Long> {
 
