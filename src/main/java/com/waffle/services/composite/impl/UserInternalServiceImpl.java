@@ -14,8 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -42,6 +42,7 @@ public class UserInternalServiceImpl implements UserInternalService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserAllResponseDto find(final Long id) {
         final User user = userService.find(id);
         return userMapper.convertAll(user);
@@ -81,7 +82,6 @@ public class UserInternalServiceImpl implements UserInternalService {
     }
 
     @Override
-    @Transactional
     public void erase(final Long id) {
         userService.delete(id);
     }
