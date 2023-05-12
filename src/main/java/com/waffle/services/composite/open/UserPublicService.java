@@ -1,4 +1,4 @@
-package com.waffle.services.composite;
+package com.waffle.services.composite.open;
 
 import com.waffle.data.models.rest.request.user.UserCreateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;

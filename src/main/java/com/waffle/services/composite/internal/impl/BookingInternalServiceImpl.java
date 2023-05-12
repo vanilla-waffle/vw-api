@@ -1,4 +1,4 @@
-package com.waffle.services.composite.impl;
+package com.waffle.services.composite.internal.impl;
 
 import com.waffle.data.constants.types.booking.BookingStatus;
 import com.waffle.data.constants.types.vehicle.VehicleStatus;
@@ -10,7 +10,7 @@ import com.waffle.data.models.rest.request.booking.BookingCreateDto;
 import com.waffle.data.models.rest.request.booking.BookingUpdateDto;
 import com.waffle.data.models.rest.response.booking.BookingAllResponseDto;
 import com.waffle.services.utils.Sorts;
-import com.waffle.services.composite.BookingInternalService;
+import com.waffle.services.composite.internal.BookingInternalService;
 import com.waffle.services.entity.BookingService;
 import com.waffle.services.entity.UserService;
 import com.waffle.services.entity.VehicleService;

@@ -1,4 +1,4 @@
-package com.waffle.services.composite;
+package com.waffle.services.composite.internal;
 
 import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
 import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
@@ -7,6 +7,7 @@ import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
 import com.waffle.data.entities.Vehicle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -63,10 +64,11 @@ public interface VehicleInternalService {
      * Save one {@link Vehicle}.
      *
      * @param payload {@link VehicleCreateDto}
-     * @param userId {@link Long} user id
+     * @param userId  {@link Long} user id
+     * @param files {@link List} of {@link MultipartFile}
      * @return {@link VehicleAllResponseDto}
      */
-    VehicleAllResponseDto save(VehicleCreateDto payload, Long userId);
+    VehicleAllResponseDto save(VehicleCreateDto payload, Long userId, List<MultipartFile> files);
 
     /**
      * Update one {@link Vehicle}.

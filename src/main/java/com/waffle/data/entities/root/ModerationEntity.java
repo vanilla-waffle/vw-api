@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Data
 @MappedSuperclass
 @EqualsAndHashCode(callSuper = true)
-public class ModerationEntity extends BasicEntity implements Persistable {
+public abstract class ModerationEntity extends BasicEntity implements Persistable {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

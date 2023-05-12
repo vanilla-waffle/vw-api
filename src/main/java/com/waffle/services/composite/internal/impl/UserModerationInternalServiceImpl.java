@@ -1,4 +1,4 @@
-package com.waffle.services.composite.impl;
+package com.waffle.services.composite.internal.impl;
 
 import com.waffle.data.entities.DriverLicense;
 import com.waffle.data.entities.User;
@@ -8,7 +8,7 @@ import com.waffle.data.utils.mappers.DriverLicenseMapper;
 import com.waffle.data.utils.mappers.UserModerationMapper;
 import com.waffle.data.models.rest.response.moderation.UserModerationAllResponseDto;
 import com.waffle.services.utils.Sorts;
-import com.waffle.services.composite.UserModerationInternalService;
+import com.waffle.services.composite.internal.UserModerationInternalService;
 import com.waffle.services.entity.DriverLicenseService;
 import com.waffle.services.entity.UserModerationService;
 import com.waffle.services.entity.UserService;

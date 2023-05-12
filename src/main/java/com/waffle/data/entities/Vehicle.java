@@ -54,7 +54,7 @@ public class Vehicle extends BasicEntity implements Persistable {
     private User user;
 
     @OneToMany(
-            cascade = CascadeType.PERSIST,
+            cascade = { CascadeType.REMOVE },
             orphanRemoval = true)
     private List<Image> images;
 
@@ -64,20 +64,22 @@ public class Vehicle extends BasicEntity implements Persistable {
     @Column(name = "feature_name")
     private Set<Feature> features;
 
-    @OneToOne(orphanRemoval = true)
-    @JsonManagedReference(value = "vehicle-passport")
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private VehiclePassport passport;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JoinColumn(nullable = false)
-    @JsonManagedReference(value = "vehicle-location")
     private Location location;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
-    @JsonManagedReference(value = "vehicle-reviews")
     private List<Review> reviews;
 
     @Override
+    @PrePersist
     public void onPersist() {
         status = VehicleStatus.ACTIVE;
     }

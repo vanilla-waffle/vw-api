@@ -1,12 +1,12 @@
-package com.waffle.services.composite;
+package com.waffle.services.composite.open;
 
 public interface ImagePublicService {
 
     /**
      * Download.
      *
-     * @param id {@link Long}
+     * @param uuid {@link String}
      * @return array of {@code byte}
      */
-    byte[] download(Long id);
+    byte[] download(String uuid);
 }

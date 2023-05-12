@@ -4,7 +4,7 @@ import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.constants.types.user.RoleType;
 import com.waffle.data.models.rest.response.user.role.RoleResponseAllDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
-import com.waffle.services.composite.RoleManagementService;
+import com.waffle.services.composite.internal.RoleManagementInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("admin/roles")
 @RequiredArgsConstructor
 public class AdminRoleController {
-    private final RoleManagementService roleManagementService;
+    private final RoleManagementInternalService roleManagementInternalService;
 
     /**
      * Find all.
@@ -31,7 +31,7 @@ public class AdminRoleController {
             @RequestParam(defaultValue = "0") final int page,
             @RequestParam(defaultValue = "12") final int size,
             @RequestParam(defaultValue = "id ASC") final String sort) {
-        return roleManagementService.findAll(sort, PageRequest.of(page, size));
+        return roleManagementInternalService.findAll(sort, PageRequest.of(page, size));
     }
 
     /**
@@ -45,7 +45,7 @@ public class AdminRoleController {
     public UserAllResponseDto promote(
             @PathVariable final Long userId,
             @RequestParam(defaultValue = "ADMIN") final RoleType role) {
-        return roleManagementService.promote(userId, role);
+        return roleManagementInternalService.promote(userId, role);
     }
 
     /**
@@ -59,7 +59,7 @@ public class AdminRoleController {
     public UserAllResponseDto demote(
             @PathVariable final Long userId,
             @RequestParam(defaultValue = "ADMIN") final RoleType role) {
-        return roleManagementService.demote(userId, role);
+        return roleManagementInternalService.demote(userId, role);
     }
 
     /**
@@ -69,6 +69,6 @@ public class AdminRoleController {
      */
     @DeleteMapping("/{id}")
     public void delete(@PathVariable final Long id) {
-        roleManagementService.delete(id);
+        roleManagementInternalService.delete(id);
     }
 }

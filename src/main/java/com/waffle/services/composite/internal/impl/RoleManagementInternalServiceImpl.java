@@ -1,4 +1,4 @@
-package com.waffle.services.composite.impl;
+package com.waffle.services.composite.internal.impl;
 
 import com.waffle.data.constants.types.user.RoleType;
 import com.waffle.data.entities.Role;
@@ -9,7 +9,7 @@ import com.waffle.data.models.rest.request.user.role.RoleCreateDto;
 import com.waffle.data.models.rest.response.user.role.RoleResponseAllDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.services.utils.Sorts;
-import com.waffle.services.composite.RoleManagementService;
+import com.waffle.services.composite.internal.RoleManagementInternalService;
 import com.waffle.services.entity.RoleService;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class RoleManagementServiceImpl implements RoleManagementService {
+public class RoleManagementInternalServiceImpl implements RoleManagementInternalService {
     private final RoleService roleService;
     private final UserService userService;
     private final RoleMapper roleMapper;

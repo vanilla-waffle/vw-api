@@ -1,4 +1,4 @@
-package com.waffle.services.composite.impl;
+package com.waffle.services.composite.internal.impl;
 
 import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.entities.User;
@@ -7,7 +7,7 @@ import com.waffle.data.models.rest.request.user.UserUpdateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
 import com.waffle.services.utils.Sorts;
-import com.waffle.services.composite.UserInternalService;
+import com.waffle.services.composite.internal.UserInternalService;
 import com.waffle.services.entity.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

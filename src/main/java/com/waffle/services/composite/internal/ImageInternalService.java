@@ -1,4 +1,4 @@
-package com.waffle.services.composite;
+package com.waffle.services.composite.internal;
 
 import com.waffle.data.models.rest.response.media.ImageResponseDto;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,23 +13,26 @@ public interface ImageInternalService {
     /**
      * Upload.
      *
+     * @param ownerId {@link Long}
      * @param file {@link MultipartFile}
      * @return {@link ImageResponseDto}
      */
-    ImageResponseDto upload(MultipartFile file);
+    ImageResponseDto upload(Long ownerId, MultipartFile file);
 
     /**
      * Upload all.
      *
+     * @param ownerId {@link Long}
      * @param files {@link List<MultipartFile>}
      * @return {@link List<ImageResponseDto>}
      */
-    List<ImageResponseDto> upload(List<MultipartFile> files);
+    List<ImageResponseDto> upload(Long ownerId, List<MultipartFile> files);
 
     /**
      * Delete.
      *
-     * @param id {@link Long}
+     * @param ownerId
+     * @param uuid    {@link String}
      */
-    void delete(Long id);
+    void delete(final Long ownerId, String uuid);
 }

@@ -1,7 +1,7 @@
 package com.waffle.controllers;
 
 import com.waffle.data.constants.annotations.spring.Api;
-import com.waffle.services.composite.ImagePublicService;
+import com.waffle.services.composite.open.ImagePublicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ImagePublicController {
     private final ImagePublicService imagePublicService;
 
-    @GetMapping("/{id}")
-    public byte[] download(@PathVariable final Long id) {
-        return imagePublicService.download(id);
+    @GetMapping(value = "/{uuid}", produces = "image/png")
+    public byte[] download(@PathVariable final String uuid) {
+        return imagePublicService.download(uuid);
     }
 }

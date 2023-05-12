@@ -5,7 +5,7 @@ import com.waffle.data.constants.annotations.spring.Principal;
 import com.waffle.data.models.rest.request.booking.BookingCreateDto;
 import com.waffle.data.models.rest.request.booking.BookingUpdateDto;
 import com.waffle.data.models.rest.response.booking.BookingAllResponseDto;
-import com.waffle.services.composite.BookingInternalService;
+import com.waffle.services.composite.internal.BookingInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

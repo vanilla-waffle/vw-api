@@ -1,5 +1,6 @@
 package com.waffle.data.entities;
 
+import com.waffle.data.constants.annotations.spring.NonDocumented;
 import com.waffle.data.constants.types.user.UserStatus;
 import com.waffle.data.entities.behaviour.Persistable;
 import com.waffle.data.entities.embedded.user.Profile;
@@ -26,12 +27,18 @@ public class User extends BasicEntity implements Persistable {
     @Embedded
     private Profile profile;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(
+            mappedBy = "users")
     private List<Role> roles;
 
     @Override
     @PrePersist
     public void onPersist() {
         status = UserStatus.INACTIVE;
+    }
+
+    @NonDocumented
+    public void clearImage() {
+        this.profile.setImage(null);
     }
 }

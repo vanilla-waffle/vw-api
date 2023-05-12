@@ -1,4 +1,4 @@
-package com.waffle.services.composite.impl;
+package com.waffle.services.composite.security.impl;
 
 import com.waffle.data.constants.exceptions.NotFoundException;
 import com.waffle.data.entities.User;

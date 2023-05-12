@@ -1,5 +1,6 @@
 package com.waffle.data.models.rest.request.vehicle;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.models.rest.common.LocationDto;
 import com.waffle.data.models.rest.common.PaymentPlanDto;
@@ -20,8 +21,7 @@ import java.util.Set;
 @Data
 public class VehicleCreateDto {
 
-    @NotNull
-    @Positive
+    @JsonIgnore
     private Long userId;
 
     @NotEmpty

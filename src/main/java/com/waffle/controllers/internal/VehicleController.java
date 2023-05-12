@@ -1,15 +1,19 @@
 package com.waffle.controllers.internal;
 
 import com.waffle.data.constants.annotations.spring.Api;
+import com.waffle.data.constants.annotations.spring.Principal;
 import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
 import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
-import com.waffle.services.composite.VehicleInternalService;
+import com.waffle.services.composite.internal.VehicleInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -25,12 +29,17 @@ public class VehicleController {
      * Save one.
      *
      * @param payload {@link VehicleCreateDto}
+     * @param file array of {@link MultipartFile}
      * @return {@link VehicleAllResponseDto}
      */
     @PostMapping
     @ResponseStatus(CREATED)
-    public VehicleAllResponseDto save(@RequestBody @Valid final VehicleCreateDto payload) {
-        return service.save(payload, payload.getUserId());
+    public VehicleAllResponseDto save(
+            @Principal final Long userId,
+            @RequestPart("vehicle") @Valid final VehicleCreateDto payload,
+            @RequestPart final MultipartFile[] file) {
+        payload.setUserId(userId);
+        return service.save(payload, payload.getUserId(), List.of(file));
     }
 
     /**

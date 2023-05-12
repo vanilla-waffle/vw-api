@@ -1,4 +1,4 @@
-package com.waffle.services.composite;
+package com.waffle.services.composite.internal;
 
 import com.waffle.data.models.rest.request.booking.BookingCreateDto;
 import com.waffle.data.models.rest.request.booking.BookingUpdateDto;

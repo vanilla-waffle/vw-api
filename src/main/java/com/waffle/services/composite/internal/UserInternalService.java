@@ -1,4 +1,4 @@
-package com.waffle.services.composite;
+package com.waffle.services.composite.internal;
 
 import com.waffle.data.models.rest.request.user.UserUpdateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;

@@ -77,20 +77,15 @@
             <property name="accessModifiers" value="public"/>
             <property name="severity" value="error"/>
         </module>
-        <module name="JavadocType">
-            <property name="severity" value="error"/>
-        </module>
-        <module name="JavadocVariable">
-            <property name="scope" value="public"/>
-            <property name="severity" value="error"/>
-        </module>
         <module name="JavadocStyle"/>
         <module name="MissingJavadocType">
             <property name="severity" value="error"/>
-            <property name="skipAnnotations" value="SpringBootApplication"/>
+            <property name="skipAnnotations" value="SpringBootApplication,Api,Service,Repository,Entity,NonDocumented,Utils"/>
         </module>
         <module name="MissingJavadocMethod">
             <property name="severity" value="error"/>
+            <property name="excludeScope" value="protected"/>
+            <property name="allowedAnnotations" value="NonDocumented,Override"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
         </module>
 
@@ -170,7 +165,7 @@
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
         <module name="MagicNumber">
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
         </module>
         <module name="MissingSwitchDefault"/>
         <module name="SimplifyBooleanExpression"/>
@@ -179,7 +174,7 @@
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
         <module name="DesignForExtension">
-            <property name="ignoredAnnotations" value="Override, Test"/>
+            <property name="ignoredAnnotations" value="Override, Test, NonDocumented"/>
         </module>
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>

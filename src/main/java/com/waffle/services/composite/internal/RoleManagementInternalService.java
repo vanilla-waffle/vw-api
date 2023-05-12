@@ -1,4 +1,4 @@
-package com.waffle.services.composite;
+package com.waffle.services.composite.internal;
 
 import com.waffle.data.constants.types.user.RoleType;
 import com.waffle.data.models.rest.request.user.role.RoleCreateDto;
@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 /**
  * Role management service.
  */
-public interface RoleManagementService {
+public interface RoleManagementInternalService {
 
     /**
      * Assign role.

@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  */
 @Target({ ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
+@NonDocumented
 @AuthenticationPrincipal
 @Parameter(hidden = true)
 public @interface Principal {
