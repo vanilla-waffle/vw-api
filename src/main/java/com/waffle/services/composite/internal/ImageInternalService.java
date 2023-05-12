@@ -34,5 +34,5 @@ public interface ImageInternalService {
      * @param ownerId
      * @param uuid    {@link String}
      */
-    void delete(final Long ownerId, String uuid);
+    void delete(Long ownerId, String uuid);
 }

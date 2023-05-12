@@ -1,7 +1,6 @@
 package com.waffle.services.composite.internal.impl;
 
 import com.waffle.data.entities.Image;
-import com.waffle.data.entities.User;
 import com.waffle.data.entities.Vehicle;
 import com.waffle.data.models.rest.response.media.ImageResponseDto;
 import com.waffle.data.utils.mappers.ImageMapper;

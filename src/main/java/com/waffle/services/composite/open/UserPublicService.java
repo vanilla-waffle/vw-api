@@ -38,5 +38,5 @@ public interface UserPublicService {
      * @param file
      * @return {@link UserAllResponseDto}
      */
-    UserAllResponseDto save(UserCreateDto payload, final MultipartFile file);
+    UserAllResponseDto save(UserCreateDto payload, MultipartFile file);
 }

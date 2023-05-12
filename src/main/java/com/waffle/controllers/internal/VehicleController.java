@@ -28,6 +28,7 @@ public class VehicleController {
     /**
      * Save one.
      *
+     * @param userId {@link Long}
      * @param payload {@link VehicleCreateDto}
      * @param file array of {@link MultipartFile}
      * @return {@link VehicleAllResponseDto}

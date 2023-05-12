@@ -15,6 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserImageController {
     private final UserImageInternalService userImageInternalService;
 
+    /**
+     * Upload user image.
+     *
+     * @param userId {@link Long}
+     * @param file {@link MultipartFile}
+     * @return {@link ImageResponseDto}
+     */
     @PutMapping("/me/media")
     public ImageResponseDto upload(
             @Principal final Long userId,
@@ -22,6 +29,11 @@ public class UserImageController {
         return userImageInternalService.upload(userId, file);
     }
 
+    /**
+     * Delete.
+     *
+     * @param userId {@link Long}
+     */
     @DeleteMapping("/me/media")
     public void delete(@Principal final Long userId) {
         userImageInternalService.delete(userId, null);

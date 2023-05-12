@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ImagePublicController {
     private final ImagePublicService imagePublicService;
 
+    /**
+     * Download image.
+     *
+     * @param uuid {@link String}
+     * @return array of {@code byte}
+     */
     @GetMapping(value = "/{uuid}", produces = "image/png")
     public byte[] download(@PathVariable final String uuid) {
         return imagePublicService.download(uuid);

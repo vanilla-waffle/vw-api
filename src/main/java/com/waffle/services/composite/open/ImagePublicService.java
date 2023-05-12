@@ -1,5 +1,8 @@
 package com.waffle.services.composite.open;
 
+/**
+ * Image public service.
+ */
 public interface ImagePublicService {
 
     /**
