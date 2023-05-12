@@ -13,9 +13,6 @@ import javax.validation.Valid;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-/**
- * Booking controller.
- */
 @Api("/in/bookings")
 @RequiredArgsConstructor
 public class BookingController {

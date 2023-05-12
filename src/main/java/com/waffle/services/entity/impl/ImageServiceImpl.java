@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Image service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {

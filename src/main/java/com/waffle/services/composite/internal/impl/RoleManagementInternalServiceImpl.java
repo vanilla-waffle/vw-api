@@ -18,9 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-/**
- * Role management service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class RoleManagementInternalServiceImpl implements RoleManagementInternalService {

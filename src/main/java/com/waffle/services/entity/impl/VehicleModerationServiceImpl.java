@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Vehicle moderation service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class VehicleModerationServiceImpl implements VehicleModerationService {

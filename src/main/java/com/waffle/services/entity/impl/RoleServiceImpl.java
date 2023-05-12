@@ -15,9 +15,6 @@ import java.util.List;
 
 import static com.waffle.data.repositories.specifications.RoleSpecification.byRoleType;
 
-/**
- * Role service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {

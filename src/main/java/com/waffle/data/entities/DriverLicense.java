@@ -9,9 +9,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-/**
- * Driver license entity.
- */
 @Entity
 @Table(name = "vw_driver_licenses")
 @Getter

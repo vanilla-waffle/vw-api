@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
 
-/**
- * User public controller.
- */
 @Api("public/users")
 @RequiredArgsConstructor
 public class UserPublicController {

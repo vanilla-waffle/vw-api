@@ -13,9 +13,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Post entity.
- */
 @Entity
 @Table(name = "vw_vehicles")
 @Getter

@@ -6,9 +6,6 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * City entity.
- */
 @Entity
 @Table(name = "vw_cities")
 @Data

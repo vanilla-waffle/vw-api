@@ -14,9 +14,6 @@ import java.util.List;
 
 import static com.waffle.data.repositories.specifications.UserModerationSpecification.*;
 
-/**
- * User moderation service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class UserModerationServiceImpl implements UserModerationService {

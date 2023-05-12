@@ -14,9 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Positive;
 
-/**
- *
- */
 @Api("admin/users")
 @RequiredArgsConstructor
 public class AdminUserController {

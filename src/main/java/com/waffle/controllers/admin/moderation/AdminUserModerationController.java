@@ -9,9 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Admin user moderation controller.
- */
 @Api("admin/users/mod")
 @RequiredArgsConstructor
 public class AdminUserModerationController {

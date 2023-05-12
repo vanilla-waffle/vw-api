@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-/**
- * User moderation controller.
- */
 @Api("in/users/mod")
 @RequiredArgsConstructor
 public class UserModerationController {

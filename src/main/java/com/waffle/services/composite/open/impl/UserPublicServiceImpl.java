@@ -22,9 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * User public service implementation.
- */
 @Service
 @AllArgsConstructor
 public class UserPublicServiceImpl implements UserPublicService {

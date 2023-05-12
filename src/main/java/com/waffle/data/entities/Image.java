@@ -13,9 +13,6 @@ import javax.persistence.*;
 
 import java.util.UUID;
 
-/**
- * Image entity.
- */
 @Entity
 @Table(name = "vw_images")
 @Getter

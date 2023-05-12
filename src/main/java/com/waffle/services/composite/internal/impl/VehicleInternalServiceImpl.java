@@ -25,9 +25,6 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * User vehicle service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class VehicleInternalServiceImpl implements VehicleInternalService {

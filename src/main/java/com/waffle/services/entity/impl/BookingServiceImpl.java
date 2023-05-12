@@ -15,9 +15,6 @@ import java.util.List;
 
 import static com.waffle.data.repositories.specifications.BookingSpecification.byUser;
 
-/**
- * Booking service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {

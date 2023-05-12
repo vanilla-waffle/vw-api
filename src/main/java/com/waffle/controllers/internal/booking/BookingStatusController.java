@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.validation.constraints.Positive;
 
-/**
- * Booking status controller.
- */
 @Api("in/bookings")
 @RequiredArgsConstructor
 public class BookingStatusController {

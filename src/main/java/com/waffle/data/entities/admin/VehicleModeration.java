@@ -6,9 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-/**
- * Vehicle moderation request entity.
- */
 @Entity
 @Table(name = "vw_vehicles_moderation_requests")
 @Data

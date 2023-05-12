@@ -10,9 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Admin role controller.
- */
 @Api("admin/roles")
 @RequiredArgsConstructor
 public class AdminRoleController {

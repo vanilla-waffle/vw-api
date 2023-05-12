@@ -11,9 +11,6 @@ import java.util.List;
 
 import static com.waffle.data.repositories.specifications.DriverLicenseSpecification.byLicenseNumber;
 
-/**
- * Driver license service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class DriverLicenseServiceImpl implements DriverLicenseService {

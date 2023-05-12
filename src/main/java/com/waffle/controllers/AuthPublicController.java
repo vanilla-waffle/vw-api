@@ -11,9 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
-/**
- * Auth public controller.
- */
 @Api("/auth")
 @RequiredArgsConstructor
 public class AuthPublicController {

@@ -10,9 +10,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * User entity.
- */
 @Entity
 @Table(name = "vw_users")
 @Data

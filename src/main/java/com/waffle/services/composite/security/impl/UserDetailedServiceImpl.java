@@ -1,6 +1,5 @@
 package com.waffle.services.composite.security.impl;
 
-import com.waffle.data.constants.exceptions.NotFoundException;
 import com.waffle.data.entities.User;
 import com.waffle.data.utils.mappers.UserMapper;
 import com.waffle.data.models.other.UserContext;
@@ -15,9 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.stream.Collectors;
 
-/**
- * User details service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class UserDetailedServiceImpl implements UserDetailsService {
@@ -30,7 +26,7 @@ public class UserDetailedServiceImpl implements UserDetailsService {
         try {
             final User user = userService.find(username);
             return toDetails(user);
-        } catch (NotFoundException e) {
+        } catch (IllegalArgumentException e) {
             throw new UsernameNotFoundException(e.getMessage());
         }
     }

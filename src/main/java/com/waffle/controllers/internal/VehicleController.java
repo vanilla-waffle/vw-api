@@ -17,9 +17,6 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-/**
- * Vehicle controller.
- */
 @Api("in/vehicles")
 @RequiredArgsConstructor
 public class VehicleController {

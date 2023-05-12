@@ -18,9 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * User internal service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class UserInternalServiceImpl implements UserInternalService {

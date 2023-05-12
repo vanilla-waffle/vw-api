@@ -23,9 +23,6 @@ import static com.waffle.data.repositories.specifications.UserModerationSpecific
 import static com.waffle.data.constants.types.admin.ModerationStatus.*;
 import static com.waffle.data.constants.types.user.UserStatus.ACTIVE;
 
-/**
- * User moderation internal service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class UserModerationInternalServiceImpl implements UserModerationInternalService {

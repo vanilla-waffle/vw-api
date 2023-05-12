@@ -1,6 +1,5 @@
 package com.waffle.services.entity.impl;
 
-import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.entities.Vehicle;
 import com.waffle.data.utils.mappers.VehicleMapper;
 import com.waffle.data.repositories.VehicleRepository;
@@ -15,9 +14,6 @@ import java.util.List;
 
 import static com.waffle.data.repositories.specifications.VehicleSpecification.byUser;
 
-/**
- * PostService implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
@@ -66,7 +62,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle find(final Long id) {
-        return repository.findById(id).orElseThrow(() -> new VehicleNotFoundException(id));
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Vehicle does not exist: " + id));
     }
 
     @Override

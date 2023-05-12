@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-/**
- * User controller for authorities.
- */
 @Api("in/users/me")
 @RequiredArgsConstructor
 public class UserController {

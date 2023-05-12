@@ -19,9 +19,6 @@ import java.util.function.Function;
 import static com.waffle.data.repositories.specifications.UserSpecification.byEmail;
 import static com.waffle.data.repositories.specifications.UserSpecification.byUsername;
 
-/**
- * UserService implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {

@@ -1,10 +1,8 @@
 package com.waffle.aspects.advices;
 
-import com.waffle.data.constants.exceptions.UserAlreadyExistsException;
-import com.waffle.data.constants.exceptions.NotFoundException;
-import com.waffle.data.constants.exceptions.VehicleNotFoundException;
 import com.waffle.data.models.other.ErrorMessageDto;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +13,38 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolationException;
-
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.ResponseEntity.status;
 
-/**
- * Exceptions handler.
- */
 @ControllerAdvice
-public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
+@Order(0)
+public class ValidationExceptionController extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(value = { ConstraintViolationException.class })
+    protected ResponseEntity<ErrorMessageDto> handle(final ConstraintViolationException e) {
+        final ErrorMessageDto message = ErrorMessageDto.builder()
+                .code(BAD_REQUEST)
+                .reason(e.getClass().getSimpleName())
+                .message(e.getMessage())
+                .build();
+        return status(BAD_REQUEST).body(message);
+    }
+
+    @ExceptionHandler(value = { MaxUploadSizeExceededException.class })
+    protected ResponseEntity<ErrorMessageDto> handle(final MaxUploadSizeExceededException e) {
+        final ErrorMessageDto message = ErrorMessageDto.builder()
+                .code(BAD_REQUEST)
+                .reason(e.getClass().getSimpleName())
+                .message(e.getMessage())
+                .build();
+        return status(BAD_REQUEST).body(message);
+    }
 
     @Override
     @NonNull
@@ -77,69 +93,5 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
                 )
                 .build();
         return status(BAD_REQUEST).body(message);
-    }
-
-    /**
-     * Handles not-found exceptions.
-     *
-     * @param e exception
-     * @return error message dto
-     */
-    @ExceptionHandler(value = { NotFoundException.class, VehicleNotFoundException.class })
-    ResponseEntity<ErrorMessageDto> handle(final NotFoundException e) {
-        final ErrorMessageDto message = ErrorMessageDto.builder()
-                .code(NOT_FOUND)
-                .reason(e.getClass().getSimpleName())
-                .message(e.getMessage())
-                .build();
-        return status(NOT_FOUND).body(message);
-    }
-
-    /**
-     * Handles IllegalArgumentException.
-     *
-     * @param e exception
-     * @return error message dto
-     */
-    @ExceptionHandler(value = { ConstraintViolationException.class, UserAlreadyExistsException.class })
-    ResponseEntity<ErrorMessageDto> handle(final RuntimeException e) {
-        final ErrorMessageDto message = ErrorMessageDto.builder()
-                .code(BAD_REQUEST)
-                .reason(e.getClass().getSimpleName())
-                .message(e.getMessage())
-                .build();
-        return status(BAD_REQUEST).body(message);
-    }
-
-    /**
-     * Handles IllegalArgumentException.
-     *
-     * @param e exception
-     * @return error message dto
-     */
-    @ExceptionHandler(value = { IllegalArgumentException.class })
-    ResponseEntity<ErrorMessageDto> handle(final IllegalArgumentException e) {
-        final ErrorMessageDto message = ErrorMessageDto.builder()
-                .code(BAD_REQUEST)
-                .reason(e.getClass().getSimpleName())
-                .message(e.getMessage())
-                .build();
-        return status(BAD_REQUEST).body(message);
-    }
-
-    /**
-     * Handles internal error exceptions.
-     *
-     * @param e exception
-     * @return error message dto
-     */
-    @ExceptionHandler(value = { Exception.class })
-    ResponseEntity<ErrorMessageDto> handle(final Exception e) {
-        final ErrorMessageDto message = ErrorMessageDto.builder()
-                .code(INTERNAL_SERVER_ERROR)
-                .reason(e.getClass().getSimpleName())
-                .message(e.getMessage())
-                .build();
-        return status(INTERNAL_SERVER_ERROR).body(message);
     }
 }

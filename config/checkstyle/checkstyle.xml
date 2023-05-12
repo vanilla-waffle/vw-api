@@ -80,12 +80,12 @@
         <module name="JavadocStyle"/>
         <module name="MissingJavadocType">
             <property name="severity" value="error"/>
-            <property name="skipAnnotations" value="SpringBootApplication,Api,Service,Repository,Entity,NonDocumented,Utils"/>
+            <property name="skipAnnotations" value="SpringBootApplication,Api,ControllerAdvice,Service,Repository,Entity,NonDocumented,Utils"/>
         </module>
         <module name="MissingJavadocMethod">
             <property name="severity" value="error"/>
             <property name="excludeScope" value="protected"/>
-            <property name="allowedAnnotations" value="NonDocumented,Override"/>
+            <property name="allowedAnnotations" value="NonDocumented,Override,ExceptionHandler"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
         </module>
 
@@ -174,7 +174,7 @@
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
         <module name="DesignForExtension">
-            <property name="ignoredAnnotations" value="Override, Test, NonDocumented"/>
+            <property name="ignoredAnnotations" value="Override, Test, NonDocumented, ExceptionHandler"/>
         </module>
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>

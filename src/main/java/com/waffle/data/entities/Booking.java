@@ -13,9 +13,6 @@ import java.util.List;
 
 import static com.waffle.data.constants.types.vehicle.Payment.HOUR;
 
-/**
- * Booking entity.
- */
 @Entity
 @Table(name = "vw_bookings")
 @Data

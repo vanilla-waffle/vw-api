@@ -27,9 +27,6 @@ import java.util.List;
 import static com.waffle.data.repositories.specifications.BookingSpecification.*;
 import static java.time.LocalDateTime.now;
 
-/**
- * Booking internal service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class BookingInternalServiceImpl implements BookingInternalService {

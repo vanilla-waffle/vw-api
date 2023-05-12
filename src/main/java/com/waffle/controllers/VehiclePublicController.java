@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Positive;
 
-/**
- * Vehicle public controller.
- */
 @Api("/public/vehicles")
 @RequiredArgsConstructor
 public class VehiclePublicController {
