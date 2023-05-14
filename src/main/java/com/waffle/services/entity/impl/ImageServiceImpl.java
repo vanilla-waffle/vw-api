@@ -21,21 +21,11 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image upload(final Image payload) {
-        if (!valid(payload)) {
-            throw new IllegalArgumentException("Image must have .png extension: " + payload.getType());
-        }
-
         return repository.save(payload);
     }
 
     @Override
     public List<Image> upload(final List<Image> payloads) {
-        payloads.stream()
-                .filter(p -> !valid(p))
-                .findAny()
-                .ifPresent(p -> {
-            throw new IllegalArgumentException("Image must have .png extension: " + p.getType());
-        });
         return Lists.newArrayList(repository.saveAll(payloads));
     }
 
