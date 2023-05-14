@@ -6,9 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-/**
- * Payment method entities.
- */
 @Entity
 @Table(name = "vw_payment_methods")
 @Data

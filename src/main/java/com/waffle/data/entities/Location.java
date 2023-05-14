@@ -6,9 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-/**
- * Vehicle location entity.
- */
 @Entity
 @Table(name = "vw_locations")
 @Getter

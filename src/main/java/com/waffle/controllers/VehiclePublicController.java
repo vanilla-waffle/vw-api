@@ -3,7 +3,7 @@ package com.waffle.controllers;
 import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
-import com.waffle.services.composite.VehicleInternalService;
+import com.waffle.services.composite.internal.VehicleInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Positive;
 
-/**
- * Vehicle public controller.
- */
 @Api("/public/vehicles")
 @RequiredArgsConstructor
 public class VehiclePublicController {

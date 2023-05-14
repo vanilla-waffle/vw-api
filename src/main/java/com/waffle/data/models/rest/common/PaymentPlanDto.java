@@ -14,7 +14,7 @@ public class PaymentPlanDto {
 
     @NotNull
     @Positive
-    private Long price;
+    private Double price;
 
     @NotNull
     private Payment payment;

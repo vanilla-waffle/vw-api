@@ -2,7 +2,7 @@ package com.waffle.services.entity.impl;
 
 import com.waffle.data.constants.types.user.RoleType;
 import com.waffle.data.entities.Role;
-import com.waffle.repositories.RoleRepository;
+import com.waffle.data.repositories.RoleRepository;
 import com.waffle.services.entity.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
@@ -13,11 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.waffle.repositories.specifications.RoleSpecification.byRoleType;
+import static com.waffle.data.repositories.specifications.RoleSpecification.byRoleType;
 
-/**
- * Role service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {

@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 /**
- * Base entity.
+ * Entity with basic table attributes.
  */
 @Getter
 @MappedSuperclass

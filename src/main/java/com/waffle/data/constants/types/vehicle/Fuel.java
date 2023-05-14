@@ -5,20 +5,8 @@ package com.waffle.data.constants.types.vehicle;
  */
 public enum Fuel {
 
-    /**
-     * Gas.
-     */
     GAS,
-    /**
-     * Petrol.
-     */
     PETROL,
-    /**
-     * Diesel.
-     */
     DIESEL,
-    /**
-     * Electric.
-     */
     ELECTRIC
 }

@@ -5,9 +5,6 @@ import com.waffle.data.entities.DriverLicense;
 import com.waffle.data.models.rest.request.license.DriverLicenseCreateDto;
 import org.mapstruct.Mapper;
 
-/**
- * Driver license mapper.
- */
 @Mapper(componentModel = "spring", config = MapperConfiguration.class)
 public interface DriverLicenseMapper {
 

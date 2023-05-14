@@ -1,5 +1,6 @@
 package com.waffle;
 
+import com.waffle.data.constants.annotations.spring.NonDocumented;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -8,11 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties
 public class WaffleApplication {
 
-    /**
-     * Main method.
-     *
-     * @param args arguments
-     */
+    @NonDocumented
     public static void main(final String[] args) {
         SpringApplication.run(WaffleApplication.class, args);
     }

@@ -1,7 +1,10 @@
 package com.waffle.data.models.rest.common;
 
 import com.waffle.data.constants.types.vehicle.VehicleStatus;
+import com.waffle.data.models.rest.response.image.ImageResponseDto;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * Common class for dto classes of Post.
@@ -16,4 +19,6 @@ public class VehicleDto {
     private String manuf;
     private String model;
     private Integer releaseYear;
+
+    private List<ImageResponseDto> images;
 }

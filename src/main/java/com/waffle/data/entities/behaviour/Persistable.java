@@ -6,7 +6,7 @@ package com.waffle.data.entities.behaviour;
 public interface Persistable {
 
     /**
-     * Trigger function on persist operation.
+     * Triggers on persist.
      */
     void onPersist();
 }

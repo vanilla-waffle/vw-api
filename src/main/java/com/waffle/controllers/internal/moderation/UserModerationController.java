@@ -4,7 +4,7 @@ import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.constants.annotations.spring.Principal;
 import com.waffle.data.models.rest.request.license.DriverLicenseCreateDto;
 import com.waffle.data.models.rest.response.moderation.UserModerationAllResponseDto;
-import com.waffle.services.composite.UserModerationInternalService;
+import com.waffle.services.composite.internal.UserModerationInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-/**
- * User moderation controller.
- */
 @Api("in/users/mod")
 @RequiredArgsConstructor
 public class UserModerationController {

@@ -1,6 +1,7 @@
 package com.waffle.data.constants.annotations.validation.processors;
 
 import com.waffle.configurations.properties.ValidationSettings;
+import com.waffle.data.constants.annotations.spring.NonDocumented;
 import com.waffle.data.constants.annotations.validation.Password;
 import lombok.RequiredArgsConstructor;
 import org.passay.*;
@@ -10,18 +11,12 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Password constraint validator.
- */
+@NonDocumented
 @RequiredArgsConstructor
 public class PasswordConstraintValidator implements ConstraintValidator<Password, String> {
     private final ValidationSettings settings;
     private static final int MIN_LENGTH = 8;
     private static final int MAX_LENGTH = 30;
-
-    @Override
-    public void initialize(final Password arg0) {
-    }
 
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {

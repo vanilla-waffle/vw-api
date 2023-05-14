@@ -3,16 +3,13 @@ package com.waffle.controllers.internal.booking;
 import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.constants.annotations.spring.Principal;
 import com.waffle.data.models.rest.response.booking.BookingAllResponseDto;
-import com.waffle.services.composite.BookingInternalService;
+import com.waffle.services.composite.internal.BookingInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.validation.constraints.Positive;
 
-/**
- * Booking status controller.
- */
 @Api("in/bookings")
 @RequiredArgsConstructor
 public class BookingStatusController {

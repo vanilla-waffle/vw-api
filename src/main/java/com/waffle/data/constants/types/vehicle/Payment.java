@@ -1,16 +1,10 @@
 package com.waffle.data.constants.types.vehicle;
 
 /**
- * Payment types.
+ * Payment plans.
  */
 public enum Payment {
 
-    /**
-     * Hourly payment type.
-     */
     HOUR,
-    /**
-     * Daily payment type.
-     */
     DAY
 }

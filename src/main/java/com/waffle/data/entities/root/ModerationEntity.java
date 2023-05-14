@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 /**
- * Moderation entity.
+ * Moderation entity with basic moderation attributes.
  */
 @Data
 @MappedSuperclass

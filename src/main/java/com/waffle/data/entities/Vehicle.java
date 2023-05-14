@@ -1,6 +1,5 @@
 package com.waffle.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.waffle.data.constants.types.common.TextSize;
 import com.waffle.data.constants.types.vehicle.Feature;
 import com.waffle.data.constants.types.vehicle.VehicleStatus;
@@ -14,9 +13,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Post entity.
- */
 @Entity
 @Table(name = "vw_vehicles")
 @Getter
@@ -49,30 +45,37 @@ public class Vehicle extends BasicEntity implements Persistable {
     @Column(nullable = false)
     private Specification spec;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private User user;
+
+    @OneToMany(
+            cascade = { CascadeType.REMOVE },
+            orphanRemoval = true)
+    private List<Image> images;
+
     @ElementCollection(targetClass = Feature.class)
     @CollectionTable(name = "vw_vehicle_feature", joinColumns = @JoinColumn(name = "vehicle_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "feature_name")
     private Set<Feature> features;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
-    private User user;
-
-    @OneToOne(orphanRemoval = true)
-    @JsonManagedReference(value = "vehicle-passport")
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private VehiclePassport passport;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JoinColumn(nullable = false)
-    @JsonManagedReference(value = "vehicle-location")
     private Location location;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
-    @JsonManagedReference(value = "vehicle-reviews")
     private List<Review> reviews;
 
     @Override
+    @PrePersist
     public void onPersist() {
         status = VehicleStatus.ACTIVE;
     }

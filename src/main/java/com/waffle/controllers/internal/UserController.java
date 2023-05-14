@@ -4,15 +4,12 @@ import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.constants.annotations.spring.Principal;
 import com.waffle.data.models.rest.request.user.UserUpdateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
-import com.waffle.services.composite.UserInternalService;
+import com.waffle.services.composite.internal.UserInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-/**
- * User controller for authorities.
- */
 @Api("in/users/me")
 @RequiredArgsConstructor
 public class UserController {

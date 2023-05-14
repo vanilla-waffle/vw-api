@@ -6,9 +6,6 @@ import com.waffle.data.models.rest.request.moderation.UserModerationCreateDto;
 import com.waffle.data.models.rest.response.moderation.UserModerationAllResponseDto;
 import org.mapstruct.Mapper;
 
-/**
- * User moderation mapper.
- */
 @Mapper(componentModel = "spring", config = MapperConfiguration.class)
 public interface UserModerationMapper {
 

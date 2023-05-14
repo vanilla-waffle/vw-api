@@ -4,18 +4,16 @@ import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.models.rest.request.user.UserCreateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
-import com.waffle.services.composite.UserInternalService;
-import com.waffle.services.composite.UserPublicService;
+import com.waffle.services.composite.internal.UserInternalService;
+import com.waffle.services.composite.open.UserPublicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Positive;
 
-/**
- *
- */
 @Api("admin/users")
 @RequiredArgsConstructor
 public class AdminUserController {
@@ -53,11 +51,14 @@ public class AdminUserController {
      * Create new user.
      *
      * @param payload {@link UserCreateDto}
+     * @param file {@link MultipartFile}
      * @return {@link UserAllResponseDto}
      */
     @PostMapping
-    public UserAllResponseDto save(@RequestBody final UserCreateDto payload) {
-        return userPublicService.save(payload);
+    public UserAllResponseDto save(
+            @RequestPart("user") final UserCreateDto payload,
+            @RequestPart(name = "media", required = false) final MultipartFile file) {
+        return userPublicService.save(payload, file);
     }
 
     /**
