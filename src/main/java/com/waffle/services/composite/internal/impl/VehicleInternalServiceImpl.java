@@ -19,9 +19,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -35,6 +35,7 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     private final ImageMapper imageMapper;
 
     @Override
+    @Transactional
     public List<VehicleSlimResponseDto> findAll(final String query) {
         final Sort sort = Sorts.of(query);
         final List<Vehicle> vehicles = vehicleService.findAll(sort);
@@ -42,6 +43,7 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     }
 
     @Override
+    @Transactional
     public List<VehicleSlimResponseDto> findAll(final String query, final Long userId) {
         final Sort sort = Sorts.of(query);
         final List<Vehicle> vehicles = vehicleService.findAll(sort, userId);
@@ -49,6 +51,7 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     }
 
     @Override
+    @Transactional
     public Page<VehicleSlimResponseDto> findAll(final String query, final Long userId, final PageRequest page) {
         final Sort sort = Sorts.of(query);
         final Page<Vehicle> vehicles = vehicleService.findAll(sort, userId, page);
@@ -56,6 +59,7 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     }
 
     @Override
+    @Transactional
     public Page<VehicleSlimResponseDto> findAll(final String query, final PageRequest page) {
         final Sort sort = Sorts.of(query);
         final Page<Vehicle> vehicles = vehicleService.findAll(sort, page);
@@ -63,6 +67,7 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     }
 
     @Override
+    @Transactional
     public VehicleAllResponseDto find(final Long id) {
         final Vehicle vehicle = vehicleService.find(id);
         return vehicleMapper.convertAll(vehicle);
