@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @Api("admin/users")
@@ -51,14 +51,11 @@ public class AdminUserController {
      * Create new user.
      *
      * @param payload {@link UserCreateDto}
-     * @param file {@link MultipartFile}
      * @return {@link UserAllResponseDto}
      */
     @PostMapping
-    public UserAllResponseDto save(
-            @RequestPart("user") final UserCreateDto payload,
-            @RequestPart(name = "media", required = false) final MultipartFile file) {
-        return userPublicService.save(payload, file);
+    public UserAllResponseDto save(@RequestBody @Valid final UserCreateDto payload) {
+        return userPublicService.save(payload);
     }
 
     /**

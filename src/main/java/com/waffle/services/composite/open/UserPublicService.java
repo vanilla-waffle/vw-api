@@ -5,7 +5,6 @@ import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserPublicResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,8 +34,7 @@ public interface UserPublicService {
      * Save new user.
      *
      * @param payload {@link UserCreateDto}
-     * @param file {@link MultipartFile}
      * @return {@link UserAllResponseDto}
      */
-    UserAllResponseDto save(UserCreateDto payload, MultipartFile file);
+    UserAllResponseDto save(UserCreateDto payload);
 }
