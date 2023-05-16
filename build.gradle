@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com'
-version = '0.12.5'
+version = '0.12.6'
 sourceCompatibility = '11'
 
 configurations {
