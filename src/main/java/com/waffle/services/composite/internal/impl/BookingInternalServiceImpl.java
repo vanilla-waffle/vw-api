@@ -63,6 +63,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public Page<BookingAllResponseDto> findAllByUser(final String query, final PageRequest page, final Long userId) {
         final Sort sort = Sorts.of(query);
         final Page<Booking> bookings = bookingService.findAll(sort, page, byUser(userId));
@@ -70,6 +71,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public Page<BookingAllResponseDto> findAllByVehicle(final String query, final PageRequest page, final Long vehicleId) {
         final Sort sort = Sorts.of(query);
         final Page<Booking> bookings = bookingService.findAll(sort, page, byVehicle(vehicleId));
@@ -77,6 +79,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public Page<BookingAllResponseDto> findAllPending(final String query, final PageRequest page, final Long userId) {
         final Sort sort = Sorts.of(query);
         final Page<Booking> bookings = bookingService.findAll(sort, page, byOwner(userId).and(byPending()));
