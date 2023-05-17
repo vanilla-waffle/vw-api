@@ -19,8 +19,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,6 +36,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     private final BookingMapper bookingMapper;
 
     @Override
+    @Transactional
     public BookingAllResponseDto save(final BookingCreateDto payload) {
         final User user = userService.find(payload.getUserId());
         final Vehicle vehicle = vehicleService.find(payload.getVehicleId());
@@ -96,7 +97,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void delete(final Long id) {
         bookingService.delete(id);
     }
