@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class RoleManagementInternalServiceImpl implements RoleManagementInternal
     private final UserMapper userMapper;
 
     @Override
+    @Transactional
     public UserAllResponseDto promote(final Long id, final RoleType type) {
         final User user = userService.find(id);
         final Role role = roleService.find(type);
@@ -42,6 +44,7 @@ public class RoleManagementInternalServiceImpl implements RoleManagementInternal
     }
 
     @Override
+    @Transactional
     public UserAllResponseDto demote(final Long id, final RoleType type) {
         final User user = userService.find(id);
         final Role role = roleService.find(type);
@@ -57,6 +60,7 @@ public class RoleManagementInternalServiceImpl implements RoleManagementInternal
     }
 
     @Override
+    @Transactional
     public Page<RoleResponseAllDto> findAll(final String query, final PageRequest page) {
         final Sort sort = Sorts.of(query);
         final Page<Role> roles = roleService.findAll(sort, page);
@@ -64,12 +68,14 @@ public class RoleManagementInternalServiceImpl implements RoleManagementInternal
     }
 
     @Override
+    @Transactional
     public RoleResponseAllDto find(final Long id) {
         final Role role = roleService.find(id);
         return roleMapper.convertAll(role);
     }
 
     @Override
+    @Transactional
     public RoleResponseAllDto find(final RoleType type) {
         final Role role = roleService.find(type);
         return roleMapper.convertAll(role);

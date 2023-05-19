@@ -33,6 +33,7 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     private final DriverLicenseMapper driverLicenseMapper;
 
     @Override
+    @Transactional
     public Page<UserModerationAllResponseDto> findAll(final String query, final PageRequest page) {
         final Sort sort = Sorts.of(query);
         final Page<UserModeration> moderations = userModerationService.findAll(sort, page);
@@ -40,6 +41,7 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     }
 
     @Override
+    @Transactional
     public Page<UserModerationAllResponseDto> findAll(final String query, final PageRequest page, final Long userId) {
         final Sort sort = Sorts.of(query);
         final Page<UserModeration> moderations = userModerationService.findAll(sort, page, byUser(userId));
@@ -47,6 +49,7 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     }
 
     @Override
+    @Transactional
     public UserModerationAllResponseDto find(final Long id) {
         final UserModeration moderation = userModerationService.find(id);
         return userModerationMapper.convertAll(moderation);
@@ -93,6 +96,7 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     }
 
     @Override
+    @Transactional
     public UserModerationAllResponseDto reject(final Long id, final Long adminId, final String message) {
         UserModeration moderation = userModerationService.find(id);
 
@@ -111,6 +115,7 @@ public class UserModerationInternalServiceImpl implements UserModerationInternal
     }
 
     @Override
+    @Transactional
     public UserModerationAllResponseDto delete(final Long id, final Long adminId) {
         final User admin = userService.find(adminId);
 
