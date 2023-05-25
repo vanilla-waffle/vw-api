@@ -6,9 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-/**
- * Vehicle passport entity.
- */
 @Entity
 @Table(name = "vw_vehicle_passport")
 @Data

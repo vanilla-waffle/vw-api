@@ -10,9 +10,6 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-/**
- * Booking mapper.
- */
 @Mapper(componentModel = "spring", config = MapperConfiguration.class)
 public interface BookingMapper {
 

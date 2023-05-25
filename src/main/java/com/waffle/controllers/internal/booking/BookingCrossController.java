@@ -3,7 +3,7 @@ package com.waffle.controllers.internal.booking;
 import com.waffle.data.constants.annotations.spring.Api;
 import com.waffle.data.constants.annotations.spring.Principal;
 import com.waffle.data.models.rest.response.booking.BookingAllResponseDto;
-import com.waffle.services.composite.BookingInternalService;
+import com.waffle.services.composite.internal.BookingInternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Positive;
 
-/**
- * Booking cross controller.
- */
 @Api("in")
 @RequiredArgsConstructor
 public class BookingCrossController {

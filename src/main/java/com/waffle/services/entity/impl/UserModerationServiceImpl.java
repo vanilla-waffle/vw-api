@@ -1,7 +1,7 @@
 package com.waffle.services.entity.impl;
 
 import com.waffle.data.entities.admin.UserModeration;
-import com.waffle.repositories.UserModerationRepository;
+import com.waffle.data.repositories.UserModerationRepository;
 import com.waffle.services.entity.UserModerationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,11 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.waffle.repositories.specifications.UserModerationSpecification.*;
+import static com.waffle.data.repositories.specifications.UserModerationSpecification.*;
 
-/**
- * User moderation service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class UserModerationServiceImpl implements UserModerationService {

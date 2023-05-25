@@ -8,6 +8,7 @@ import com.waffle.configurations.security.filters.JwtRefreshFilter;
 import com.waffle.configurations.security.handlers.AuthenticationHandler;
 import com.waffle.configurations.security.handlers.AuthorizationFailedHandler;
 import com.waffle.configurations.security.jwt.Jwt;
+import com.waffle.data.constants.annotations.spring.NonDocumented;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,9 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/**
- * Security configuration.
- */
+@NonDocumented
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {

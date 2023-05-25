@@ -14,9 +14,6 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-/**
- * Mappers class for mapping {@link Vehicle} entity.
- */
 @Mapper(componentModel = "spring", config = MapperConfiguration.class)
 public interface VehicleMapper {
 

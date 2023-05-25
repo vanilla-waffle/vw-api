@@ -13,9 +13,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Post entity.
- */
 @Entity
 @Table(name = "vw_vehicles")
 @Getter
@@ -48,20 +45,29 @@ public class Vehicle extends BasicEntity implements Persistable {
     @Column(nullable = false)
     private Specification spec;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private User user;
+
+    @OneToMany(
+            cascade = { CascadeType.REMOVE },
+            orphanRemoval = true)
+    private List<Image> images;
+
     @ElementCollection(targetClass = Feature.class)
     @CollectionTable(name = "vw_vehicle_feature", joinColumns = @JoinColumn(name = "vehicle_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "feature_name")
     private Set<Feature> features;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
-    private User user;
-
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private VehiclePassport passport;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JoinColumn(nullable = false)
     private Location location;
 
@@ -69,6 +75,7 @@ public class Vehicle extends BasicEntity implements Persistable {
     private List<Review> reviews;
 
     @Override
+    @PrePersist
     public void onPersist() {
         status = VehicleStatus.ACTIVE;
     }

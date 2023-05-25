@@ -33,18 +33,26 @@ public class Profile {
     private String phoneNumber;
 
     @OneToOne(
-            cascade = CascadeType.MERGE,
+            cascade = { CascadeType.REMOVE },
+            orphanRemoval = true)
+    private Image image;
+
+    @OneToOne(
+            cascade = { CascadeType.MERGE, CascadeType.REMOVE },
             orphanRemoval = true)
     private DriverLicense driverLicense;
 
     @OneToMany(
+            cascade = CascadeType.REMOVE,
             mappedBy = "user",
             orphanRemoval = true)
     private List<PaymentMethod> paymentMethods;
     @OneToMany(
+            cascade = { CascadeType.REMOVE },
             mappedBy = "user",
             orphanRemoval = true)
     private List<Vehicle> vehicles;
+
     @OneToMany(
             mappedBy = "user",
             orphanRemoval = true)

@@ -6,9 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-/**
- * Review entity.
- */
 @Entity
 @Table(name = "vw_reviews")
 @Data

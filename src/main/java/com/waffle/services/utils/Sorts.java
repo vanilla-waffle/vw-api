@@ -1,13 +1,12 @@
 package com.waffle.services.utils;
 
+import com.waffle.data.constants.annotations.spring.Utils;
 import org.springframework.data.domain.Sort;
 
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.LOWER_UNDERSCORE;
 
-/**
- * Sort utils.
- */
+@Utils
 public final class Sorts {
 
     private Sorts() {

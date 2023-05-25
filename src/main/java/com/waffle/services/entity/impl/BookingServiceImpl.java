@@ -2,7 +2,7 @@ package com.waffle.services.entity.impl;
 
 import com.waffle.data.entities.Booking;
 import com.waffle.data.utils.mappers.BookingMapper;
-import com.waffle.repositories.BookingRepository;
+import com.waffle.data.repositories.BookingRepository;
 import com.waffle.services.entity.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,11 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.waffle.repositories.specifications.BookingSpecification.byUser;
+import static com.waffle.data.repositories.specifications.BookingSpecification.byUser;
 
-/**
- * Booking service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {

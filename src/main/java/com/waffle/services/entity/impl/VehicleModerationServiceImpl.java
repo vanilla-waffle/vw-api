@@ -1,7 +1,7 @@
 package com.waffle.services.entity.impl;
 
 import com.waffle.data.entities.admin.VehicleModeration;
-import com.waffle.repositories.VehicleModerationRepository;
+import com.waffle.data.repositories.VehicleModerationRepository;
 import com.waffle.services.entity.VehicleModerationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Vehicle moderation service implementation.
- */
 @Service
 @RequiredArgsConstructor
 public class VehicleModerationServiceImpl implements VehicleModerationService {

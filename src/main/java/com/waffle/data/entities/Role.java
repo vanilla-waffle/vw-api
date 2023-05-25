@@ -7,9 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Authority entity for role managements.
- */
 @Entity
 @Table(name = "vw_roles")
 @Data

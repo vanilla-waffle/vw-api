@@ -15,9 +15,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Jackson's configuration.
- */
 @Configuration
 public class JacksonConfiguration {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
