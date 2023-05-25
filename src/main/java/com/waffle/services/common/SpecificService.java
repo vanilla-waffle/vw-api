@@ -1,5 +1,6 @@
 package com.waffle.services.common;
 
+import com.waffle.data.entities.root.BasicEntity;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public interface SpecificService<T> {
+public interface SpecificService<T extends BasicEntity> {
 
     /**
      * Find one by specified parameter.

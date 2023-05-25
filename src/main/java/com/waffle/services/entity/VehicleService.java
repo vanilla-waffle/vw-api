@@ -3,6 +3,7 @@ package com.waffle.services.entity;
 
 import com.waffle.data.entities.Vehicle;
 import com.waffle.services.common.BasicService;
+import com.waffle.services.common.FilteringService;
 import com.waffle.services.common.PagingService;
 import com.waffle.services.common.SortingService;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,8 @@ import java.util.List;
 public interface VehicleService extends
         BasicService<Vehicle>,
         SortingService<Vehicle>,
-        PagingService<Vehicle> {
+        PagingService<Vehicle>,
+        FilteringService<Vehicle> {
 
     /**
      * Find all.

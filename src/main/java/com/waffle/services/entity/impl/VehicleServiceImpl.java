@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.waffle.data.repositories.specifications.VehicleSpecification.byUser;
 
@@ -58,6 +59,16 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Page<Vehicle> findAll(final Sort sort, final PageRequest page) {
         return repository.findAll(page.withSort(sort));
+    }
+
+    @Override
+    public List<Vehicle> findAll(final Map<String, String> params) {
+        return repository.findAll(params);
+    }
+
+    @Override
+    public Page<Vehicle> findAll(final Map<String, String> params, final PageRequest page) {
+        return repository.findAll(params, page);
     }
 
     @Override
