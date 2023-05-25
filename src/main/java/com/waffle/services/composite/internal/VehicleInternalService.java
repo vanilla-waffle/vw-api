@@ -46,7 +46,7 @@ public interface VehicleInternalService {
     Page<VehicleSlimResponseDto> findAll(String query, Long userId, PageRequest page);
 
     @NonDocumented
-    Page<VehicleSlimResponseDto> findAll(String query, PageRequest page, final Map<String, String> params);
+    Page<VehicleSlimResponseDto> findAll(String query, PageRequest page, Map<String, String> params);
 
     /**
      * Find one {@link Vehicle}.
