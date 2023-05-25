@@ -1,7 +1,7 @@
-package com.waffle.repositories.impl;
+package com.waffle.data.repositories.impl;
 
 import com.waffle.data.entities.root.BasicEntity;
-import com.waffle.repositories.FilteredJpaRepository;
+import com.waffle.data.repositories.FilteredJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

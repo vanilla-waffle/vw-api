@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,7 @@ public class VehicleInternalServiceImpl implements VehicleInternalService {
     }
 
     @Override
+    @Transactional
     public Page<VehicleSlimResponseDto> findAll(final String query, final PageRequest page, final Map<String, String> params) {
         final Sort sort = Sorts.of(query);
         final Page<Vehicle> vehicles = vehicleService.findAll(params, page.withSort(sort));

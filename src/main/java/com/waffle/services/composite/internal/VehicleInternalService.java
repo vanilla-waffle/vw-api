@@ -1,5 +1,6 @@
 package com.waffle.services.composite.internal;
 
+import com.waffle.data.constants.annotations.spring.NonDocumented;
 import com.waffle.data.models.rest.request.vehicle.VehicleCreateDto;
 import com.waffle.data.models.rest.request.vehicle.VehicleUpdateDto;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
@@ -44,15 +45,8 @@ public interface VehicleInternalService {
      */
     Page<VehicleSlimResponseDto> findAll(String query, Long userId, PageRequest page);
 
-    /**
-     * Find all.
-     *
-     * @param query  {@link String}
-     * @param page   {@link PageRequest}
-     * @param params {@link Map}
-     * @return {@link Page<VehicleSlimResponseDto>}
-     */
-    Page<VehicleSlimResponseDto> findAll(String query, PageRequest page, Map<String, String> params);
+    @NonDocumented
+    Page<VehicleSlimResponseDto> findAll(String query, PageRequest page, final Map<String, String> params);
 
     /**
      * Find one {@link Vehicle}.

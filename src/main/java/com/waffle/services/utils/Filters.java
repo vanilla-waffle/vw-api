@@ -51,6 +51,10 @@ public final class Filters {
         final List<String> segments = asList(key.split("\\."));
 
         if (segments.size() < 2) {
+            if (key.equals("releaseYear")) {
+                return cb.equal(root.get(key), val);
+            }
+
             return cb.like(cb.lower(root.get(segments.get(0))), "%" + val.toLowerCase() + "%");
         }
 
@@ -59,6 +63,19 @@ public final class Filters {
         for (String segment : segments) {
             path = join(root, path, segment);
         }
+
+        try {
+            Integer v = Integer.valueOf(val);
+
+            if (key.equals("release_year")) {
+                return cb.equal(root.get(key), v);
+            }
+        } catch (NumberFormatException e) {
+            if (key.equals("release_year")) {
+                throw new IllegalArgumentException("Invalid year format: " + val);
+            }
+        }
+
 
         return cb.like(cb.lower(path), "%" + val.toLowerCase() + "%");
     }

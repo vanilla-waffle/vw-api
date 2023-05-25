@@ -1,6 +1,7 @@
 package com.waffle.controllers;
 
 import com.waffle.data.constants.annotations.spring.Api;
+import com.waffle.data.constants.annotations.spring.NonDocumented;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleAllResponseDto;
 import com.waffle.data.models.rest.response.vehicle.root.VehicleSlimResponseDto;
 import com.waffle.services.composite.internal.VehicleInternalService;
@@ -12,32 +13,49 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Positive;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-
-import static com.waffle.services.utils.Filters.toMap;
 
 @Api("/public/vehicles")
 @RequiredArgsConstructor
 public class VehiclePublicController {
     private final VehicleInternalService service;
 
-    /**
-     * Find all.
-     *
-     * @param page {@code int}
-     * @param size {@code int}
-     * @param sort {@link String} sort query
-     * @param params {@link Map}
-     * @return {@link Page<VehicleSlimResponseDto>}
-     */
     @GetMapping
+    @NonDocumented
+    @SuppressWarnings("checkstyle:ParameterNumber")
     public Page<VehicleSlimResponseDto> findAll(
             @RequestParam(defaultValue = "0") final int page,
             @RequestParam(defaultValue = "12") final int size,
             @RequestParam(defaultValue = "id ASC") final String sort,
-            @RequestParam(name = "by", required = false) final List<String> params) {
-        return service.findAll(sort, PageRequest.of(page, size), toMap(params));
+            @RequestParam(required = false) final String title,
+            @RequestParam(required = false) final String city,
+            @RequestParam(required = false) final String manuf,
+            @RequestParam(required = false) final String model,
+            @RequestParam(required = false) final String year) {
+        final Map<String, String> params = new HashMap<>();
+
+        if (title != null) {
+            params.put("title", title);
+        }
+
+        if (city != null) {
+            params.put("location.city.name", city);
+        }
+
+        if (manuf != null) {
+            params.put("manuf", manuf);
+        }
+
+        if (model != null) {
+            params.put("model", model);
+        }
+
+        if (year != null) {
+            params.put("release_year", year);
+        }
+
+        return service.findAll(sort, PageRequest.of(page, size), params);
     }
 
     /**

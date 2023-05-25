@@ -1,6 +1,6 @@
 package com.waffle.configurations;
 
-import com.waffle.repositories.impl.FilteredJpaRepositoryImpl;
+import com.waffle.data.repositories.impl.FilteredJpaRepositoryImpl;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.waffle.repositories",
+        basePackages = "com.waffle.data.repositories",
         repositoryBaseClass = FilteredJpaRepositoryImpl.class
 )
 public class JpaConfiguration {
