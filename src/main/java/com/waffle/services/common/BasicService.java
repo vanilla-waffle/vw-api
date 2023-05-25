@@ -1,5 +1,7 @@
 package com.waffle.services.common;
 
+import com.waffle.data.entities.root.BasicEntity;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  *
  * @param <T> any valid entity that has corresponding repository
  */
-public interface BasicService<T> {
+public interface BasicService<T extends BasicEntity> {
 
     /**
      * Save new entity.

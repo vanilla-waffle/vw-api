@@ -26,6 +26,6 @@ public class Location extends BasicEntity {
     @Column(nullable = false)
     private Double longitude;
 
-    @OneToOne(mappedBy = "location")
+    @OneToOne(mappedBy = "location", fetch = FetchType.LAZY)
     private Vehicle vehicle;
 }
