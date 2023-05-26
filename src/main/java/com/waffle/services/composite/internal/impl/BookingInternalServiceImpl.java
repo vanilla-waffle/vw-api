@@ -82,7 +82,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     @Transactional
     public Page<BookingAllResponseDto> findAllPending(final String query, final PageRequest page, final Long userId) {
         final Sort sort = Sorts.of(query);
-        final Page<Booking> bookings = bookingService.findAll(sort, page, byOwner(userId).and(byPending()));
+        final Page<Booking> bookings = bookingService.findAll(sort, page, byUser(userId).and(byPending()));
         return bookings.map(bookingMapper::convertAll);
     }
 
