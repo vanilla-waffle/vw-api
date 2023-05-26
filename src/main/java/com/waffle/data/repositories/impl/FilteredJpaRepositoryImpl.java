@@ -42,7 +42,11 @@ public class FilteredJpaRepositoryImpl<T extends BasicEntity, ID> extends Simple
 
     @Override
     public List<T> findAll(final Map<String, String> params) {
-        return query(params).getResultList();
+        if (params.isEmpty()) {
+            return findAll();
+        }
+
+        return getParametrizedQuery(params).getResultList();
     }
 
     @Override
@@ -51,26 +55,29 @@ public class FilteredJpaRepositoryImpl<T extends BasicEntity, ID> extends Simple
             return new PageImpl<>(findAll(params));
         }
 
+        if (params.isEmpty()) {
+            return findAll(pageable);
+        }
+
         return PageableExecutionUtils.getPage(
-                query(params, pageable).getResultList(),
+                getParametrizedQuery(params, pageable).getResultList(),
                 pageable,
-                () -> count(params)
+                () -> getParametrizedCountQuery(params).getSingleResult()
         );
     }
 
-    private TypedQuery<T> query(final Map<String, String> params) {
+    private TypedQuery<T> getParametrizedQuery(final Map<String, String> params) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<T> query = builder.createQuery(getDomainClass());
         final Root<T> root = query.from(getDomainClass());
 
-        if (!params.isEmpty()) {
-            query.where(toPredicates(params, builder, root));
-        }
+        query
+                .where(toPredicates(params, builder, root));
 
         return entityManager.createQuery(query);
     }
 
-    private TypedQuery<T> query(final Map<String, String> params, final Pageable pageable) {
+    private TypedQuery<T> getParametrizedQuery(final Map<String, String> params, final Pageable pageable) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<T> query = builder.createQuery(getDomainClass());
         final Root<T> root = query.from(getDomainClass());
@@ -82,7 +89,7 @@ public class FilteredJpaRepositoryImpl<T extends BasicEntity, ID> extends Simple
         return entityManager.createQuery(query);
     }
 
-    private long count(final Map<String, String> params) {
+    private TypedQuery<Long> getParametrizedCountQuery(final Map<String, String> params) {
         final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Long> query = builder.createQuery(Long.class);
         final Root<T> root = query.from(getDomainClass());
@@ -91,6 +98,6 @@ public class FilteredJpaRepositoryImpl<T extends BasicEntity, ID> extends Simple
                 .select(builder.count(root))
                 .where(toPredicates(params, builder, root));
 
-        return entityManager.createQuery(query).getSingleResult();
+        return entityManager.createQuery(query);
     }
 }

@@ -20,7 +20,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 public interface FilteredJpaRepository<T extends BasicEntity, ID> extends JpaRepository<T, ID> {
 
     /**
-     * Find all matching the given {@link Filter}.
+     * Find all matching.
      *
      * @param params cannot be {@code null}
      * @return never {@code null}
@@ -28,7 +28,7 @@ public interface FilteredJpaRepository<T extends BasicEntity, ID> extends JpaRep
     List<T> findAll(Map<String, String> params);
 
     /**
-     * Find all matching the given {@link Filter} and {@link Pageable}.
+     * Find all matching the given {@link Pageable}.
      *
      * @param params   cannot be {@code null}
      * @param pageable cannot be {@code null}
