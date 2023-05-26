@@ -1,6 +1,7 @@
 package com.waffle.controllers.admin;
 
 import com.waffle.data.constants.annotations.spring.Api;
+import com.waffle.data.constants.annotations.spring.NonDocumented;
 import com.waffle.data.models.rest.request.user.UserCreateDto;
 import com.waffle.data.models.rest.response.user.root.UserAllResponseDto;
 import com.waffle.data.models.rest.response.user.root.UserSlimResponseDto;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.HashMap;
+import java.util.Map;
 
 @Api("admin/users")
 @RequiredArgsConstructor
@@ -31,20 +34,25 @@ public class AdminUserController {
         return userInternalService.find(id);
     }
 
-    /**
-     * Find all.
-     *
-     * @param page {@code int}
-     * @param size {@code int}
-     * @param sort {@link String}
-     * @return {@link Page<UserSlimResponseDto>}
-     */
     @GetMapping
+    @NonDocumented
     public Page<UserSlimResponseDto> findAll(
             @RequestParam(defaultValue = "0") final int page,
             @RequestParam(defaultValue = "12") final int size,
-            @RequestParam(defaultValue = "id ASC") final String sort) {
-        return userInternalService.findAll(sort, PageRequest.of(page, size));
+            @RequestParam(defaultValue = "id ASC") final String sort,
+            @RequestParam(required = false) final String username,
+            @RequestParam(required = false) final String city) {
+        final Map<String, String> params = new HashMap<>();
+
+        if (username != null) {
+            params.put("profile.username", username);
+        }
+
+        if (city != null) {
+            params.put("profile.city.name", city);
+        }
+
+        return userInternalService.findAll(sort, PageRequest.of(page, size), params);
     }
 
     /**

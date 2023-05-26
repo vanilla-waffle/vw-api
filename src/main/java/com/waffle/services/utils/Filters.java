@@ -1,5 +1,8 @@
 package com.waffle.services.utils;
 
+import org.hibernate.query.criteria.internal.BasicPathUsageException;
+import org.hibernate.query.criteria.internal.path.SingularAttributeJoin;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -84,6 +87,14 @@ public final class Filters {
         try {
             return root.join(key);
         } catch (IllegalArgumentException e) {
+            return join(path, key);
+        }
+    }
+
+    private static Path<String> join(final Path<String> path, final String key) {
+        try {
+            return ((SingularAttributeJoin) path).join(key);
+        } catch (BasicPathUsageException | IllegalArgumentException e) {
             return path.get(key);
         }
     }

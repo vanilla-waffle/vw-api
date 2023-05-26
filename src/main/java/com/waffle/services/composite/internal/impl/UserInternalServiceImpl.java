@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +33,9 @@ public class UserInternalServiceImpl implements UserInternalService {
     }
 
     @Override
-    public Page<UserSlimResponseDto> findAll(final String query, final PageRequest page) {
+    public Page<UserSlimResponseDto> findAll(final String query, final PageRequest page, final Map<String, String> params) {
         final Sort sort = Sorts.of(query);
-        final Page<User> users = userService.findAll(sort, page);
+        final Page<User> users = userService.findAll(params, page.withSort(sort));
         return users.map(userMapper::convertSlim);
     }
 

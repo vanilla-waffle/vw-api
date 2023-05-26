@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import static com.waffle.data.repositories.specifications.UserSpecification.byEmail;
@@ -56,6 +57,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> findAll(final Sort sort, final PageRequest page) {
         return repository.findAll(page.withSort(sort));
+    }
+
+    @Override
+    public List<User> findAll(final Map<String, String> params) {
+        return repository.findAll(params);
+    }
+
+    @Override
+    public Page<User> findAll(final Map<String, String> params, final PageRequest page) {
+        return repository.findAll(params, page);
     }
 
     @Override

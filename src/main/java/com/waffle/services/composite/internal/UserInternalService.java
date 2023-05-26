@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * User internal service.
@@ -24,11 +25,12 @@ public interface UserInternalService {
     /**
      * Find all.
      *
-     * @param query {@link String}
-     * @param page  {@link PageRequest}
+     * @param query  {@link String}
+     * @param page   {@link PageRequest}
+     * @param params {@link Map} of {@link String}'s
      * @return {@link Page<UserAllResponseDto>}
      */
-    Page<UserSlimResponseDto> findAll(String query, PageRequest page);
+    Page<UserSlimResponseDto> findAll(String query, PageRequest page, Map<String, String> params);
 
     /**
      * Find one.

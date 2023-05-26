@@ -19,7 +19,7 @@ import java.util.Map;
 @Api("/public/vehicles")
 @RequiredArgsConstructor
 public class VehiclePublicController {
-    private final VehicleInternalService service;
+    private final VehicleInternalService vehicleInternalService;
 
     @GetMapping
     @NonDocumented
@@ -55,7 +55,7 @@ public class VehiclePublicController {
             params.put("release_year", year);
         }
 
-        return service.findAll(sort, PageRequest.of(page, size), params);
+        return vehicleInternalService.findAll(sort, PageRequest.of(page, size), params);
     }
 
     /**
@@ -66,6 +66,6 @@ public class VehiclePublicController {
      */
     @GetMapping("/{id}")
     public VehicleAllResponseDto find(@PathVariable @Positive final Long id) {
-        return service.find(id);
+        return vehicleInternalService.find(id);
     }
 }

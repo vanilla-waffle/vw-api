@@ -59,8 +59,13 @@ public class FilteredJpaRepositoryImpl<T extends BasicEntity, ID> extends Simple
             return findAll(pageable);
         }
 
+        final TypedQuery<T> query = getParametrizedQuery(params, pageable);
+
+        query.setFirstResult((int) pageable.getOffset());
+        query.setMaxResults(pageable.getPageSize());
+
         return PageableExecutionUtils.getPage(
-                getParametrizedQuery(params, pageable).getResultList(),
+                query.getResultList(),
                 pageable,
                 () -> getParametrizedCountQuery(params).getSingleResult()
         );
