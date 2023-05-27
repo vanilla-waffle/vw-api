@@ -159,10 +159,6 @@ public class BookingInternalServiceImpl implements BookingInternalService {
         final User user = booking.getUser();
         final LocalDateTime startsAt = booking.getStartsAt();
 
-        if (!booking.getStatus().equals(BookingStatus.ACTIVE)) {
-            throw new IllegalArgumentException("Booking can not be cancelled since it's not in active status");
-        }
-
         if (!user.getId().equals(userId)) {
             if (!vehicle.getUser().getId().equals(userId)) {
                 throw new IllegalArgumentException("Illegal access: Booking can be cancelled only by initiator.");
