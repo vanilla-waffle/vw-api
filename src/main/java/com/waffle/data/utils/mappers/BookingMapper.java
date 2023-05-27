@@ -6,6 +6,7 @@ import com.waffle.data.models.rest.request.booking.BookingCreateDto;
 import com.waffle.data.models.rest.request.booking.BookingUpdateDto;
 import com.waffle.data.models.rest.response.booking.BookingAllResponseDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public interface BookingMapper {
      * @param source {@link Booking}
      * @return {@link BookingAllResponseDto}
      */
+    @Mapping(target = "owner", source = "vehicle.user")
     BookingAllResponseDto convertAll(Booking source);
 
     /**
