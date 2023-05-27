@@ -49,6 +49,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public List<BookingAllResponseDto> findAll(final String query) {
         final Sort sort = Sorts.of(query);
         final List<Booking> bookings = bookingService.findAll(sort);
@@ -56,6 +57,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public Page<BookingAllResponseDto> findAll(final String query, final PageRequest page) {
         final Sort sort = Sorts.of(query);
         final Page<Booking> bookings = bookingService.findAll(sort, page);
@@ -87,12 +89,14 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public BookingAllResponseDto find(final Long id) {
         final Booking booking = bookingService.find(id);
         return bookingMapper.convertAll(booking);
     }
 
     @Override
+    @Transactional
     public BookingAllResponseDto update(final BookingUpdateDto payload) {
         Booking booking = bookingMapper.convert(payload);
         booking = bookingService.merge(booking);
@@ -100,7 +104,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public void delete(final Long id) {
         bookingService.delete(id);
     }
@@ -128,6 +132,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public BookingAllResponseDto reject(final Long userId, final Long id) {
         Booking booking = bookingService.find(id);
         final Vehicle vehicle = booking.getVehicle();
@@ -147,6 +152,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public BookingAllResponseDto cancel(final Long userId, final Long id) {
         Booking booking = bookingService.find(id);
         final Vehicle vehicle = booking.getVehicle();
@@ -173,6 +179,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     }
 
     @Override
+    @Transactional
     public BookingAllResponseDto complete(final Long userId, final Long id) {
         Booking booking = bookingService.find(id);
         final Vehicle vehicle = booking.getVehicle();
