@@ -164,7 +164,9 @@ public class BookingInternalServiceImpl implements BookingInternalService {
         }
 
         if (!user.getId().equals(userId)) {
-            throw new IllegalArgumentException("Illegal access: Booking can be cancelled only by initiator.");
+            if (!vehicle.getUser().getId().equals(userId)) {
+                throw new IllegalArgumentException("Illegal access: Booking can be cancelled only by initiator.");
+            }
         }
 
         if (startsAt.isAfter(now())) {
