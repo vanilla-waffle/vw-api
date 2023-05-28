@@ -26,6 +26,7 @@ public class UserInternalServiceImpl implements UserInternalService {
     private final UserMapper userMapper;
 
     @Override
+    @Transactional
     public List<UserSlimResponseDto> findAll(final String query) {
         final Sort sort = Sorts.of(query);
         final List<User> users = userService.findAll(sort);
@@ -33,6 +34,7 @@ public class UserInternalServiceImpl implements UserInternalService {
     }
 
     @Override
+    @Transactional
     public Page<UserSlimResponseDto> findAll(final String query, final PageRequest page, final Map<String, String> params) {
         final Sort sort = Sorts.of(query);
         final Page<User> users = userService.findAll(params, page.withSort(sort));
@@ -47,6 +49,7 @@ public class UserInternalServiceImpl implements UserInternalService {
     }
 
     @Override
+    @Transactional
     public UserAllResponseDto update(final UserUpdateDto payload) {
         User user = userMapper.convert(payload);
         user = userService.merge(user);
@@ -54,6 +57,7 @@ public class UserInternalServiceImpl implements UserInternalService {
     }
 
     @Override
+    @Transactional
     public UserAllResponseDto activate(final Long id) {
         User user = userService.find(id);
 
@@ -67,6 +71,7 @@ public class UserInternalServiceImpl implements UserInternalService {
     }
 
     @Override
+    @Transactional
     public UserAllResponseDto delete(final Long id) {
         User user = userService.find(id);
 
