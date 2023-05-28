@@ -167,7 +167,7 @@ public class BookingInternalServiceImpl implements BookingInternalService {
             }
         }
 
-        if (startsAt.isAfter(now())) {
+        if (now().isAfter(startsAt)) {
             throw new IllegalArgumentException("Booking can not be cancelled after it was started: " + startsAt);
         }
 
