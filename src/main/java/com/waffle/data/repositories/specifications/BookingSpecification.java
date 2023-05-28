@@ -43,13 +43,14 @@ public final class BookingSpecification {
     /**
      * Search by pending status.
      *
+     * @param status {@link BookingStatus}
      * @return {@link Specification<Booking>}
      */
-    public static Specification<Booking> byPending() {
+    public static Specification<Booking> byStatus(final BookingStatus status) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(
                         root.get("status"),
-                        BookingStatus.PENDING
+                        status
                 );
     }
 

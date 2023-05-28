@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,7 +85,8 @@ public class BookingInternalServiceImpl implements BookingInternalService {
     @Transactional
     public Page<BookingAllResponseDto> findAllPending(final String query, final PageRequest page, final Long userId) {
         final Sort sort = Sorts.of(query);
-        final Page<Booking> bookings = bookingService.findAll(sort, page, byUser(userId).and(byPending()));
+        final Specification<Booking> spec = byUser(userId).and(byStatus(BookingStatus.PENDING).or(byStatus(BookingStatus.ACTIVE)));
+        final Page<Booking> bookings = bookingService.findAll(sort, page, spec);
         return bookings.map(bookingMapper::convertAll);
     }
 
