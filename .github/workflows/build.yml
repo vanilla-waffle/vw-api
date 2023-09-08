@@ -1,28 +1,33 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
-name: Java CI with Gradle
+name: Build Project
 
 on:
-  push:
-    branches:
-      - 'main'   # includes main
   pull_request:
     branches:
       - '**'      # matches every branch
       - '!main'   # excludes main
+
+env:
+  DB_URL: ${{ secrets.DB_URL }}
+  DB_NAME: ${{ secrets.DB_NAME }}
+  DB_USER: ${{ secrets.DB_USER }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
 permissions:
   contents: read
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13.4
+        env:
+          POSTGRES_DB: ${{ env.DB_NAME }}
+          POSTGRES_USER: ${{ env.DB_USER }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
+        ports:
+          - 3306:5432
 
     steps:
     - uses: actions/checkout@v3
@@ -31,7 +36,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Make gradlew executable
+
+    - name: Grant access to execute gradlew
       run: chmod +x ./gradlew
-    - name: Build with gradlew
+
+    - name: Execute gradlew build task
       run: ./gradlew build

@@ -1,0 +1,52 @@
+server:
+  servlet:
+    context-path: /api/
+  port: ${API_PORT:8080}
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_URL:localhost:3306}/${DB_NAME:vwdb}
+    username: ${DB_USER:waf}
+    password: ${DB_PASSWORD:vwzhsha3}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 972474247381-i05kvb0bcucc7ckmb2hobuemv47mh83v.apps.googleusercontent.com
+            client-secret: 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
+            scope: openid,profile,email
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+  servlet:
+    multipart:
+      enabled: true
+      resolve-lazily: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+waffle:
+  validation:
+    enabled: ${API_VALIDATION_ENABLED:false}
+  security:
+    encoder-strength: 10
+    jwt:
+      secret: 0ilQ17mQF&7m
+      issuer: waffle
+      expiration:
+        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1800}
+#        access: ${API_SECURITY_ACCESS_TOKEN_LIFETIME:1209600}
+        refresh: ${API_SECURITY_REFRESH_TOKEN_LIFETIME:1209600}
+
+#springdoc:
+#  swagger-ui:
+#    url: /swagger.yaml

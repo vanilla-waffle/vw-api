@@ -1,0 +1,37 @@
+name: Publish to Docker Hub (vwapi)
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'dev'
+
+jobs:
+  push_to_registry:
+    name: Push docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract branch name and project version
+        run: |
+          chmod +x ./gradlew
+          echo "PROJECT_VERSION=$(./gradlew -q version)" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$(echo ${{ steps.branch-name.outputs.ref_branch }})" >> $GITHUB_ENV
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: vwapi/${{ startsWith(env.BRANCH_NAME, 'dev') && 'oreo' || 'apollo' }}:${{ env.PROJECT_VERSION }}, vwapi/${{ startsWith(env.BRANCH_NAME, 'dev') && 'oreo' || 'apollo' }}:latest
